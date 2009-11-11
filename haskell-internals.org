@@ -1,0 +1,43 @@
+#+LaTeX_CLASS: beamer
+#+LaTeX_HEADER: \mode<presentation>
+#+LaTeX_HEADER: \usetheme{Antibes}
+#+LaTeX_HEADER: \usecolortheme{beaver}
+#+LaTeX_HEADER: \setbeameroption{show notes}
+#+TITLE: Haskell Internals
+#+AUTHOR: Ramkumar Ramachandra
+
+#+BEGIN_LaTeX
+\def\newblock{\hskip .11em plus .33em minus .07em} % Hack to make BibTeX work with LaTeX
+#+END_LaTeX
+
+* Diving In
+* Core language
+** Local defintions
+*** let and letrec instead of while
+*** let and letrec don't do pattern matching. Only case does that
+*** where is a clause. let and letrec are expressions
+** Lambda abstractions
+*** Removed by lambda lifting
+* Code
+** Haskell Code
+
+#+BEGIN_LaTeX
+\begin{lstlisting}[breaklines, language=haskell]
+permute :: [a] -> [[a]]
+permute [] = [[]]
+permute [a, b] = [[a, b], [b, a]]
+permute (x:xs) = concat [interpose x list | list <- permute xs]
+\end{lstlisting}
+#+END_LaTeX
+
+** Common Lisp Code
+#+BEGIN_LaTeX
+\note{Moo!}
+#+END_LaTeX
+
+* References
+#+BEGIN_LaTeX
+\nocite{*}
+\bibliographystyle{acm}
+\bibliography{haskell-internals}
+#+END_LaTeX

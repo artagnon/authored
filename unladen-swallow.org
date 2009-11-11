@@ -1,0 +1,19 @@
+#+LaTeX_CLASS: beamer
+#+LaTeX_HEADER: \mode<presentation>
+#+LaTeX_HEADER: \usetheme{Antibes}
+#+LaTeX_HEADER: \usecolortheme{beaver}
+#+LaTeX_HEADER: \setbeameroption{show notes}
+#+TITLE: An Insight into CPython Compiler Design
+#+AUTHOR: Ramkumar Ramachandra
+
+#+BEGIN_LaTeX
+\def\newblock{\hskip .11em plus .33em minus .07em} % Hack to make BibTeX work with LaTeX
+#+END_LaTeX
+
+* Hand-waving discussion
+* References
+#+BEGIN_LaTeX
+\nocite{*}
+\bibliographystyle{acm}
+\bibliography{unladen-swallow}
+#+END_LaTeX
