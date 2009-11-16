@@ -8,3 +8,5 @@
 *.blg
 *.snm
 *.vrb
+*.hi
+*.o
