@@ -12,8 +12,23 @@
 \def\newblock{\hskip .11em plus .33em minus .07em} % Hack to make BibTeX work with LaTeX
 #+END_LaTeX
 
-* Hand-waving discussion
-* References
+* Short discussion of CPython
+** Parsing the grammar into a parse tree
+*** Construct NFA
+*** Construct DFA
+*** Simplify DFA
+*** Generate Parsing Tables
+*** Glue it All Together
+\note{Taken from comments in Parser/pgen.c}
+** Parse tree to bytecode
+*** Parse tree -$>$ AST | Python/ast.c
+*** AST -$>$ CFG | Python/compile.c
+*** CFG -$>$ Bytecode | Python/compile.c
+* Enter: Unladen Swallow
+** VMGen
+\note{Vmgen is a tool for writing efficient interpreters. It takes a simple virtual machine
+description and generates efficient C code for dealing with the virtual machine code in 
+various ways (in particular, executing it)}
 * Conclusion
 ** References
 #+BEGIN_LaTeX
