@@ -28,7 +28,6 @@ for(i = 1; i <= 20; i ++) {
 #+BEGIN_LaTeX
 \begin{lstlisting}[language=Haskell, numbers=none, xleftmargin=0em, frame=none]
 foldr :: (a -> b -> b) -> b -> [a] -> b
-map :: (a -> b) -> [a] -> [b]
 \end{lstlisting}
 \begin{lstlisting}[language=Haskell]
 euler5 :: (Integral a) => a
@@ -64,6 +63,10 @@ What is the first triangle number to have over 500 divisors?
 #+END_LaTeX
 ** Functional solution
 #+BEGIN_LaTeX
+\begin{lstlisting}[language=Haskell, numbers=none, xleftmargin=0em, frame=none]
+map :: (a -> b) -> [a] -> [b]
+filter :: (a -> Bool) -> [a] -> [a]
+\end{lstlisting}
 \begin{lstlisting}[language=Haskell]
 euler12 :: (Integral a) => a
 euler12 = head $ filter ((> 500) . n_divisors) triangleSeries
