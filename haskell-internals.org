@@ -1,10 +1,12 @@
 #+LaTeX_CLASS: beamer
 #+LaTeX_HEADER: \mode<presentation>
-#+LaTeX_HEADER: \usetheme{Antibes}
+#+LaTeX_HEADER: \usetheme{CambridgeUS}
 #+LaTeX_HEADER: \usecolortheme{beaver}
 #+LaTeX_HEADER: \setbeameroption{show notes}
+#+LaTeX_HEADER: \institute{FOSS.IN/2009}
 #+TITLE: Haskell Internals
 #+AUTHOR: Ramkumar Ramachandra
+#+DATE: 01 December 2009
 
 #+BEGIN_LaTeX
 \def\newblock{\hskip .11em plus .33em minus .07em} % Hack to make BibTeX work with LaTeX
@@ -36,8 +38,18 @@ permute (x:xs) = concat [interpose x list | list <- permute xs]
 #+END_LaTeX
 
 * References
+* Conclusion
+** References
 #+BEGIN_LaTeX
 \nocite{*}
 \bibliographystyle{acm}
 \bibliography{haskell-internals}
+#+END_LaTeX
+** Contact information
+#+BEGIN_LaTeX
+Ramkumar Ramachandra\\
+artagnon@gmail.com\\
+\url{http://artagnon.com}\\
+Indian Institute of Technology, Kharagpur\\
+Presentation source available on \url{http://github.com/artagnon/foss.in}
 #+END_LaTeX
