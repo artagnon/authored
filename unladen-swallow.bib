@@ -1,3 +1,16 @@
+@manual{PEP339
+   title = "Design of the CPython Compiler",
+   author = "Brett Cannon",
+   url = "\url{http://www.python.org/dev/peps/pep-0339/}",
+   year = "2005",
+}
+
+@manual{sparkdoc,
+   title = "Compiling Little Languages in Python",
+   author = "John Aycock",
+   url = "\url{http://pages.cpsc.ucalgary.ca/~aycock/spark/paper.pdf}"
+}
+
 @book{dragonbook,
    author = "Alfred V. Aho, Ravi Sethi, and Jeffrey D. Ullman",
    title = "Compilers: Principles, Techniques, and Tools",
@@ -13,4 +26,39 @@
    publisher = "The MIT Press",
    url = "\url{http://mitpress.mit.edu/sicp/}",
    isbn = "0-262-01077-1"
+}
+
+@Article{ertl+02,
+  author =	 {M. Anton Ertl and David Gregg and Andreas Krall and
+                  Bernd Paysan},
+  title =	 {\textsf{vmgen} --- A Generator of Efficient Virtual
+                  Machine Interpreters},
+  journal =	 {Software---Practice and Experience},
+  year =	 {2002},
+  volume =	 {32},
+  number =	 {3},
+  pages =	 {265--294},
+  url =          "\url{http://www.complang.tuwien.ac.at/papers/ertl+02.ps.gz}",
+  abstract-url = {http://www3.interscience.wiley.com/cgi-bin/abstract/90010508/START},
+  keywords =	 {interpreter; virtual machine; generator; stack
+                  architecture; superinstruction; byte code},
+  abstract =	 {In a virtual machine interpreter, the code for each
+                  virtual machine instruction has similarities to code
+                  for other instructions. We present an interpreter
+                  generator that takes simple virtual machine
+                  instruction descriptions as input and generates C
+                  code for processing the instructions in several
+                  ways: execution, virtual machine code generation,
+                  disassembly, tracing, and profiling. The generator
+                  is designed to support efficient interpreters: it
+                  supports threaded code, caching the top-of-stack
+                  item in a register, combining simple instructions
+                  into superinstructions, and other optimizations. We
+                  have used the generator to create interpreters for
+                  Forth and Java. The resulting interpreters are
+                  faster than other interpreters for the same
+                  languages and they are typically 2-10 times slower
+                  than code produced by native-code compilers. We also
+                  present results for the effects of the individual
+                  optimizations supported by the generator.}
 }
