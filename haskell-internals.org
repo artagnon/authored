@@ -38,8 +38,8 @@ euler5 = foldr lcm 1 [1..20]
 \end{lstlisting}
 #+END_LaTeX
 ** Folds
-#+LaTeX: \includegraphics[scale=0.35]{foldl.png}
-#+LaTeX: \begin{flushright}\includegraphics[scale=0.35]{foldr.png}\end{flushright}
+#+LaTeX: \includegraphics[scale=0.35]{res/foldl.png}
+#+LaTeX: \begin{flushright}\includegraphics[scale=0.35]{res/foldr.png}\end{flushright}
 \note{Most of the time though, you want a right fold, because rather than calling itself immediately, 
 what happens is that the function parameter is immediately applied. If for any reason it doesn't 
 need its second parameter to generate some of its output, then it's possible that the rest of the
@@ -94,7 +94,7 @@ main = square (square 3)
 where is a clause. let and letrec are expressions. 
 lambda abstractions are removed by lambda lifter.}
 ** Graph reduction (Template compiler)
-#+LaTeX: \begin{center}\includegraphics[scale=0.5]{graph-reduction.png}\end{center}
+#+LaTeX: \begin{center}\includegraphics[scale=0.5]{res/graph-reduction.png}\end{center}
 ** Laziness
 #+BEGIN_LaTeX
 \begin{lstlisting}[language=Haskell]
