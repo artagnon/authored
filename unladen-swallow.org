@@ -13,22 +13,94 @@
 #+END_LaTeX
 
 * Short discussion of CPython
-** Parsing the grammar into a parse tree
+** Parsing the grammar
 *** Construct NFA
 *** Construct DFA
 *** Simplify DFA
 *** Generate Parsing Tables
 *** Glue it All Together
-\note{Taken from comments in Parser/pgen.c}
+    \note{Taken from comments in Parser/pgen.c | Slide included for completeness}
 ** Parse tree to bytecode
-*** Parse tree -$>$ AST | Python/ast.c
-*** AST -$>$ CFG | Python/compile.c
-*** CFG -$>$ Bytecode | Python/compile.c
+*** PyAST\_FromNode() in Python/ast.c | Parse tree -$>$ AST
+*** PyAST\_Compile() in compile.c | AST -$>$ CFG -$>$ Bytecode
+**** PyAST\_Compile() calls PySymtable\_Build() and compiler\_mod() | AST -$>$ CFG
+**** assemble() | Flattens CFG | Post-order DFS on CFG -$>$ Bytecode
+     \note{ASDL: Zephyr described in Parser/asdl.py, generated in asdl\_c.py}
+** Interpreter main loop | Python/[c]eval.cc
+#+BEGIN_LaTeX
+\begin{lstlisting}[language=C]
+PyObject *PyEval_EvalFrameEx(PyFrameObject *f, int throwflag) {
+  PyObject *result;
+  result = PyEval_EvalFrame(f);
+  return result;
+}
+\end{lstlisting}
+\begin{lstlisting}[language=C]
+PyObject *PyEval_EvalFrame(PyFrameObject *f)
+{
+  register PyObject **stack_pointer;  /* Next free slot */
+  register unsigned char *next_instr;
+  register int opcode;	/* Current opcode */
+  register int oparg;	/* Current opcode argument, if any */
+  PyObject *retval = NULL;	/* Return value */
+  PyCodeObject *co;       /* Code object */
+}
+\end{lstlisting}
+#+END_LaTeX
+\note{Computed GOTO jumps to one of several labels based on the value of an expression}
+    
 * Enter: Unladen Swallow
-** VMGen
+** Q1
+*** Experiment with Psyco
+*** Temporarily use VMgen for eval loop
+*** Remove rarely used opcodes
 \note{Vmgen is a tool for writing efficient interpreters. It takes a simple virtual machine
 description and generates efficient C code for dealing with the virtual machine code in 
 various ways (in particular, executing it)}
+** Q2 | The LLVM IR compiler
+#+BEGIN_LaTeX
+\begin{lstlisting}[language=C]
+extern "C" _LlvmFunction *
+_PyCode_ToLlvmIr(PyCodeObject *code)
+{
+  _LlvmFunction *wrapper = new _LlvmFunction();
+  /* fbuilder refers to functions in llvm_fbuilder.cc */
+  wrapper->lf_function = fbuilder.function();
+  return wrapper;
+}
+\end{lstlisting}
+#+END_LaTeX
+\note{Python/llvm\_compile.c}
+** Q2 | Changes to the eval loop
+#+BEGIN_LaTeX
+\begin{lstlisting}[language=C]
+static int
+mark_called_and_maybe_compile(PyCodeObject *co, PyFrameObject *f)
+{
+  co->co_hotness += 10;
+  if (co->co_hotness > PY_HOTNESS_THRESHOLD) {
+    if (co->co_llvm_function == NULL) {
+      int target_optimization =
+	std::max(Py_DEFAULT_JIT_OPT_LEVEL,
+		 Py_OptimizeFlag);
+      if (co->co_optimization < target_optimization) {
+	// If the LLVM version of the function wasn't
+	// created yet, setting the optimization level
+	// will create it.
+	r = _PyCode_ToOptimizedLlvmIr(co, target_optimization);
+      }
+    }
+    if (co->co_native_function == NULL) {
+      // Now try to JIT the IR function to machine code.
+      co->co_native_function =
+	_LlvmFunction_Jit(co->co_llvm_function);
+    }
+  }
+  return 0;
+}
+\end{lstlisting}
+#+END_LaTeX
+** Q3 | Feedback-directed optimization
 * Conclusion
 ** References
 #+BEGIN_LaTeX
