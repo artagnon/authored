@@ -72,8 +72,9 @@ PyObject *PyEval_EvalFrame(PyFrameObject *f)
 }
 \end{lstlisting}
 #+END_LaTeX
-\note{Computed GOTO jumps to one of several labels based on the value of an expression}
-    
+\note{Python/eval.cc. 
+Computed GOTO jumps to one of several labels based on the value of an expression. 
+codeobject contains final bytecode to execute}
 * Enter: Unladen Swallow
 ** Q1
 *** Experiment with Psyco
@@ -95,7 +96,8 @@ _PyCode_ToLlvmIr(PyCodeObject *code)
 }
 \end{lstlisting}
 #+END_LaTeX
-\note{Python/llvm\_compile.c}
+\note{Python/llvm\_compile.c.
+Compile Python Bytecode into LLVM IR. Bytecode is stored in PyCodeObject, and the IR is also stored here.}
 ** Q2 | Changes to the eval loop
 #+BEGIN_LaTeX
 \begin{lstlisting}[language=C]
@@ -125,7 +127,15 @@ mark_called_and_maybe_compile(PyCodeObject *co, PyFrameObject *f)
 }
 \end{lstlisting}
 #+END_LaTeX
+\note{Python/eval.cc. 
+First asserts hotness of PyCodeObject to determine whether or not to compile.
+If hot enough, then compile to LLVM IR, and try to JIT the IR to machine code.
+Function-at-a-time JIT compilation.
+Initial: Block execution while compiling hot functions.
+Later: Shift compilation to a separate worker thread. Issue 40 - Targeting Q4.}
 ** Q3 | Feedback-directed optimization
+\note{Util/RuntimeFeedback.h. 
+Optimize native code, not bytecode.}
 * Conclusion
 ** References
 #+BEGIN_LaTeX
