@@ -13,13 +13,6 @@
 #+END_LaTeX
 
 * Short discussion of CPython
-** Parsing the grammar
-*** Construct NFA
-*** Construct DFA
-*** Simplify DFA
-*** Generate Parsing Tables
-*** Glue it All Together
-    \note{Taken from comments in Parser/pgen.c | Slide included for completeness}
 ** Parse tree to bytecode
 *** PyAST\_FromNode() in Python/ast.c | Parse tree -$>$ AST
 *** PyAST\_Compile() in compile.c | AST -$>$ CFG -$>$ Bytecode
