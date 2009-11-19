@@ -10,16 +10,48 @@
 
 #+BEGIN_LaTeX
 \def\newblock{\hskip .11em plus .33em minus .07em} % Hack to make BibTeX work with LaTeX
+\newcommand{\hl}[1 ]{\colorbox{yellow}{#1}} % New command: hl to highlight text
 #+END_LaTeX
 
 * Short discussion of CPython
-** Parse tree to bytecode
-*** PyAST\_FromNode() in Python/ast.c | Parse tree -$>$ AST
-*** PyAST\_Compile() in compile.c | AST -$>$ CFG -$>$ Bytecode
-**** PyAST\_Compile() calls PySymtable\_Build() and compiler\_mod() | AST -$>$ CFG
-**** assemble() | Flattens CFG | Post-order DFS on CFG -$>$ Bytecode
-     \note{ASDL: Zephyr described in Parser/asdl.py, generated in asdl\_c.py}
-** Interpreter main loop | Python/[c]eval.cc
+** Stages of compilation
+*** PyAST\_FromNode() in Python/ast.c $\mid$ \hl{Parse tree $\rightarrow$ AST}
+*** PyAST\_Compile() in compile.c $\mid$ \hl{AST $\rightarrow$ CFG $\rightarrow$ Bytecode}
+*** PyAST\_Compile() calls PySymtable\_Build() and compiler\_mod() $\mid$ \hl{AST $\rightarrow$ CFG}
+*** assemble() $\mid$ Post-order DFS flattens the \hl{CFG $\rightarrow$ Bytecode}
+    \note{ASDL: Zephyr described in Parser/asdl.py, generated in asdl\_c.py}
+** Final bytecode
+#+BEGIN_LaTeX
+\begin{lstlisting}[language=Python, numbers=none, xleftmargin=0em]
+a, b = 1, 0
+if a or b:
+    print "Hello", a
+\end{lstlisting}
+\begin{lstlisting}[numbers=none, xleftmargin=0em]
+  1           0 LOAD_CONST               4 ((1, 0))
+              3 UNPACK_SEQUENCE          2
+              6 STORE_NAME               0 (a)
+              9 STORE_NAME               1 (b)
+
+  2          12 LOAD_NAME                0 (a)
+             15 JUMP_IF_TRUE             7 (to 25)
+             18 POP_TOP
+             19 LOAD_NAME                1 (b)
+             22 JUMP_IF_FALSE           13 (to 38)
+        >>   25 POP_TOP
+
+  3          26 LOAD_CONST               2 ('Hello')
+             29 PRINT_ITEM
+             30 LOAD_NAME                0 (a)
+             33 PRINT_ITEM
+             34 PRINT_NEWLINE
+             35 JUMP_FORWARD             1 (to 39)
+        >>   38 POP_TOP
+        >>   39 LOAD_CONST               3 (None)
+             42 RETURN_VALUE
+\end{lstlisting}
+#+END_LaTeX
+** Interpreter main loop
 #+BEGIN_LaTeX
 \begin{lstlisting}[language=C]
 PyObject *PyEval_EvalFrameEx(PyFrameObject *f, int throwflag) {
