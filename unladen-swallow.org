@@ -134,6 +134,22 @@ Function-at-a-time JIT compilation.
 Initial: Block execution while compiling hot functions.
 Later: Shift compilation to a separate worker thread. Issue 40 - Targeting Q4.}
 ** Q3 | Feedback-directed optimization
+#+BEGIN_LaTeX
+\begin{lstlisting}[language=C, numbers=none, xleftmargin=0em]
+class PyFullFeedback {
+public:
+  void AddObjectSeen(PyObject *obj);
+  void GetSeenObjectsInto(llvm::SmallVector<PyObject*, 3> &result) const;
+  void AddFuncSeen(PyObject *obj);
+  void GetSeenFuncsInto(llvm::SmallVector<FunctionRecord*, 3> &result) const;
+  bool FuncsOverflowed() const { return false; }
+}
+\end{lstlisting}
+#+END_LaTeX
+*** Optimize native code, not bytecode
+*** Speed up builtin lookups/ inline simple builtins
+*** Don't compile cold branches
+*** Inline simple operators using type feedback
 \note{Util/RuntimeFeedback.h. 
 Optimize native code, not bytecode.}
 * Conclusion
