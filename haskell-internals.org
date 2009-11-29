@@ -30,13 +30,15 @@
 \end{column}
 \end{columns}
 #+END_LaTeX
-\note{L4::Pistachio microkernel\\
-"Learning Haskell ruins you as a programmer"\\
-New ways of thinking\\
-Highly math-oriented applications\\
-Free applications: Leksah, Darcs, Pugs, Xmonad\\
-Industry: ABN Amro, Credit Suisse, Deutsche Bank, Barclays, AT&T, Facebook\\
-Funded by Instrustrial Haskell Group}
+\note[itemize]{
+\item L4::Pistachio microkernel
+\item "Learning Haskell ruins you as a programmer"
+\item New ways of thinking
+\item Highly math-oriented applications
+\item Free applications: Leksah, Darcs, Pugs, Xmonad
+\item Industry: ABN Amro, Credit Suisse, Deutsche Bank, Barclays, AT&T, Facebook
+\item Funded by Instrustrial Haskell Group
+}
 * Part I: Thinking in Haskell
 ** Take a simple problem and think about the imperative solution
 PE 5: What is the smallest number divisible by each of the numbers 1 to 20?
@@ -56,7 +58,9 @@ for(i = 1; i <= 20; i ++) {
 \end{column}
 \end{columns}
 #+END_LaTeX
-\note{LCM of all numbers from 1 to 20. LCM of 2 numbers can be calculated at a time. So fold!}
+\note[itemize]{
+\item LCM of all numbers from 1 to 20. LCM of 2 numbers can be calculated at a time. So fold!
+}
 ** Re-think the problem in terms of folds
 #+BEGIN_LaTeX
 \begin{columns}
@@ -125,7 +129,9 @@ euler12 = head $ filter ((> 500) . n_divisors) triangleSeries
           filterPrimes n = filter (\x -> n `mod` x == 0) primes
 \end{lstlisting}
 #+END_LaTeX
-\note{An introduction to top-down programming, graph reduction, filters and maps}
+\note[itemize]{
+\item An introduction to top-down programming, graph reduction, filters and maps
+}
 * Part II: A peek into GHC
 ** Behind the scenes
 #+BEGIN_LaTeX
@@ -144,7 +150,10 @@ euler12 = head $ filter ((> 500) . n_divisors) triangleSeries
 \end{column}
 \end{columns}
 #+END_LaTeX
-\note{Created by Simon Peyton Jones, Simon Marlow. Goes through C--}
+\note[itemize]{
+\item Created by Simon Peyton Jones, Simon Marlow.
+\item Goes through C--
+}
 ** What does the Core Language look like?
 #+BEGIN_LaTeX
 \begin{columns}
@@ -162,9 +171,12 @@ euler12 = head $ filter ((> 500) . n_divisors) triangleSeries
 \end{column}
 \end{columns}
 #+END_LaTeX
-\note{Evaluating the Core language; building the Core language involves boring grammar parsing.\\
-where is a clause. let and letrec are expressions.\\
-lambda abstractions are removed by lambda lifter.}
+\note[itemize]{
+\item Evaluating the Core language
+\item Building the Core language involves boring grammar parsing
+\item where is a clause. let and letrec are expressions
+\item lambda abstractions are removed by lambda lifter
+}
 ** Now apply graph reduction
 #+BEGIN_LaTeX
 \begin{lstlisting}[xleftmargin=0em, numbers=none, frame=none]
@@ -174,7 +186,9 @@ main = square (square 3)
 \vspace{1cm}
 \includegraphics[scale=0.6]{res/graph-reduction.png}
 #+END_LaTeX
-\note{Template Compiler}
+\note[itemize]{
+\item Template Compiler
+}
 ** Why I should bother with laziness
 #+BEGIN_LaTeX
 \begin{columns}
@@ -197,10 +211,12 @@ euler14 = foldl1 (pick_larger snd) collatzip
 \end{column}
 \end{columns}
 #+END_LaTeX
-\note{Lazy evaluation is a modification of outermost-first evaluation which ensures that if a parameter
-to a function occurs more than once in the body, then any work done evaluating it is shared between the copies.\\
-Fortunately, whatever reduction sequence we choose, we will always get the same answer (that is, normal form).\\
-Inefficient because of the recursive traversal of the template.}
+\note[itemize]{
+\item Lazy evaluation is a modification of outermost-first evaluation which ensures that if a parameter
+to a function occurs more than once in the body, then any work done evaluating it is shared between the copies
+\item Fortunately, whatever reduction sequence we choose, we will always get the same answer (that is, normal form)
+\item Inefficient because of the recursive traversal of the template
+}
 ** Look deeper into the compiler
 #+BEGIN_LaTeX
 \begin{columns}
@@ -217,7 +233,7 @@ Inefficient because of the recursive traversal of the template.}
 \end{column}
 \end{columns}
 #+END_LaTeX
-\note{Before running the program, translate each supercombinator body to a sequence of instructions which,
+\note[itemize]{Before running the program, translate each supercombinator body to a sequence of instructions which,
 when executed, will construct an instance of the supercombinator body}
 * Conclusion
 ** References
