@@ -12,6 +12,27 @@
 \def\newblock{\hskip .11em plus .33em minus .07em} % Hack to make BibTeX work with LaTeX
 #+END_LaTeX
 
+* A Gentle Introduction
+** Why Haskell? What's in it for me?
+#+BEGIN_LaTeX
+\begin{columns}
+\begin{column}{2cm}
+\includegraphics[scale=0.1]{res/haskell-logo.png}
+\end{column}
+\begin{column}[c]{5cm}
+\begin{itemize}
+\item Theoretical elegance of FP
+\item Real-world applications
+\item Concurrency: STM
+\end{itemize}
+\end{column}
+\end{columns}
+#+END_LaTeX
+\note{New ways of thinking\\
+Highly-math oriented applications\\
+Free applications: Leksah, Darcs, Pugs, Xmonad\\
+Industry: ABN Amro, Credit Suisse, Deutsche Bank, Barclays, AT&T, Facebook\\
+Funded by Instrustrial Haskell Group}
 * Part I: Thinking in Haskell
 ** Project Euler Problem #5
 What is the smallest number divisible by each of the numbers 1 to 20?
