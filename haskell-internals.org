@@ -37,15 +37,6 @@ euler5 = foldr lcm 1 [1..20]
           lcm a b = (a*b) `div` gcd a b
 \end{lstlisting}
 #+END_LaTeX
-** Folds
-#+LaTeX: \includegraphics[scale=0.35]{res/foldl.png}
-#+LaTeX: \begin{flushright}\includegraphics[scale=0.35]{res/foldr.png}\end{flushright}
-\note{Most of the time though, you want a right fold, because rather than calling itself immediately, 
-what happens is that the function parameter is immediately applied. If for any reason it doesn't 
-need its second parameter to generate some of its output, then it's possible that the rest of the
-list won't get used. Thus, foldr plays well with laziness and infinite lists. (Obviously in the case
-of summing the elements of a list though, this isn't true, so the strict tail recursion works better). 
-Catamorphism is a generalization of fold}
 ** Project Euler Problem #12
 What is the first triangle number to have over 500 divisors?
 #+BEGIN_LaTeX
