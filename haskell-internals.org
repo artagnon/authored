@@ -108,27 +108,31 @@ lambda abstractions are removed by lambda lifter.}
 ** Graph reduction (Template compiler)
 #+LaTeX: \begin{center}\includegraphics[scale=0.5]{res/graph-reduction.png}\end{center}
 ** Laziness
+** Why I should bother with laziness
 #+BEGIN_LaTeX
-\begin{lstlisting}[language=Haskell]
+\begin{columns}
+\begin{column}{2cm}
+\includegraphics[scale=0.4]{res/lazy-sloth.png}
+\end{column}
+\begin{column}{8cm}
+\begin{lstlisting}[language=Haskell, numbers=none, xleftmargin=0em]
 euler14 :: Integer
 -- Stack overflow!
-euler14 = foldl1 (\ x y -> if chain_len x < chain_len y then y else x) l
-    where chain_len = length . collatz_chain
-          l = [2, 3 .. 999999]
-
-collatz_chain :: Integer -> [Integer]
-collatz_chain 1 = [1 ]
-collatz_chain n | even n = n : (collatz_chain $ div n 2)
-                | otherwise = n : (collatz_chain $ 3 * n + 1)
+euler14 = foldl1 (pick_larger chain_length) l
+    -- [2, 3 .. 999999]
+    where chain_length = length . collatz_chain
 \end{lstlisting}
 \begin{lstlisting}[language=Haskell, numbers=none, xleftmargin=0em]
-euler14 = fst . maximumBy (\a b -> compare (snd a) (snd b)) $ collatzip
-    where collatzip = zip l (map length $ map collatz_chain l)
+euler14 = foldl1 (pick_larger snd) collatzip
+    -- [(2,2),(3,8),(4,3),(5,6),(6,9),(7,17)]
+    where collatzip = zip l chain_length
 \end{lstlisting}
+\end{column}
+\end{columns}
 #+END_LaTeX
 \note{Lazy evaluation is a modification of outermost-first evaluation which ensures that if a parameter
-to a function occurs more than once in the body, then any work done evaluating it is shared between the copies. 
-Fortunately, whatever reduction sequence we choose, we will always get the same answer (that is, normal form). 
+to a function occurs more than once in the body, then any work done evaluating it is shared between the copies.\\
+Fortunately, whatever reduction sequence we choose, we will always get the same answer (that is, normal form).\\
 Inefficient because of the recursive traversal of the template.}
 ** A peek into more optimizations
 *** Lambda lifter
