@@ -10,6 +10,7 @@
 
 #+BEGIN_LaTeX
 \def\newblock{\hskip .11em plus .33em minus .07em} % Hack to make BibTeX work with LaTeX
+\newcommand{\hl}[1 ]{\colorbox{lightgray}{#1}} % New command: hl to highlight text
 #+END_LaTeX
 
 * A Gentle Introduction
@@ -19,34 +20,50 @@
 \begin{column}{2cm}
 \includegraphics[scale=0.1]{res/haskell-logo.png}
 \end{column}
-\begin{column}[c]{5cm}
+\begin{column}[c]{8cm}
 \begin{itemize}
-\item Theoretical elegance of FP
+\item Theoretical interest
+\item Ideas to apply in other places
 \item Real-world applications
 \item Concurrency: STM
 \end{itemize}
 \end{column}
 \end{columns}
 #+END_LaTeX
-\note{New ways of thinking\\
-Highly-math oriented applications\\
+\note{L4::Pistachio microkernel\\
+"Learning Haskell ruins you as a programmer"\\
+New ways of thinking\\
+Highly math-oriented applications\\
 Free applications: Leksah, Darcs, Pugs, Xmonad\\
 Industry: ABN Amro, Credit Suisse, Deutsche Bank, Barclays, AT&T, Facebook\\
 Funded by Instrustrial Haskell Group}
 * Part I: Thinking in Haskell
-** Project Euler Problem #5
-What is the smallest number divisible by each of the numbers 1 to 20?
+** Take a simple problem and think about the imperative solution
+PE 5: What is the smallest number divisible by each of the numbers 1 to 20?
 #+BEGIN_LaTeX
+\vspace{1cm}
+\begin{columns}
+\begin{column}{2cm}
+\includegraphics[scale=0.15]{res/euler.png}
+\end{column}
+\begin{column}[c]{8cm}
 \begin{lstlisting}[language=C]
 lcm_store = 1;
 for(i = 1; i <= 20; i ++) {
     lcm_store = lcm (lcm_store, i);
 }
 \end{lstlisting}
+\end{column}
+\end{columns}
 #+END_LaTeX
 \note{LCM of all numbers from 1 to 20. LCM of 2 numbers can be calculated at a time. So fold!}
-** Re-thinking the problem in Haskell
+** Re-think the problem in terms of folds
 #+BEGIN_LaTeX
+\begin{columns}
+\begin{column}{2cm}
+\includegraphics[scale=0.25]{res/fold-origami.png}
+\end{column}
+\begin{column}[c]{8cm}
 \begin{lstlisting}[language=Haskell, numbers=none, xleftmargin=0em, frame=none]
 foldr :: (a -> b -> b) -> b -> [a] -> b
 \end{lstlisting}
@@ -57,28 +74,48 @@ euler5 = foldr lcm 1 [1..20]
           gcd a b = gcd b (a `mod` b)
           lcm a b = (a*b) `div` gcd a b
 \end{lstlisting}
+\end{column}
+\end{columns}
 #+END_LaTeX
-** Project Euler Problem #12
+** Take another problem
 What is the first triangle number to have over 500 divisors?
 #+BEGIN_LaTeX
+\vspace{1cm}
+\begin{columns}
+\begin{column}{2cm}
+\includegraphics[scale=0.15]{res/triangle.png}
+\end{column}
+\begin{column}[c]{8cm}
 \begin{lstlisting}[numbers=none, xleftmargin=0em]
 10: 1,2,5,10
 15: 1,3,5,15
 21: 1,3,7,21
 28: 1,2,4,7,14,28
-
 \end{lstlisting}
-\begin{lstlisting}[numbers=none, xleftmargin=2em, frame=none]
+\vspace{1cm}
+\begin{lstlisting}[numbers=none, xleftmargin=0em, frame=none]
 28 = 2^2 + 7^1
 (2+1) * (1+1) = 6 divisors
 \end{lstlisting}
+\end{column}
+\end{columns}
 #+END_LaTeX
-** Functional solution
+** How would I solve it in Haskell?
 #+BEGIN_LaTeX
+\begin{columns}
+\begin{column}[b]{5.5cm}
+\begin{center}\includegraphics[scale=0.25]{res/filter-funnel.png}\end{center}
 \begin{lstlisting}[language=Haskell, numbers=none, xleftmargin=0em, frame=none]
-map :: (a -> b) -> [a] -> [b]
 filter :: (a -> Bool) -> [a] -> [a]
 \end{lstlisting}
+\end{column}
+\begin{column}[b]{4.7cm}
+\begin{center}\includegraphics[scale=0.25]{res/map.png}\end{center}
+\begin{lstlisting}[language=Haskell, numbers=none, xleftmargin=0em, frame=none]
+map :: (a -> b) -> [a] -> [b]
+\end{lstlisting}
+\end{column}
+\end{columns}
 \begin{lstlisting}[language=Haskell]
 euler12 :: (Integral a) => a
 euler12 = head $ filter ((> 500) . n_divisors) triangleSeries
@@ -90,24 +127,54 @@ euler12 = head $ filter ((> 500) . n_divisors) triangleSeries
 #+END_LaTeX
 \note{An introduction to top-down programming, graph reduction, filters and maps}
 * Part II: A peek into GHC
-** Core language
-*** Local defintions
-*** where -$>$ let/ letrec
-*** case for pattern matching
-*** Local function definitions (lambda abstractions)
-*** Structured data types
+** Behind the scenes
 #+BEGIN_LaTeX
-\begin{lstlisting}[xleftmargin=0em, numbers=none]
+\begin{columns}
+\begin{column}{2cm}
+\includegraphics[scale=0.4]{res/scene-curtain.png}
+\end{column}
+\begin{column}{9cm}
+\begin{itemize}
+\item Glasgow Haskell Compiler
+\item Parse everything into Core Language
+\item Use graph reduction
+\item Apply optimizations
+\item Compile Core Language into native code via GCC
+\end{itemize}
+\end{column}
+\end{columns}
+#+END_LaTeX
+\note{Created by Simon Peyton Jones, Simon Marlow. Goes through C--}
+** What does the Core Language look like?
+#+BEGIN_LaTeX
+\begin{columns}
+\begin{column}{2cm}
+\includegraphics[scale=0.4]{res/core-apple.png}
+\end{column}
+\begin{column}{9cm}
+\begin{itemize}
+\item Local defintions
+\item Lexical closures provided by \hl{let}/ \hl{letrec}
+\item \hl{case} for pattern matching
+\item Local function definitions (lambda abstractions)
+\item Structured data types provided by \hl{Pack}
+\end{itemize}
+\end{column}
+\end{columns}
+#+END_LaTeX
+\note{Evaluating the Core language; building the Core language involves boring grammar parsing.\\
+where is a clause. let and letrec are expressions.\\
+lambda abstractions are removed by lambda lifter.}
+** Now apply graph reduction
+#+BEGIN_LaTeX
+\begin{lstlisting}[xleftmargin=0em, numbers=none, frame=none]
 square x = x * x ;
 main = square (square 3)
 \end{lstlisting}
+\vspace{1cm}
+\includegraphics[scale=0.6]{res/graph-reduction.png}
 #+END_LaTeX
-\note{Evaluating the Core language; building the Core language involves boring grammar parsing. 
-where is a clause. let and letrec are expressions. 
-lambda abstractions are removed by lambda lifter.}
-** Graph reduction (Template compiler)
-#+LaTeX: \begin{center}\includegraphics[scale=0.5]{res/graph-reduction.png}\end{center}
-** Laziness
+\note{Template Compiler}
 ** Why I should bother with laziness
 #+BEGIN_LaTeX
 \begin{columns}
@@ -134,13 +201,24 @@ euler14 = foldl1 (pick_larger snd) collatzip
 to a function occurs more than once in the body, then any work done evaluating it is shared between the copies.\\
 Fortunately, whatever reduction sequence we choose, we will always get the same answer (that is, normal form).\\
 Inefficient because of the recursive traversal of the template.}
-** A peek into more optimizations
-*** Lambda lifter
-*** G-Machine compiler
-*** TIM compiler
-*** Parallel G-machine compiler
-   \note{Before running the program, translate each supercombinator body to a sequence of instructions which,
-   when executed, will construct an instance of the supercombinator body}
+** Look deeper into the compiler
+#+BEGIN_LaTeX
+\begin{columns}
+\begin{column}{2cm}
+\includegraphics[scale=0.4]{res/closer-look.png}
+\end{column}
+\begin{column}{8cm}
+\begin{itemize}
+\item G-Machine compiler
+\item TIM compiler
+\item Parallel G-machine compiler
+\item Lambda lifter
+\end{itemize}
+\end{column}
+\end{columns}
+#+END_LaTeX
+\note{Before running the program, translate each supercombinator body to a sequence of instructions which,
+when executed, will construct an instance of the supercombinator body}
 * Conclusion
 ** References
 #+BEGIN_LaTeX
