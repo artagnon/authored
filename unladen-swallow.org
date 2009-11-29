@@ -6,21 +6,44 @@
 #+LaTeX_HEADER: \institute{FOSS.IN/2009}
 #+TITLE: An Insight into CPython Compiler Design
 #+AUTHOR: Ramkumar Ramachandra
-#+DATE: 01 December 2009
+#+DATE: 03 December 2009
 
 #+BEGIN_LaTeX
 \def\newblock{\hskip .11em plus .33em minus .07em} % Hack to make BibTeX work with LaTeX
-\newcommand{\hl}[1 ]{\colorbox{yellow}{#1}} % New command: hl to highlight text
+\newcommand{\hl}[1 ]{\colorbox{lightgray}{#1}} % New command: hl to highlight text
 #+END_LaTeX
 
-* Short discussion of CPython
-** Stages of compilation
+* Short Discussion of the CPython Compiler
+** How Python is compiled
+#+BEGIN_LaTeX
+\begin{columns}
+\begin{column}{2cm}
+\includegraphics[scale=0.2]{res/compile-bookstack.png}
+\end{column}
+\begin{column}[c]{8cm}
+\begin{itemize}
+\item Do the boring grammar parsing
+\item Compile the parse tree to bytecode
+\item Apply optimizations
+\item Interpret the bytecode
+\end{itemize}
+\end{column}
+\end{columns}
+#+END_LaTeX
+\note[itemize]{
+\item To analyze how CPython works, we study Unladen Swallow
+}
+** The various stages of compilation
 *** PyAST\_FromNode() in Python/ast.c $\mid$ \hl{Parse tree $\rightarrow$ AST}
 *** PyAST\_Compile() in compile.c $\mid$ \hl{AST $\rightarrow$ CFG $\rightarrow$ Bytecode}
 *** PyAST\_Compile() calls PySymtable\_Build() and compiler\_mod() $\mid$ \hl{AST $\rightarrow$ CFG}
-*** assemble() $\mid$ Post-order DFS flattens the \hl{CFG $\rightarrow$ Bytecode}
-    \note{ASDL: Zephyr described in Parser/asdl.py, generated in asdl\_c.py}
-** Final bytecode
+*** assemble() $\mid$ Post-order DFS $\mid$ \hl{CFG $\rightarrow$ Bytecode}
+\note[itemize]{
+\item ASDL: Zephyr described in Parser/asdl.py, generated in asdl\_c.py
+\item Post-order DFS flattens CFG to bytecode
+\item END: "... and bytecode is emitted. So let's see what ..."
+}
+** What the final bytecode looks like
 #+BEGIN_LaTeX
 \begin{lstlisting}[language=Python, numbers=none, xleftmargin=0em]
 a, b = 1, 0
@@ -51,7 +74,10 @@ if a or b:
              42 RETURN_VALUE
 \end{lstlisting}
 #+END_LaTeX
-** Interpreter main loop
+\note[itemize]{
+\item To get this, use Python's dis module
+}
+** Execute the bytecode
 #+BEGIN_LaTeX
 \begin{lstlisting}[language=C]
 PyObject *PyEval_EvalFrameEx(PyFrameObject *f, int throwflag) {
@@ -72,33 +98,85 @@ PyObject *PyEval_EvalFrame(PyFrameObject *f)
 }
 \end{lstlisting}
 #+END_LaTeX
-\note{Python/eval.cc. 
-Computed GOTO jumps to one of several labels based on the value of an expression. 
-codeobject contains final bytecode to execute}
-* Enter: Unladen Swallow
-** Q1
-*** Experiment with Psyco
-*** Temporarily use VMgen for eval loop
-*** Remove rarely used opcodes
-\note{Vmgen is a tool for writing efficient interpreters. It takes a simple virtual machine
-description and generates efficient C code for dealing with the virtual machine code in 
-various ways (in particular, executing it)}
-** Q2 | The LLVM IR compiler
+\note[itemize]{
+\item Python/eval.cc
+\item Computed GOTO jumps to one of several labels based on the value of an expression
+\item codeobject contains final bytecode to execute
+}
+* A Gentle Introduction to LLVM
+** What is LLVM and why is it relevant?
 #+BEGIN_LaTeX
+\begin{columns}
+\begin{column}{2cm}
+\includegraphics[scale=0.5]{res/llvm-logo.png}
+\end{column}
+\begin{column}[c]{8cm}
+\begin{itemize}
+\item Compiler infrastructure
+\item Invents a new IR
+\item Replaces lower levels of GCC
+\item Provides static GCC-like compilation and JIT
+\item \alert{Python frontend possible}
+\end{itemize}
+\end{column}
+\end{columns}
+#+END_LaTeX
+\note[itemize]{
+\item Originally developed as a research infrastructure at the University of Illinois at Urbana-Champaign
+to investigate dynamic compilation techniques for static and dynamic programming languages
+\item Sponsored heavily by Apple
+\item Clang/LLVM to completely replace GCC
+\item END: "Jump to the next section on Unladen Swallow"
+}
+* Enter: Unladen Swallow
+** How Unladen Swallow started
+#+BEGIN_LaTeX
+\begin{columns}
+\begin{column}{2cm}
+\includegraphics[scale=0.35]{res/unladen-swallow.png}
+\end{column}
+\begin{column}[c]{8cm}
+\begin{itemize}
+\item Objective: To speed up CPython
+\item Experiment with Psyco
+\item Temporarily use VMgen for eval loop
+\item Remove rarely used opcodes
+\end{itemize}
+\end{column}
+\end{columns}
+#+END_LaTeX
+\note[itemize]{
+\item Q1
+\item Vmgen is a tool for writing efficient interpreters. It takes a simple virtual machine
+description and generates efficient C code for dealing with the virtual machine code in 
+various ways (in particular, executing it)
+}
+** Compile Python bytecode to LLVM IR
+#+BEGIN_LaTeX
+\begin{columns}
+\begin{column}{2cm}
+\includegraphics[scale=0.2]{res/wedge.png}
+\end{column}
+\begin{column}[c]{8cm}
 \begin{lstlisting}[language=C]
 extern "C" _LlvmFunction *
 _PyCode_ToLlvmIr(PyCodeObject *code)
 {
   _LlvmFunction *wrapper = new _LlvmFunction();
-  /* fbuilder refers to functions in llvm_fbuilder.cc */
+  /* fbuilder functions in llvm_fbuilder.cc */
   wrapper->lf_function = fbuilder.function();
   return wrapper;
 }
 \end{lstlisting}
+\end{column}
+\end{columns}
 #+END_LaTeX
-\note{Python/llvm\_compile.c.
-Compile Python Bytecode into LLVM IR. Bytecode is stored in PyCodeObject, and the IR is also stored here.}
-** Q2 | Changes to the eval loop
+\note[itemize]{
+\item Q2
+\item Python/llvm\_compile.c
+\item Compile Python Bytecode into LLVM IR. Bytecode is stored in PyCodeObject, and the IR is also stored here
+}
+** Changes to the eval loop
 #+BEGIN_LaTeX
 \begin{lstlisting}[language=C]
 static int
@@ -127,31 +205,36 @@ mark_called_and_maybe_compile(PyCodeObject *co, PyFrameObject *f)
 }
 \end{lstlisting}
 #+END_LaTeX
-\note{Python/eval.cc. 
-First asserts hotness of PyCodeObject to determine whether or not to compile.
-If hot enough, then compile to LLVM IR, and try to JIT the IR to machine code.
-Function-at-a-time JIT compilation.
-Initial: Block execution while compiling hot functions.
-Later: Shift compilation to a separate worker thread. Issue 40 - Targeting Q4.}
-** Q3 | Feedback-directed optimization
-#+BEGIN_LaTeX
-\begin{lstlisting}[language=C, numbers=none, xleftmargin=0em]
-class PyFullFeedback {
-public:
-  void AddObjectSeen(PyObject *obj);
-  void GetSeenObjectsInto(llvm::SmallVector<PyObject*, 3> &result) const;
-  void AddFuncSeen(PyObject *obj);
-  void GetSeenFuncsInto(llvm::SmallVector<FunctionRecord*, 3> &result) const;
-  bool FuncsOverflowed() const { return false; }
+\note[itemize]{
+\item Q2
+\item Python/eval.cc
+\item First asserts hotness of PyCodeObject to determine whether or not to compile
+\item If hot enough, then compile to LLVM IR, and try to JIT the IR to machine code
+\item Function-at-a-time JIT compilation
+\item Initial: Block execution while compiling hot functions
+\item Later: Shift compilation to a separate worker thread. Issue 40 - Targeting Q4
 }
-\end{lstlisting}
+** Implement feedback-directed optimization
+#+BEGIN_LaTeX
+\begin{columns}
+\begin{column}{2cm}
+\includegraphics[scale=0.2]{res/feedback.png}
+\end{column}
+\begin{column}[c]{8cm}
+\begin{itemize}
+\item Optimize native code, not bytecode
+\item Speed up builtin lookups/ inline simple builtins
+\item Don't compile cold branches
+\item Inline simple operators using type feedback
+\end{itemize}
+\end{column}
+\end{columns}
 #+END_LaTeX
-*** Optimize native code, not bytecode
-*** Speed up builtin lookups/ inline simple builtins
-*** Don't compile cold branches
-*** Inline simple operators using type feedback
-\note{Util/RuntimeFeedback.h. 
-Optimize native code, not bytecode.}
+\note[itemize]{
+\item Q3
+\item Util/RuntimeFeedback.h
+\item Optimize native code, not bytecode
+}
 * Conclusion
 ** References
 #+BEGIN_LaTeX
