@@ -13,8 +13,8 @@
 \newcommand{\hl}[1 ]{\colorbox{lightgray}{#1}} % New command: hl to highlight text
 #+END_LaTeX
 
-* A Gentle Introduction
-** Why Haskell? What's in it for me?
+* A Gentle Introduction to Haskell
+** Why Haskell? What's in it for you?
 #+BEGIN_LaTeX
 \begin{columns}
 \begin{column}{2cm}
@@ -31,16 +31,15 @@
 \end{columns}
 #+END_LaTeX
 \note[itemize]{
-\item L4::Pistachio microkernel
-\item "Learning Haskell ruins you as a programmer"
 \item New ways of thinking
 \item Highly math-oriented applications
 \item Free applications: Leksah, Darcs, Pugs, Xmonad
 \item Industry: ABN Amro, Credit Suisse, Deutsche Bank, Barclays, AT&T, Facebook
 \item Funded by Instrustrial Haskell Group
+\item END: "Try to solve some problems in Haskell and get an idea about how the compiler works"
 }
 * Part I: Thinking in Haskell
-** Take a simple problem and think about the imperative solution
+** Solve a simple problem imperatively
 PE 5: What is the smallest number divisible by each of the numbers 1 to 20?
 #+BEGIN_LaTeX
 \vspace{1cm}
@@ -59,7 +58,9 @@ for(i = 1; i <= 20; i ++) {
 \end{columns}
 #+END_LaTeX
 \note[itemize]{
-\item LCM of all numbers from 1 to 20. LCM of 2 numbers can be calculated at a time. So fold!
+\item LCM of all numbers from 1 to 20. LCM of 2 numbers can be calculated at a time
+\item The loop keep accumulating successive LCM values
+\item END: "Try to ..."
 }
 ** Re-think the problem in terms of folds
 #+BEGIN_LaTeX
@@ -81,7 +82,18 @@ euler5 = foldr lcm 1 [1..20]
 \end{column}
 \end{columns}
 #+END_LaTeX
-** Take another problem
+\note[itemize]{
+\item Two fold variations: foldl and foldr
+\item Type signature of foldr: Function of one function, one value, and one list. Returns one value
+\item Functions can return functions. First-class functions
+\item euler5 is a function. Takes nothing, returns one value
+\item lcm * gcd = product of numbers
+\item gcd calculated by Eucleadian algorithm
+\item top-down programming
+\item No "variables". Only values and symbols
+\item END: "Simple enough. Why don't we .."
+}
+** Pick a more challenging problem
 What is the first triangle number to have over 500 divisors?
 #+BEGIN_LaTeX
 \vspace{1cm}
@@ -104,7 +116,15 @@ What is the first triangle number to have over 500 divisors?
 \end{column}
 \end{columns}
 #+END_LaTeX
-** How would I solve it in Haskell?
+\note[itemize]{
+\item Triangle number n: Summation n
+\item 10 is the 4th triangle number
+\item No need to find all the divisors; just need to prime factorize
+\item After prime factorization into (p1, n1), (p2, n2)
+\item The +1 accounts for 2^0, 7^0 respectively
+\item END: "So let us attempt to ..."
+}
+** Solve it in Haskell
 #+BEGIN_LaTeX
 \begin{columns}
 \begin{column}[b]{5.5cm}
@@ -130,7 +150,12 @@ euler12 = head $ filter ((> 500) . n_divisors) triangleSeries
 \end{lstlisting}
 #+END_LaTeX
 \note[itemize]{
-\item An introduction to top-down programming, graph reduction, filters and maps
+\item An introduction to filters and maps
+\item Filter filters from values from a list satisfying a predicate
+\item Map applies a function to each value in a list to build a second list
+\item Don't mind the $ and . now
+\item Huge amount of partial application, currying, function composition. First-class functions.
+\item END: "Analyze what is happening ..."
 }
 * Part II: A peek into GHC
 ** Behind the scenes
@@ -153,8 +178,9 @@ euler12 = head $ filter ((> 500) . n_divisors) triangleSeries
 \note[itemize]{
 \item Created by Simon Peyton Jones, Simon Marlow.
 \item Goes through C--
+\item END: "To exclude the boring grammar parsing, it is sufficient to discuss core language compilation. Let us see ..."
 }
-** What does the Core Language look like?
+** What the core language looks like
 #+BEGIN_LaTeX
 \begin{columns}
 \begin{column}{2cm}
@@ -176,8 +202,9 @@ euler12 = head $ filter ((> 500) . n_divisors) triangleSeries
 \item Building the Core language involves boring grammar parsing
 \item where is a clause. let and letrec are expressions
 \item lambda abstractions are removed by lambda lifter
+\item END: "Now that we've built the Core language, let us ..."
 }
-** Now apply graph reduction
+** Apply graph reduction to the core language
 #+BEGIN_LaTeX
 \begin{lstlisting}[xleftmargin=0em, numbers=none, frame=none]
 square x = x * x ;
@@ -188,8 +215,10 @@ main = square (square 3)
 #+END_LaTeX
 \note[itemize]{
 \item Template Compiler
+\item I didn't mention too much about laziness. The infinite lists in the programs illustrate this
+\item END: "Haskell is lazy, fine. But personally, ..."
 }
-** Why I should bother with laziness
+** Why bother with laziness
 #+BEGIN_LaTeX
 \begin{columns}
 \begin{column}{2cm}
@@ -216,8 +245,10 @@ euler14 = foldl1 (pick_larger snd) collatzip
 to a function occurs more than once in the body, then any work done evaluating it is shared between the copies
 \item Fortunately, whatever reduction sequence we choose, we will always get the same answer (that is, normal form)
 \item Inefficient because of the recursive traversal of the template
+\item END: "I've hinted how to implement graph reduction using a Template Compiler.
+But to see how a real compiler does it, we must take ..."
 }
-** Look deeper into the compiler
+** A deeper look into the compiler
 #+BEGIN_LaTeX
 \begin{columns}
 \begin{column}{2cm}
@@ -233,8 +264,10 @@ to a function occurs more than once in the body, then any work done evaluating i
 \end{column}
 \end{columns}
 #+END_LaTeX
-\note[itemize]{Before running the program, translate each supercombinator body to a sequence of instructions which,
-when executed, will construct an instance of the supercombinator body}
+\note[itemize]{
+\item Before running the program, translate each supercombinator body to a sequence of instructions which,
+when executed, will construct an instance of the supercombinator body
+}
 * Conclusion
 ** References
 #+BEGIN_LaTeX
