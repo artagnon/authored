@@ -1,0 +1,619 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="744.09448819"
+   height="1052.3622047"
+   id="svg2"
+   version="1.1"
+   inkscape:version="0.47 r22583"
+   sodipodi:docname="logical-layers.svg">
+  <defs
+     id="defs4">
+    <inkscape:perspective
+       sodipodi:type="inkscape:persp3d"
+       inkscape:vp_x="0 : 526.18109 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_z="744.09448 : 526.18109 : 1"
+       inkscape:persp3d-origin="372.04724 : 350.78739 : 1"
+       id="perspective10" />
+    <inkscape:perspective
+       id="perspective2867"
+       inkscape:persp3d-origin="0.5 : 0.33333333 : 1"
+       inkscape:vp_z="1 : 0.5 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_x="0 : 0.5 : 1"
+       sodipodi:type="inkscape:persp3d" />
+    <inkscape:perspective
+       id="perspective2867-0"
+       inkscape:persp3d-origin="0.5 : 0.33333333 : 1"
+       inkscape:vp_z="1 : 0.5 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_x="0 : 0.5 : 1"
+       sodipodi:type="inkscape:persp3d" />
+    <inkscape:perspective
+       id="perspective2867-06"
+       inkscape:persp3d-origin="0.5 : 0.33333333 : 1"
+       inkscape:vp_z="1 : 0.5 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_x="0 : 0.5 : 1"
+       sodipodi:type="inkscape:persp3d" />
+    <inkscape:perspective
+       id="perspective2867-1"
+       inkscape:persp3d-origin="0.5 : 0.33333333 : 1"
+       inkscape:vp_z="1 : 0.5 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_x="0 : 0.5 : 1"
+       sodipodi:type="inkscape:persp3d" />
+    <inkscape:perspective
+       id="perspective2867-7"
+       inkscape:persp3d-origin="0.5 : 0.33333333 : 1"
+       inkscape:vp_z="1 : 0.5 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_x="0 : 0.5 : 1"
+       sodipodi:type="inkscape:persp3d" />
+    <inkscape:perspective
+       id="perspective2867-3"
+       inkscape:persp3d-origin="0.5 : 0.33333333 : 1"
+       inkscape:vp_z="1 : 0.5 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_x="0 : 0.5 : 1"
+       sodipodi:type="inkscape:persp3d" />
+    <inkscape:perspective
+       id="perspective2867-5"
+       inkscape:persp3d-origin="0.5 : 0.33333333 : 1"
+       inkscape:vp_z="1 : 0.5 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_x="0 : 0.5 : 1"
+       sodipodi:type="inkscape:persp3d" />
+    <inkscape:perspective
+       id="perspective3023"
+       inkscape:persp3d-origin="0.5 : 0.33333333 : 1"
+       inkscape:vp_z="1 : 0.5 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_x="0 : 0.5 : 1"
+       sodipodi:type="inkscape:persp3d" />
+    <inkscape:perspective
+       id="perspective3023-6"
+       inkscape:persp3d-origin="0.5 : 0.33333333 : 1"
+       inkscape:vp_z="1 : 0.5 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_x="0 : 0.5 : 1"
+       sodipodi:type="inkscape:persp3d" />
+    <inkscape:perspective
+       id="perspective3023-1"
+       inkscape:persp3d-origin="0.5 : 0.33333333 : 1"
+       inkscape:vp_z="1 : 0.5 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_x="0 : 0.5 : 1"
+       sodipodi:type="inkscape:persp3d" />
+    <inkscape:perspective
+       id="perspective3023-68"
+       inkscape:persp3d-origin="0.5 : 0.33333333 : 1"
+       inkscape:vp_z="1 : 0.5 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_x="0 : 0.5 : 1"
+       sodipodi:type="inkscape:persp3d" />
+    <inkscape:perspective
+       id="perspective3023-4"
+       inkscape:persp3d-origin="0.5 : 0.33333333 : 1"
+       inkscape:vp_z="1 : 0.5 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_x="0 : 0.5 : 1"
+       sodipodi:type="inkscape:persp3d" />
+    <inkscape:perspective
+       id="perspective3023-17"
+       inkscape:persp3d-origin="0.5 : 0.33333333 : 1"
+       inkscape:vp_z="1 : 0.5 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_x="0 : 0.5 : 1"
+       sodipodi:type="inkscape:persp3d" />
+    <inkscape:perspective
+       id="perspective3023-0"
+       inkscape:persp3d-origin="0.5 : 0.33333333 : 1"
+       inkscape:vp_z="1 : 0.5 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_x="0 : 0.5 : 1"
+       sodipodi:type="inkscape:persp3d" />
+  </defs>
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="0.5"
+     inkscape:cx="378.19298"
+     inkscape:cy="608.52138"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     inkscape:window-width="1278"
+     inkscape:window-height="778"
+     inkscape:window-x="0"
+     inkscape:window-y="20"
+     inkscape:window-maximized="0"
+     inkscape:snap-bbox="true"
+     inkscape:bbox-paths="false"
+     inkscape:bbox-nodes="false"
+     inkscape:snap-bbox-midpoints="true"
+     inkscape:snap-bbox-edge-midpoints="true"
+     inkscape:snap-center="true"
+     inkscape:snap-object-midpoints="true"
+     inkscape:snap-page="true"
+     inkscape:snap-nodes="true"
+     inkscape:snap-global="true"
+     showguides="true"
+     inkscape:guide-bbox="true"
+     inkscape:object-nodes="false">
+    <sodipodi:guide
+       orientation="0,1"
+       position="518.20825,847.84117"
+       id="guide2997" />
+    <sodipodi:guide
+       orientation="0,1"
+       position="518.9858,787.71408"
+       id="guide2999" />
+    <sodipodi:guide
+       orientation="0,1"
+       position="516.81017,735.78554"
+       id="guide3001" />
+    <sodipodi:guide
+       orientation="0,1"
+       position="516.52328,676.94339"
+       id="guide3003" />
+    <sodipodi:guide
+       orientation="0,1"
+       position="504.68834,597.93678"
+       id="guide3005" />
+    <sodipodi:guide
+       orientation="0,1"
+       position="504.68834,514.09303"
+       id="guide3007" />
+    <sodipodi:guide
+       orientation="0,1"
+       position="500.1606,432.66791"
+       id="guide3009" />
+    <sodipodi:guide
+       orientation="0,1"
+       position="594.15189,367.63716"
+       id="guide3011" />
+    <sodipodi:guide
+       orientation="1,0"
+       position="40.101525,803.19846"
+       id="guide3013" />
+    <sodipodi:guide
+       orientation="1,0"
+       position="697.00525,843.34117"
+       id="guide3489" />
+    <sodipodi:guide
+       orientation="1,0"
+       position="339.41125,843.34117"
+       id="guide3491" />
+  </sodipodi:namedview>
+  <metadata
+     id="metadata7">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <rect
+       style="fill:#005500;fill-opacity:0.38823529000000001;fill-rule:evenodd;stroke:none"
+       id="rect2816"
+       width="357.59399"
+       height="51.05497"
+       x="339.41125"
+       y="659.19757"
+       inkscape:export-filename="/home/artagnon/authored/foss.in/10/res/logical-layers.png"
+       inkscape:export-xdpi="122.62874"
+       inkscape:export-ydpi="122.62874" />
+    <rect
+       style="fill:#00aa00;fill-opacity:0.38823529000000001;fill-rule:evenodd;stroke:none"
+       id="rect2818"
+       width="357.59399"
+       height="79.006584"
+       x="339.41125"
+       y="580.19098"
+       inkscape:export-filename="/home/artagnon/authored/foss.in/10/res/logical-layers.png"
+       inkscape:export-xdpi="122.62874"
+       inkscape:export-ydpi="122.62874" />
+    <rect
+       style="fill:#00ff00;fill-opacity:0.38823529000000001;fill-rule:evenodd;stroke:none"
+       id="rect2820"
+       width="357.59399"
+       height="83.843719"
+       x="339.41125"
+       y="496.34729"
+       inkscape:export-filename="/home/artagnon/authored/foss.in/10/res/logical-layers.png"
+       inkscape:export-xdpi="122.62874"
+       inkscape:export-ydpi="122.62874" />
+    <rect
+       style="fill:#55ff55;fill-opacity:0.38823529000000001;fill-rule:evenodd;stroke:none"
+       id="rect2822"
+       width="357.59399"
+       height="83.843727"
+       x="339.41125"
+       y="412.50354"
+       inkscape:export-filename="/home/artagnon/authored/foss.in/10/res/logical-layers.png"
+       inkscape:export-xdpi="122.62874"
+       inkscape:export-ydpi="122.62874" />
+    <text
+       xml:space="preserve"
+       style="font-size:31.21525383px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans"
+       x="458.69266"
+       y="647.34894"
+       id="text2845"
+       transform="scale(0.97781197,1.0226915)"
+       inkscape:export-filename="/home/artagnon/authored/foss.in/10/res/logical-layers.png"
+       inkscape:export-xdpi="122.62874"
+       inkscape:export-ydpi="122.62874"><tspan
+         sodipodi:role="line"
+         id="tspan2847"
+         x="458.69266"
+         y="647.34894"
+         style="font-size:24.9722023px" /><tspan
+         sodipodi:role="line"
+         x="458.69266"
+         y="675.60168"
+         id="tspan2849"
+         style="font-size:22.00003242px">.git/objects/*</tspan></text>
+    <flowRoot
+       xml:space="preserve"
+       id="flowRoot2851"
+       style="fill:black;stroke:none;stroke-opacity:1;stroke-width:1px;stroke-linejoin:miter;stroke-linecap:butt;fill-opacity:1;font-family:Bitstream Vera Sans;font-style:normal;font-weight:normal;font-size:40px"><flowRegion
+         id="flowRegion2853"><rect
+           id="rect2855"
+           width="189.90868"
+           height="64.649765"
+           x="311.12698"
+           y="561.42804" /></flowRegion><flowPara
+         id="flowPara2857" /></flowRoot>    <text
+       xml:space="preserve"
+       style="font-size:31.21520805px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans"
+       x="387.2081"
+       y="570.01202"
+       id="text2845-8"
+       transform="scale(0.97781341,1.02269)"
+       inkscape:export-filename="/home/artagnon/authored/foss.in/10/res/logical-layers.png"
+       inkscape:export-xdpi="122.62874"
+       inkscape:export-ydpi="122.62874"><tspan
+         sodipodi:role="line"
+         id="tspan2847-4"
+         x="387.2081"
+         y="570.01202"
+         style="font-size:24.97216606px" /><tspan
+         sodipodi:role="line"
+         x="387.2081"
+         y="598.26471"
+         id="tspan2849-5"
+         style="font-size:22px">object.c, commit.c, tree.c,</tspan><tspan
+         sodipodi:role="line"
+         x="387.2081"
+         y="625.76471"
+         style="font-size:22px"
+         id="tspan2887">     blob.c, tag.c, refs.c</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:31.21500015px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans"
+       x="404.51227"
+       y="488.81244"
+       id="text2845-3"
+       transform="scale(0.97781341,1.02269)"
+       inkscape:export-filename="/home/artagnon/authored/foss.in/10/res/logical-layers.png"
+       inkscape:export-xdpi="122.62874"
+       inkscape:export-ydpi="122.62874"><tspan
+         sodipodi:role="line"
+         id="tspan2847-6"
+         x="404.51227"
+         y="488.81244"
+         style="font-size:31.21500015px" /><tspan
+         sodipodi:role="line"
+         x="404.51227"
+         y="518.64612"
+         id="tspan2849-1"
+         style="font-size:22px">pack-*.c, unpack-*.c</tspan><tspan
+         sodipodi:role="line"
+         x="404.51227"
+         y="546.14612"
+         style="font-size:22px"
+         id="tspan2902">(.git/objects/pack/*)</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:31.21520805px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans"
+       x="401.20367"
+       y="410.54221"
+       id="text2845-32"
+       transform="scale(0.97781341,1.02269)"
+       inkscape:export-filename="/home/artagnon/authored/foss.in/10/res/logical-layers.png"
+       inkscape:export-xdpi="122.62874"
+       inkscape:export-ydpi="122.62874"><tspan
+         sodipodi:role="line"
+         id="tspan2847-0"
+         x="401.20367"
+         y="410.54221"
+         style="font-size:24.97216606px" /><tspan
+         sodipodi:role="line"
+         x="401.20367"
+         y="438.79492"
+         style="font-size:22px"
+         id="tspan2919">walker.c, tree-walk.c,</tspan><tspan
+         sodipodi:role="line"
+         x="401.20367"
+         y="466.29492"
+         style="font-size:22px"
+         id="tspan2917">       diffcore-*.c</tspan></text>
+    <rect
+       style="fill:#aaffaa;fill-opacity:0.38823529000000001;fill-rule:evenodd;stroke:none"
+       id="rect2923"
+       width="357.59399"
+       height="74.169449"
+       x="339.41125"
+       y="338.33408"
+       inkscape:export-filename="/home/artagnon/authored/foss.in/10/res/logical-layers.png"
+       inkscape:export-xdpi="122.62874"
+       inkscape:export-ydpi="122.62874" />
+    <text
+       xml:space="preserve"
+       style="font-size:31.21500015px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans"
+       x="361.62021"
+       y="329.57516"
+       id="text2845-5"
+       transform="scale(0.97781341,1.02269)"
+       inkscape:export-filename="/home/artagnon/authored/foss.in/10/res/logical-layers.png"
+       inkscape:export-xdpi="122.62874"
+       inkscape:export-ydpi="122.62874"><tspan
+         sodipodi:role="line"
+         id="tspan2847-5"
+         x="361.62021"
+         y="329.57516"
+         style="font-size:31.21500015px" /><tspan
+         sodipodi:role="line"
+         x="361.62021"
+         y="359.40887"
+         id="tspan2849-4"
+         style="font-size:22px">transport.c, transport-helper.c,</tspan><tspan
+         sodipodi:role="line"
+         x="361.62021"
+         y="386.90887"
+         style="font-size:22px"
+         id="tspan2938">  send-pack.c, receive-pack.c</tspan></text>
+    <rect
+       style="fill:#0000d4;fill-opacity:0.38823529000000001;fill-rule:evenodd;stroke:none"
+       id="rect2940"
+       width="357.59399"
+       height="43.514923"
+       x="339.41125"
+       y="294.81918"
+       inkscape:export-filename="/home/artagnon/authored/foss.in/10/res/logical-layers.png"
+       inkscape:export-xdpi="122.62874"
+       inkscape:export-ydpi="122.62874" />
+    <text
+       xml:space="preserve"
+       style="font-size:31.21520805px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans"
+       x="466.65622"
+       y="285.17273"
+       id="text2845-6"
+       transform="scale(0.97781341,1.02269)"
+       inkscape:export-filename="/home/artagnon/authored/foss.in/10/res/logical-layers.png"
+       inkscape:export-xdpi="122.62874"
+       inkscape:export-ydpi="122.62874"><tspan
+         sodipodi:role="line"
+         id="tspan2847-56"
+         x="466.65622"
+         y="285.17273"
+         style="font-size:24.97216606px" /><tspan
+         sodipodi:role="line"
+         x="466.65622"
+         y="313.42545"
+         id="tspan2849-9"
+         style="font-size:22px">rev-parse.c</tspan></text>
+    <rect
+       style="fill:#5555ff;fill-opacity:0.38823529000000001;fill-rule:evenodd;stroke:none"
+       id="rect2955"
+       width="357.59399"
+       height="59.658035"
+       x="339.41125"
+       y="234.81909"
+       inkscape:export-filename="/home/artagnon/authored/foss.in/10/res/logical-layers.png"
+       inkscape:export-xdpi="122.62874"
+       inkscape:export-ydpi="122.62874" />
+    <text
+       xml:space="preserve"
+       style="font-size:31.21520805px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans"
+       x="410.43298"
+       y="222.84309"
+       id="text2845-7"
+       transform="scale(0.97781341,1.02269)"
+       inkscape:export-filename="/home/artagnon/authored/foss.in/10/res/logical-layers.png"
+       inkscape:export-xdpi="122.62874"
+       inkscape:export-ydpi="122.62874"><tspan
+         sodipodi:role="line"
+         id="tspan2847-45"
+         x="410.43298"
+         y="222.84309"
+         style="font-size:24.97216606px" /><tspan
+         sodipodi:role="line"
+         x="410.43298"
+         y="251.09579"
+         id="tspan2849-2"
+         style="font-size:22px"> ls-tree.c, read-tree.c,</tspan><tspan
+         sodipodi:role="line"
+         x="410.43298"
+         y="278.59579"
+         style="font-size:22px"
+         id="tspan2970">update-index.c, fsck.c</tspan></text>
+    <rect
+       style="fill:#aaaaff;fill-opacity:0.38823529000000001;fill-rule:evenodd;stroke:none"
+       id="rect2972"
+       width="357.59399"
+       height="60.596142"
+       x="339.41125"
+       y="174.22295"
+       inkscape:export-filename="/home/artagnon/authored/foss.in/10/res/logical-layers.png"
+       inkscape:export-xdpi="122.62874"
+       inkscape:export-ydpi="122.62874" />
+    <text
+       xml:space="preserve"
+       style="font-size:31.21520805px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans"
+       x="397.45078"
+       y="164.05002"
+       id="text2845-4"
+       transform="scale(0.97781341,1.02269)"
+       inkscape:export-filename="/home/artagnon/authored/foss.in/10/res/logical-layers.png"
+       inkscape:export-xdpi="122.62874"
+       inkscape:export-ydpi="122.62874"><tspan
+         sodipodi:role="line"
+         id="tspan2847-7"
+         x="397.45078"
+         y="164.05002"
+         style="font-size:24.97216606px" /><tspan
+         sodipodi:role="line"
+         x="397.45078"
+         y="192.30272"
+         id="tspan2849-44"
+         style="font-size:22px">git-pull.sh, git-rebase.sh</tspan><tspan
+         sodipodi:role="line"
+         x="397.45078"
+         y="219.80272"
+         style="font-size:22px"
+         id="tspan2987">  git-stash.sh, git-am.sh</tspan></text>
+    <flowRoot
+       xml:space="preserve"
+       id="flowRoot2989"
+       style="font-size:32px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans"
+       transform="translate(6.6484,-471.82027)"
+       inkscape:export-filename="/home/artagnon/authored/foss.in/10/res/logical-layers.png"
+       inkscape:export-xdpi="122.62874"
+       inkscape:export-ydpi="122.62874"><flowRegion
+         id="flowRegion2991"><rect
+           id="rect2993"
+           width="224.25386"
+           height="74.751289"
+           x="30.304577"
+           y="656.38239"
+           style="font-size:32px" /></flowRegion><flowPara
+         id="flowPara2995">Porcelain</flowPara></flowRoot>    <flowRoot
+       xml:space="preserve"
+       id="flowRoot2989-3"
+       style="font-size:32px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans"
+       transform="translate(6.6484,-414.79475)"
+       inkscape:export-filename="/home/artagnon/authored/foss.in/10/res/logical-layers.png"
+       inkscape:export-xdpi="122.62874"
+       inkscape:export-ydpi="122.62874"><flowRegion
+         id="flowRegion2991-0"><rect
+           id="rect2993-7"
+           width="159.6041"
+           height="38.385799"
+           x="30.304577"
+           y="656.38239"
+           style="font-size:32px" /></flowRegion><flowPara
+         id="flowPara2995-8">Plumbing</flowPara></flowRoot>    <flowRoot
+       xml:space="preserve"
+       id="flowRoot2989-8"
+       style="font-size:32px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans"
+       transform="translate(7.007775,-362.86621)"
+       inkscape:export-filename="/home/artagnon/authored/foss.in/10/res/logical-layers.png"
+       inkscape:export-xdpi="122.62874"
+       inkscape:export-ydpi="122.62874"><flowRegion
+         id="flowRegion2991-8"><rect
+           id="rect2993-4"
+           width="125.2589"
+           height="38.385796"
+           x="30.304577"
+           y="656.38239"
+           style="font-size:32px" /></flowRegion><flowPara
+         id="flowPara2995-3">UI layer</flowPara></flowRoot>    <flowRoot
+       xml:space="preserve"
+       id="flowRoot2989-4"
+       style="font-size:32px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans"
+       transform="translate(9.882775,-304.02406)"
+       inkscape:export-filename="/home/artagnon/authored/foss.in/10/res/logical-layers.png"
+       inkscape:export-xdpi="122.62874"
+       inkscape:export-ydpi="122.62874"><flowRegion
+         id="flowRegion2991-9"><rect
+           id="rect2993-2"
+           width="248.49753"
+           height="42.426407"
+           x="30.304577"
+           y="656.38239"
+           style="font-size:32px" /></flowRegion><flowPara
+         id="flowPara2995-0">Transport</flowPara></flowRoot>    <flowRoot
+       xml:space="preserve"
+       id="flowRoot2989-9"
+       style="font-size:32px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans"
+       transform="translate(7.99215,-59.748576)"
+       inkscape:export-filename="/home/artagnon/authored/foss.in/10/res/logical-layers.png"
+       inkscape:export-xdpi="122.62874"
+       inkscape:export-ydpi="122.62874"><flowRegion
+         id="flowRegion2991-2"><rect
+           id="rect2993-6"
+           width="224.25386"
+           height="74.751289"
+           x="30.304577"
+           y="656.38239"
+           style="font-size:32px" /></flowRegion><flowPara
+         id="flowPara2995-6">Object API</flowPara></flowRoot>    <flowRoot
+       xml:space="preserve"
+       id="flowRoot2989-95"
+       style="font-size:32px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans"
+       transform="translate(6.6484,-141.1737)"
+       inkscape:export-filename="/home/artagnon/authored/foss.in/10/res/logical-layers.png"
+       inkscape:export-xdpi="122.62874"
+       inkscape:export-ydpi="122.62874"><flowRegion
+         id="flowRegion2991-04"><rect
+           id="rect2993-8"
+           width="138.47191"
+           height="47.982189"
+           x="30.304577"
+           y="656.38239"
+           style="font-size:32px" /></flowRegion><flowPara
+         id="flowPara2995-7">Packing</flowPara></flowRoot>    <flowRoot
+       xml:space="preserve"
+       id="flowRoot2989-2"
+       style="font-size:32px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans"
+       transform="translate(6.6484,-225.01745)"
+       inkscape:export-filename="/home/artagnon/authored/foss.in/10/res/logical-layers.png"
+       inkscape:export-xdpi="122.62874"
+       inkscape:export-ydpi="122.62874"><flowRegion
+         id="flowRegion2991-7"><rect
+           id="rect2993-22"
+           width="250.51782"
+           height="40.406101"
+           x="30.304577"
+           y="656.38239"
+           style="font-size:32px" /></flowRegion><flowPara
+         id="flowPara2995-61">Walkers</flowPara></flowRoot>    <flowRoot
+       xml:space="preserve"
+       id="flowRoot2989-6"
+       style="font-size:32px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans"
+       transform="translate(7.99215,5.2821745)"
+       inkscape:export-filename="/home/artagnon/authored/foss.in/10/res/logical-layers.png"
+       inkscape:export-xdpi="122.62874"
+       inkscape:export-ydpi="122.62874"><flowRegion
+         id="flowRegion2991-1"><rect
+           id="rect2993-5"
+           width="200.01019"
+           height="42.426407"
+           x="30.304577"
+           y="656.38239"
+           style="font-size:32px" /></flowRegion><flowPara
+         id="flowPara2995-9">Object store</flowPara></flowRoot>  </g>
+</svg>
