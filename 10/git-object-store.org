@@ -13,49 +13,38 @@
 \newcommand{\hl}[1 ]{\colorbox{lightgray}{#1}} % New command: hl to highlight text
 #+END_LaTeX
 
-* Introduction
+* Part I: The background noise
 ** Why is everyone obsessed with Git?
 #+BEGIN_LaTeX
-\begin{columns}
-\begin{column}[c]{4cm}
-\includegraphics[scale=0.3]{res/logo.png}
-\end{column}
-\begin{column}[c]{6cm}
-\begin{itemize}
-\item bup
-\item gimd
-\item gollum
-\item hg-git, git-bzr etc.
-\end{itemize}
-\end{column}
-\end{columns}
+\begin{center}\includegraphics[scale=0.5]{res/opening.png}\end{center}
 #+END_LaTeX
 \note[itemize]{
-\item Why build stuff on Git - what's the big deal?
-\item Git is stupid. Read: extensible.
+\item Filesystems, issue trackers, wikis, databases, and backup systems
+\item Why Git? Why not hg, bzr, darcs or SVN?
+\item Reason: Simplicity. The Git object model.
+\item The applications should indicate what Git really is.
 }
-** What's inside Git?
+** The guts of Git
 #+BEGIN_LaTeX
 \begin{center}\includegraphics[scale=0.4]{res/logical-layers.png}\end{center}
 #+END_LaTeX
 \note[itemize]{
 \item We're going to go all the way down to the object store
 \item Everything else is infrastructure
-\item Everything goes through the object API (except fast-import)
+\item The higher layers add limitations and functionality.
 \item What's special about the object store?
 }
-** ... and deeper into the object store we go
+** ... and the guts of the object store
 #+BEGIN_LaTeX
 \begin{center}\includegraphics[scale=0.7]{res/object-model.png}\end{center}
 #+END_LaTeX
 \note[itemize]{
-\item We're going to go all the way down to the object store
-\item Everything else is infrastructure
-\item Everything goes through the object API (except fast-import)
-\item What's special about the object store?
+\item This image is taken from ProGit, the book.
+\item Git is a key-value store: commit, tree, blob and tag.
+\item Commits are in a DAG.
 }
-* The fast-import protocol
-** There's a protocol?
+* Part II: A fast-import crash course
+** What does the protocol look like?
 #+BEGIN_LaTeX
 \begin{columns}
 \begin{column}[c]{2cm}
@@ -67,11 +56,10 @@
 commit refs/heads/remote-helper 
 mark :30
 author Ramkumar Ramachandra <artagnon@gmail.com> 1170314617 +0530
-committer Junio C Hamano <gitster@gmail.com> 1170325891 +0100
+committer Junio C Hamano <gitster@pobox.com> 1170325891 +0100
 data 111
-vcs-svn: Fix the delete operation in the treap
+vcs-svn: Fix delete operation in the treap
 
-Signed-off-by: Ramkumar Ramachandra <artagnon@gmail.com>
 from :28
 M 100644 :29 vcs-svn/trp.h
 
@@ -88,50 +76,55 @@ data 4941
 \end{columns}
 #+END_LaTeX
 \note[itemize]{
-\item Disclaimer: Simplified for easy of understanding
-\item fast-import bypasses everything
-\item Before the CP, only fast-import can access the objects it wrote
+\item fast-import uses the object API directly.
+\item Commands: commit, author, mark, data, from, blob
 \item ~350 commits/sec
 }
-** The world of remote helpers
+** The concept of a remote helper
 #+BEGIN_LaTeX
-\begin{columns}
-\begin{column}[c]{2cm}
-\includegraphics[scale=0.2]{res/logo.png}
-\end{column}
-\begin{column}[c]{8cm}
-\begin{itemize}
-\item Remote helpers!
-\end{itemize}
-\end{column}
-\end{columns}
-#+END_LaTeX
-\note[itemize]{
-\item Confession: My GSoC project was to build a remote helper for Subversion
-\item fast-import bypasses everything
-\item Before the CP, only fast-import can access the objects it wrote
-\item ~350 commits/sec
-}
-** Wait, what about other version control systems?
-#+BEGIN_LaTeX
-\begin{columns}
-\begin{column}[c]{2cm}
-\includegraphics[scale=0.2]{res/logo.png}
-\end{column}
-\begin{column}[c]{8cm}
-\begin{itemize}
-\item subversion/svnrdump
-\end{itemize}
-\end{column}
-\end{columns}
+\begin{center}\includegraphics[scale=0.3]{res/remote-helper.png}\end{center}
 #+END_LaTeX
 \note[itemize]{
 \item Confession: My GSoC project was to build a remote helper for Subversion
 \item Before the CP, only fast-import can access the objects it wrote
-\item ~120 revisions/sec
 }
-* The Meat
-** Yes, I'm going to talk about ongoing work
+** Bi-directional how?
+#+BEGIN_LaTeX
+\begin{columns}
+\begin{column}[c]{8cm}
+\begin{itemize}
+\item Keep track of written blobs using marks
+\item Fetch a previously written blob
+\item Apply the delta
+\item Write back the new blob
+\end{itemize}
+\end{column}
+\begin{column}[c]{2cm}
+\includegraphics[scale=0.4]{res/bidi.png}
+\end{column}
+\end{columns}
+#+END_LaTeX
+\note[itemize]{
+\item 'cat-blob' to retrive previously written blobs
+\item 'ls-tree' to to start from a non-zero point
+\item fast-import features -- backward compatibility
+}
+** The import/export and conversion machinery
+#+BEGIN_LaTeX
+\begin{columns}
+\begin{column}[c]{4cm}
+\includegraphics[scale=0.3]{res/piston.png}
+\end{column}
+\begin{column}[c]{6cm}
+\begin{itemize}
+\end{itemize}
+\end{column}
+\end{columns}
+#+END_LaTeX
+\note[itemize]{
+}
+* Part III: Conclusion
+** What you should hack on when you go home
 #+BEGIN_LaTeX
 \begin{columns}
 \begin{column}[c]{2cm}
@@ -139,58 +132,28 @@ data 4941
 \end{column}
 \begin{column}[c]{8cm}
 \begin{itemize}
-\item cat-blob and ls-tree
-\item Persistence
-\item map
-\item What happens when upstream rewrites history?
-\item fast-import $\to$ dumpfilev3 conversion
-\item The remote helper
+\item Foreign VCS interop: remote helpers, machinery, revision mapping
+\item Gitcore: transport layer, fast-import
+\item Related projects: bup, gimd
+\item Gitcore re-implementation: libgit2
+\item Heavy history rewrite tools: filter-branch
+\item Packfile optimization: narrow and sparse clones
+\item Heavy-duty validation/ testing tools
 \end{itemize}
 \end{column}
 \end{columns}
 #+END_LaTeX
 \note[itemize]{
-\item To apply deltas and start from a non-zero point
-\item Mapping SVN revisions to Git revisions seamlessly
+\item SVN interop: svnrdump
+\item ESR wrote reposurgeon
+\item Sverre wrote hg-remote-hg
+\item Vincent wrote libgit2 in SoC 2010
 \item The story of replace refs
-\item Reject non-ff pushes
 }
-* Conclusion
-** How this talk was useful to you, and what you should hack on when you go home
-#+BEGIN_LaTeX
-\begin{columns}
-\begin{column}[c]{2cm}
-\includegraphics[scale=0.2]{res/logo.png}
-\end{column}
-\begin{column}[c]{8cm}
-\begin{itemize}
-\item cat-blob and ls-tree
-\item Persistence
-\item map
-\item What happens when upstream rewrites history?
-\item fast-import $\to$ dumpfilev3 conversion
-\item The remote helper
-\end{itemize}
-\end{column}
-\end{columns}
-#+END_LaTeX
-\note[itemize]{
-\item To apply deltas and start from a non-zero point
-\item Mapping SVN revisions to Git revisions seamlessly
-\item The story of replace refs
-\item Reject non-ff pushes
-}
-** Appendix
-#+BEGIN_LaTeX
-\nocite{*}
-\bibliographystyle{acm}
-\bibliography{haskell-internals}
-#+END_LaTeX
-** Who am I again?
+** Can I have these slides?
 #+BEGIN_LaTeX
 Ramkumar Ramachandra\\
 artagnon@gmail.com\\
 \url{http://artagnon.com}\\
-Indian Institute of Technology, Kharagpur\\
-Presentation source available on \url{http://github.com/artagnon/foss.in}
+Source: \url{http://github.com/artagnon/foss.in}
 #+END_LaTeX
