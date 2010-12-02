@@ -1,0 +1,512 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="744.09448819"
+   height="1052.3622047"
+   id="svg2"
+   version="1.1"
+   inkscape:version="0.47 r22583"
+   sodipodi:docname="remote-helper.svg">
+  <defs
+     id="defs4">
+    <marker
+       inkscape:stockid="Arrow1Lstart"
+       orient="auto"
+       refY="0.0"
+       refX="0.0"
+       id="Arrow1Lstart"
+       style="overflow:visible">
+      <path
+         id="path3707"
+         d="M 0.0,0.0 L 5.0,-5.0 L -12.5,0.0 L 5.0,5.0 L 0.0,0.0 z "
+         style="fill-rule:evenodd;stroke:#000000;stroke-width:1.0pt;marker-start:none"
+         transform="scale(0.8) translate(12.5,0)" />
+    </marker>
+    <marker
+       inkscape:stockid="Arrow1Lend"
+       orient="auto"
+       refY="0.0"
+       refX="0.0"
+       id="Arrow1Lend"
+       style="overflow:visible;">
+      <path
+         id="path3710"
+         d="M 0.0,0.0 L 5.0,-5.0 L -12.5,0.0 L 5.0,5.0 L 0.0,0.0 z "
+         style="fill-rule:evenodd;stroke:#000000;stroke-width:1.0pt;marker-start:none;"
+         transform="scale(0.8) rotate(180) translate(12.5,0)" />
+    </marker>
+    <inkscape:perspective
+       sodipodi:type="inkscape:persp3d"
+       inkscape:vp_x="0 : 526.18109 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_z="744.09448 : 526.18109 : 1"
+       inkscape:persp3d-origin="372.04724 : 350.78739 : 1"
+       id="perspective10" />
+    <inkscape:perspective
+       id="perspective2838"
+       inkscape:persp3d-origin="0.5 : 0.33333333 : 1"
+       inkscape:vp_z="1 : 0.5 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_x="0 : 0.5 : 1"
+       sodipodi:type="inkscape:persp3d" />
+    <inkscape:perspective
+       id="perspective3656"
+       inkscape:persp3d-origin="0.5 : 0.33333333 : 1"
+       inkscape:vp_z="1 : 0.5 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_x="0 : 0.5 : 1"
+       sodipodi:type="inkscape:persp3d" />
+    <inkscape:perspective
+       id="perspective4538"
+       inkscape:persp3d-origin="0.5 : 0.33333333 : 1"
+       inkscape:vp_z="1 : 0.5 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_x="0 : 0.5 : 1"
+       sodipodi:type="inkscape:persp3d" />
+    <inkscape:perspective
+       id="perspective5425"
+       inkscape:persp3d-origin="0.5 : 0.33333333 : 1"
+       inkscape:vp_z="1 : 0.5 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_x="0 : 0.5 : 1"
+       sodipodi:type="inkscape:persp3d" />
+    <marker
+       inkscape:stockid="Arrow1Lend"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="Arrow1Lend-0"
+       style="overflow:visible">
+      <path
+         id="path3710-6"
+         d="M 0,0 5,-5 -12.5,0 5,5 0,0 z"
+         style="fill-rule:evenodd;stroke:#000000;stroke-width:1pt;marker-start:none"
+         transform="matrix(-0.8,0,0,-0.8,-10,0)" />
+    </marker>
+    <inkscape:perspective
+       id="perspective5831"
+       inkscape:persp3d-origin="0.5 : 0.33333333 : 1"
+       inkscape:vp_z="1 : 0.5 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_x="0 : 0.5 : 1"
+       sodipodi:type="inkscape:persp3d" />
+  </defs>
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="0.5"
+     inkscape:cx="305.01379"
+     inkscape:cy="497.80401"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     inkscape:snap-bbox="true"
+     inkscape:snap-object-midpoints="true"
+     inkscape:snap-center="true"
+     inkscape:bbox-nodes="true"
+     inkscape:snap-bbox-edge-midpoints="true"
+     inkscape:snap-bbox-midpoints="true"
+     inkscape:object-nodes="false"
+     inkscape:snap-smooth-nodes="true"
+     inkscape:snap-midpoints="true"
+     showguides="true"
+     inkscape:guide-bbox="true"
+     inkscape:snap-nodes="true"
+     inkscape:bbox-paths="false"
+     inkscape:window-width="1278"
+     inkscape:window-height="778"
+     inkscape:window-x="0"
+     inkscape:window-y="20"
+     inkscape:window-maximized="0"
+     inkscape:snap-global="true">
+    <sodipodi:guide
+       orientation="0,1"
+       position="568.57142,684.2857"
+       id="guide4574" />
+    <sodipodi:guide
+       orientation="0,1"
+       position="435.71427,750.88264"
+       id="guide4576" />
+    <sodipodi:guide
+       orientation="1,0"
+       position="222.85715,514.2857"
+       id="guide5345" />
+    <sodipodi:guide
+       orientation="1,0"
+       position="515.71428,510"
+       id="guide5347" />
+    <sodipodi:guide
+       orientation="0,1"
+       position="265.81069,125.61789"
+       id="guide5368" />
+    <sodipodi:guide
+       orientation="1,0"
+       position="37.584187,680.44132"
+       id="guide5384" />
+    <sodipodi:guide
+       orientation="1,0"
+       position="701.42857,684.2857"
+       id="guide5386" />
+    <sodipodi:guide
+       orientation="1,0"
+       position="369.28571,125.61789"
+       id="guide5388" />
+    <sodipodi:guide
+       orientation="0,1"
+       position="222.85715,514.2857"
+       id="guide5390" />
+    <sodipodi:guide
+       orientation="0,1"
+       position="222.85715,402.85713"
+       id="guide5392" />
+    <sodipodi:guide
+       orientation="-0.70710678,0.70710678"
+       position="-502,1120"
+       id="guide6599" />
+  </sodipodi:namedview>
+  <metadata
+     id="metadata7">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <g
+       id="g5363"
+       transform="translate(2.7832031e-6,-36.420075)"
+       inkscape:export-filename="/home/artagnon/authored/foss.in/10/res/fast-import.png"
+       inkscape:export-xdpi="134.9359"
+       inkscape:export-ydpi="134.9359">
+      <rect
+         y="963.16437"
+         x="222.85715"
+         height="77.14286"
+         width="292.85712"
+         id="rect2816"
+         style="fill:#aaffaa;fill-opacity:1;stroke:none" />
+      <text
+         id="text2818"
+         y="1016.6479"
+         x="287.62555"
+         style="font-size:40px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans"
+         xml:space="preserve"><tspan
+           y="1016.6479"
+           x="287.62555"
+           id="tspan2820"
+           sodipodi:role="line">Git Core</tspan></text>
+    </g>
+    <g
+       id="g2852"
+       transform="translate(28.571428,154.28571)"
+       inkscape:export-filename="/home/artagnon/authored/foss.in/10/res/fast-import.png"
+       inkscape:export-xdpi="134.9359"
+       inkscape:export-ydpi="134.9359">
+      <path
+         sodipodi:nodetypes="css"
+         id="path2822"
+         d="m 97.046457,586.55149 c 0,0 30.308273,166.02653 45.094713,109.89328 19.99983,-75.92465 58.24353,10.28688 95.09809,76.01381"
+         style="fill:none;stroke:#000000;stroke-width:1.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
+      <path
+         transform="translate(0,-8)"
+         sodipodi:end="3.1336873"
+         sodipodi:start="0"
+         d="m 137.14286,552.36218 c 0,23.66935 -16.62943,42.85715 -37.14286,42.85715 -20.398858,0 -36.980437,-18.98194 -37.141696,-42.51835 L 100,552.36218 z"
+         sodipodi:ry="42.857143"
+         sodipodi:rx="37.142857"
+         sodipodi:cy="552.36218"
+         sodipodi:cx="100"
+         id="path2824"
+         style="fill:none;stroke:#000000;stroke-width:1.5;stroke-miterlimit:4;stroke-dasharray:none"
+         sodipodi:type="arc" />
+      <path
+         id="path2828"
+         d="m 79.891729,544.12174 0,-26.15354"
+         style="fill:none;stroke:#000000;stroke-width:1.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
+      <path
+         id="path2828-5"
+         d="m 117.25113,544.47045 0,-26.15354"
+         style="fill:none;stroke:#000000;stroke-width:1.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
+    </g>
+    <g
+       id="g4524"
+       transform="translate(-3.8146973e-6,1.7492189e-6)"
+       inkscape:export-filename="/home/artagnon/authored/foss.in/10/res/fast-import.png"
+       inkscape:export-xdpi="134.9359"
+       inkscape:export-ydpi="134.9359">
+      <rect
+         y="538.07648"
+         x="37.58419"
+         height="111.42856"
+         width="185.27296"
+         id="rect3630"
+         style="fill:#aaaaff;stroke:none" />
+      <text
+         id="text3632"
+         y="579.21069"
+         x="53.876957"
+         style="font-size:40px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans"
+         xml:space="preserve"><tspan
+           y="579.21069"
+           x="53.876957"
+           id="tspan3634"
+           sodipodi:role="line">Remote</tspan><tspan
+           id="tspan3636"
+           y="629.21069"
+           x="53.876957"
+           sodipodi:role="line"> helper</tspan></text>
+    </g>
+    <g
+       id="g3697"
+       transform="matrix(1,0,0,0.93235797,-285.27296,97.334653)"
+       inkscape:export-filename="/home/artagnon/authored/foss.in/10/res/fast-import.png"
+       inkscape:export-xdpi="134.9359"
+       inkscape:export-ydpi="134.9359">
+      <rect
+         y="220.93361"
+         x="322.85715"
+         height="71.428574"
+         width="265.71429"
+         id="rect3642"
+         style="fill:#e9ddaf;fill-opacity:1;stroke:none" />
+      <text
+         id="text3644"
+         y="267.68304"
+         x="344.88422"
+         style="font-size:40px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans"
+         xml:space="preserve"><tspan
+           y="267.68304"
+           x="344.88422"
+           id="tspan3646"
+           sodipodi:role="line">fast-import</tspan></text>
+    </g>
+    <g
+       id="g3692"
+       transform="translate(157.14286,-14.285719)"
+       inkscape:export-filename="/home/artagnon/authored/foss.in/10/res/fast-import.png"
+       inkscape:export-xdpi="134.9359"
+       inkscape:export-ydpi="134.9359">
+      <rect
+         y="315.76526"
+         x="278.57141"
+         height="66.596939"
+         width="265.71429"
+         id="rect3642-0"
+         style="fill:#e9ddaf;fill-opacity:1;stroke:none" />
+      <text
+         id="text3644-3"
+         y="360.09888"
+         x="301.84848"
+         style="font-size:40px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans"
+         xml:space="preserve"><tspan
+           y="360.09888"
+           x="301.84848"
+           id="tspan3646-6"
+           sodipodi:role="line">fast-export</tspan></text>
+    </g>
+    <text
+       xml:space="preserve"
+       style="font-size:40px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans"
+       x="194.28572"
+       y="738.07648"
+       id="text3676"
+       inkscape:export-filename="/home/artagnon/authored/foss.in/10/res/fast-import.png"
+       inkscape:export-xdpi="134.9359"
+       inkscape:export-ydpi="134.9359"><tspan
+         sodipodi:role="line"
+         id="tspan3678"
+         x="194.28572"
+         y="738.07648"
+         style="font-size:28px">transport-helper.c</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:40px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans"
+       x="282.85715"
+       y="786.64789"
+       id="text3680"
+       inkscape:export-filename="/home/artagnon/authored/foss.in/10/res/fast-import.png"
+       inkscape:export-xdpi="134.9359"
+       inkscape:export-ydpi="134.9359"><tspan
+         sodipodi:role="line"
+         id="tspan3682"
+         x="282.85715"
+         y="786.64789"
+         style="font-size:28px">connect_helper</tspan><tspan
+         sodipodi:role="line"
+         x="282.85715"
+         y="821.64789"
+         id="tspan3684"
+         style="font-size:28px">get_importer</tspan><tspan
+         sodipodi:role="line"
+         x="282.85715"
+         y="856.64789"
+         id="tspan3688"
+         style="font-size:28px">get_exporter</tspan></text>
+    <path
+       style="fill:#000000;stroke:#000000;stroke-width:3;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:3,12;stroke-dashoffset:0;marker-start:url(#Arrow1Lstart);marker-mid:none;marker-end:url(#Arrow1Lend)"
+       d="m 224.37493,598.07647 291.33935,0"
+       id="path3702"
+       inkscape:export-filename="/home/artagnon/authored/foss.in/10/res/fast-import.png"
+       inkscape:export-xdpi="134.9359"
+       inkscape:export-ydpi="134.9359" />
+    <g
+       id="g5403"
+       inkscape:export-filename="/home/artagnon/authored/foss.in/10/res/fast-import.png"
+       inkscape:export-xdpi="134.9359"
+       inkscape:export-ydpi="134.9359">
+      <rect
+         y="538.07648"
+         x="515.71429"
+         height="111.42857"
+         width="185.71429"
+         id="rect3630-0"
+         style="fill:#aaaaff;stroke:none" />
+      <text
+         id="text3632-6"
+         y="579.23663"
+         x="532.44836"
+         style="font-size:40px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans"
+         xml:space="preserve"><tspan
+           y="579.23663"
+           x="532.44836"
+           id="tspan3634-3"
+           sodipodi:role="line">Remote</tspan><tspan
+           id="tspan3636-2"
+           y="629.23663"
+           x="532.44836"
+           sodipodi:role="line"> server</tspan></text>
+    </g>
+    <path
+       id="path5396"
+       d="m 37.28571,208.36218 664,0"
+       style="fill:none;stroke:#000000;stroke-width:3;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:3, 18;stroke-dashoffset:0"
+       inkscape:export-filename="/home/artagnon/authored/foss.in/10/res/fast-import.png"
+       inkscape:export-xdpi="134.9359"
+       inkscape:export-ydpi="134.9359" />
+    <text
+       id="text4564"
+       y="585.34991"
+       x="284.19196"
+       style="font-size:40px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans"
+       xml:space="preserve"
+       inkscape:export-filename="/home/artagnon/authored/foss.in/10/res/fast-import.png"
+       inkscape:export-xdpi="134.9359"
+       inkscape:export-ydpi="134.9359"><tspan
+         style="font-size:28px"
+         y="585.34991"
+         x="284.19196"
+         id="tspan4566"
+         sodipodi:role="line">Network API</tspan></text>
+    <path
+       sodipodi:nodetypes="cc"
+       id="path4570"
+       d="m 130,538.07648 24.44133,-170"
+       style="fill:none;stroke:#000000;stroke-width:1.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;marker-mid:none;marker-end:url(#Arrow1Lend)"
+       inkscape:export-filename="/home/artagnon/authored/foss.in/10/res/fast-import.png"
+       inkscape:export-xdpi="134.9359"
+       inkscape:export-ydpi="134.9359" />
+    <path
+       id="path4572"
+       d="m 222.85715,538.07648 345.71427,-170"
+       style="fill:none;stroke:#000000;stroke-width:1.50000000000000000;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;marker-end:none;marker-start:url(#Arrow1Lstart)"
+       sodipodi:nodetypes="cc"
+       inkscape:export-filename="/home/artagnon/authored/foss.in/10/res/fast-import.png"
+       inkscape:export-xdpi="134.9359"
+       inkscape:export-ydpi="134.9359" />
+    <text
+       xml:space="preserve"
+       style="font-size:40px;font-style:normal;font-weight:normal;fill:#ab37c8;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans"
+       x="409.17133"
+       y="476.34991"
+       id="text5370"
+       inkscape:export-filename="/home/artagnon/authored/foss.in/10/res/fast-import.png"
+       inkscape:export-xdpi="134.9359"
+       inkscape:export-ydpi="134.9359"><tspan
+         sodipodi:role="line"
+         id="tspan5372"
+         x="409.17133"
+         y="476.34991"
+         style="font-size:28px;fill:#ab37c8">push</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:40px;font-style:normal;font-weight:normal;fill:#ab37c8;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans"
+       x="41.142857"
+       y="436.36218"
+       id="text5374"
+       inkscape:export-filename="/home/artagnon/authored/foss.in/10/res/fast-import.png"
+       inkscape:export-xdpi="134.9359"
+       inkscape:export-ydpi="134.9359"><tspan
+         sodipodi:role="line"
+         id="tspan5376"
+         x="41.142857"
+         y="436.36218"
+         style="font-size:28px;fill:#ab37c8">fetch,</tspan><tspan
+         sodipodi:role="line"
+         x="41.142857"
+         y="471.36218"
+         id="tspan5378"
+         style="font-size:28px;fill:#ab37c8">import</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:40px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans"
+       x="247.07867"
+       y="186.54187"
+       id="text5409"
+       inkscape:export-filename="/home/artagnon/authored/foss.in/10/res/fast-import.png"
+       inkscape:export-xdpi="134.9359"
+       inkscape:export-ydpi="134.9359"><tspan
+         sodipodi:role="line"
+         id="tspan5411"
+         x="247.07867"
+         y="186.54187">Object store</tspan></text>
+    <path
+       sodipodi:nodetypes="cc"
+       id="path4570-1"
+       d="M 157.54747,537.21933 184.44133,368.07648"
+       style="fill:none;stroke:#ff0000;stroke-width:1.50000000000000000;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;marker-mid:none;marker-end:none;marker-start:url(#Arrow1Lstart)"
+       inkscape:export-filename="/home/artagnon/authored/foss.in/10/res/fast-import.png"
+       inkscape:export-xdpi="134.9359"
+       inkscape:export-ydpi="134.9359" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:1.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-start:none;marker-end:url(#Arrow1Lend-0);stroke-miterlimit:4;stroke-dasharray:none"
+       d="m 154.44133,300.49229 0,-92.13011"
+       id="path5821"
+       inkscape:export-filename="/home/artagnon/authored/foss.in/10/res/fast-import.png"
+       inkscape:export-xdpi="134.9359"
+       inkscape:export-ydpi="134.9359" />
+    <path
+       style="fill:none;stroke:#ff0000;stroke-width:1.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;marker-start:url(#Arrow1Lstart)"
+       d="m 184.44133,300.49229 0,-92.13011"
+       id="path5821-5"
+       inkscape:export-filename="/home/artagnon/authored/foss.in/10/res/fast-import.png"
+       inkscape:export-xdpi="134.9359"
+       inkscape:export-ydpi="134.9359" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:1.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-end:url(#Arrow1Lend-0);stroke-miterlimit:4;stroke-dasharray:none"
+       d="m 568.57142,206.36218 0,95.11736"
+       id="path6979"
+       inkscape:export-filename="/home/artagnon/authored/foss.in/10/res/fast-import.png"
+       inkscape:export-xdpi="134.9359"
+       inkscape:export-ydpi="134.9359" />
+  </g>
+</svg>

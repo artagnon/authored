@@ -172,19 +172,19 @@
        id="guide3003" />
     <sodipodi:guide
        orientation="0,1"
-       position="504.68834,597.93678"
+       position="518.20825,597.93678"
        id="guide3005" />
     <sodipodi:guide
        orientation="0,1"
-       position="504.68834,514.09303"
+       position="518.20825,514.09303"
        id="guide3007" />
     <sodipodi:guide
        orientation="0,1"
-       position="500.1606,432.66791"
+       position="518.20825,432.66791"
        id="guide3009" />
     <sodipodi:guide
        orientation="0,1"
-       position="594.15189,367.63716"
+       position="518.20825,367.63715"
        id="guide3011" />
     <sodipodi:guide
        orientation="1,0"
@@ -207,7 +207,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title />
+        <dc:title></dc:title>
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -223,8 +223,8 @@
        x="339.41125"
        y="659.19757"
        inkscape:export-filename="/home/artagnon/authored/foss.in/10/res/logical-layers.png"
-       inkscape:export-xdpi="122.62874"
-       inkscape:export-ydpi="122.62874" />
+       inkscape:export-xdpi="136.50366"
+       inkscape:export-ydpi="136.50366" />
     <rect
        style="fill:#00aa00;fill-opacity:0.38823529000000001;fill-rule:evenodd;stroke:none"
        id="rect2818"
@@ -233,8 +233,8 @@
        x="339.41125"
        y="580.19098"
        inkscape:export-filename="/home/artagnon/authored/foss.in/10/res/logical-layers.png"
-       inkscape:export-xdpi="122.62874"
-       inkscape:export-ydpi="122.62874" />
+       inkscape:export-xdpi="136.50366"
+       inkscape:export-ydpi="136.50366" />
     <rect
        style="fill:#00ff00;fill-opacity:0.38823529000000001;fill-rule:evenodd;stroke:none"
        id="rect2820"
@@ -243,8 +243,8 @@
        x="339.41125"
        y="496.34729"
        inkscape:export-filename="/home/artagnon/authored/foss.in/10/res/logical-layers.png"
-       inkscape:export-xdpi="122.62874"
-       inkscape:export-ydpi="122.62874" />
+       inkscape:export-xdpi="136.50366"
+       inkscape:export-ydpi="136.50366" />
     <rect
        style="fill:#55ff55;fill-opacity:0.38823529000000001;fill-rule:evenodd;stroke:none"
        id="rect2822"
@@ -253,8 +253,8 @@
        x="339.41125"
        y="412.50354"
        inkscape:export-filename="/home/artagnon/authored/foss.in/10/res/logical-layers.png"
-       inkscape:export-xdpi="122.62874"
-       inkscape:export-ydpi="122.62874" />
+       inkscape:export-xdpi="136.50366"
+       inkscape:export-ydpi="136.50366" />
     <text
        xml:space="preserve"
        style="font-size:31.21525383px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans"
@@ -263,8 +263,8 @@
        id="text2845"
        transform="scale(0.97781197,1.0226915)"
        inkscape:export-filename="/home/artagnon/authored/foss.in/10/res/logical-layers.png"
-       inkscape:export-xdpi="122.62874"
-       inkscape:export-ydpi="122.62874"><tspan
+       inkscape:export-xdpi="136.50366"
+       inkscape:export-ydpi="136.50366"><tspan
          sodipodi:role="line"
          id="tspan2847"
          x="458.69266"
@@ -293,8 +293,8 @@
        id="text2845-8"
        transform="scale(0.97781341,1.02269)"
        inkscape:export-filename="/home/artagnon/authored/foss.in/10/res/logical-layers.png"
-       inkscape:export-xdpi="122.62874"
-       inkscape:export-ydpi="122.62874"><tspan
+       inkscape:export-xdpi="136.50366"
+       inkscape:export-ydpi="136.50366"><tspan
          sodipodi:role="line"
          id="tspan2847-4"
          x="387.2081"
@@ -313,53 +313,53 @@
     <text
        xml:space="preserve"
        style="font-size:31.21500015px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans"
-       x="404.51227"
-       y="488.81244"
+       x="418.33896"
+       y="488.81241"
        id="text2845-3"
        transform="scale(0.97781341,1.02269)"
        inkscape:export-filename="/home/artagnon/authored/foss.in/10/res/logical-layers.png"
-       inkscape:export-xdpi="122.62874"
-       inkscape:export-ydpi="122.62874"><tspan
+       inkscape:export-xdpi="136.50366"
+       inkscape:export-ydpi="136.50366"><tspan
          sodipodi:role="line"
          id="tspan2847-6"
-         x="404.51227"
-         y="488.81244"
+         x="418.33896"
+         y="488.81241"
          style="font-size:31.21500015px" /><tspan
          sodipodi:role="line"
-         x="404.51227"
+         x="418.33896"
          y="518.64612"
          id="tspan2849-1"
          style="font-size:22px">pack-*.c, unpack-*.c</tspan><tspan
          sodipodi:role="line"
-         x="404.51227"
+         x="418.33896"
          y="546.14612"
          style="font-size:22px"
          id="tspan2902">(.git/objects/pack/*)</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:31.21520805px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans"
-       x="401.20367"
+       x="415.03036"
        y="410.54221"
        id="text2845-32"
        transform="scale(0.97781341,1.02269)"
        inkscape:export-filename="/home/artagnon/authored/foss.in/10/res/logical-layers.png"
-       inkscape:export-xdpi="122.62874"
-       inkscape:export-ydpi="122.62874"><tspan
+       inkscape:export-xdpi="136.50366"
+       inkscape:export-ydpi="136.50366"><tspan
          sodipodi:role="line"
          id="tspan2847-0"
-         x="401.20367"
+         x="415.03036"
          y="410.54221"
          style="font-size:24.97216606px" /><tspan
          sodipodi:role="line"
-         x="401.20367"
+         x="415.03036"
          y="438.79492"
          style="font-size:22px"
          id="tspan2919">walker.c, tree-walk.c,</tspan><tspan
          sodipodi:role="line"
-         x="401.20367"
+         x="415.03036"
          y="466.29492"
          style="font-size:22px"
-         id="tspan2917">       diffcore-*.c</tspan></text>
+         id="tspan2917">        diffcore-*.c</tspan></text>
     <rect
        style="fill:#aaffaa;fill-opacity:0.38823529000000001;fill-rule:evenodd;stroke:none"
        id="rect2923"
@@ -368,8 +368,8 @@
        x="339.41125"
        y="338.33408"
        inkscape:export-filename="/home/artagnon/authored/foss.in/10/res/logical-layers.png"
-       inkscape:export-xdpi="122.62874"
-       inkscape:export-ydpi="122.62874" />
+       inkscape:export-xdpi="136.50366"
+       inkscape:export-ydpi="136.50366" />
     <text
        xml:space="preserve"
        style="font-size:31.21500015px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans"
@@ -378,8 +378,8 @@
        id="text2845-5"
        transform="scale(0.97781341,1.02269)"
        inkscape:export-filename="/home/artagnon/authored/foss.in/10/res/logical-layers.png"
-       inkscape:export-xdpi="122.62874"
-       inkscape:export-ydpi="122.62874"><tspan
+       inkscape:export-xdpi="136.50366"
+       inkscape:export-ydpi="136.50366"><tspan
          sodipodi:role="line"
          id="tspan2847-5"
          x="361.62021"
@@ -403,8 +403,8 @@
        x="339.41125"
        y="294.81918"
        inkscape:export-filename="/home/artagnon/authored/foss.in/10/res/logical-layers.png"
-       inkscape:export-xdpi="122.62874"
-       inkscape:export-ydpi="122.62874" />
+       inkscape:export-xdpi="136.50366"
+       inkscape:export-ydpi="136.50366" />
     <text
        xml:space="preserve"
        style="font-size:31.21520805px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans"
@@ -413,8 +413,8 @@
        id="text2845-6"
        transform="scale(0.97781341,1.02269)"
        inkscape:export-filename="/home/artagnon/authored/foss.in/10/res/logical-layers.png"
-       inkscape:export-xdpi="122.62874"
-       inkscape:export-ydpi="122.62874"><tspan
+       inkscape:export-xdpi="136.50366"
+       inkscape:export-ydpi="136.50366"><tspan
          sodipodi:role="line"
          id="tspan2847-56"
          x="466.65622"
@@ -433,8 +433,8 @@
        x="339.41125"
        y="234.81909"
        inkscape:export-filename="/home/artagnon/authored/foss.in/10/res/logical-layers.png"
-       inkscape:export-xdpi="122.62874"
-       inkscape:export-ydpi="122.62874" />
+       inkscape:export-xdpi="136.50366"
+       inkscape:export-ydpi="136.50366" />
     <text
        xml:space="preserve"
        style="font-size:31.21520805px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans"
@@ -443,8 +443,8 @@
        id="text2845-7"
        transform="scale(0.97781341,1.02269)"
        inkscape:export-filename="/home/artagnon/authored/foss.in/10/res/logical-layers.png"
-       inkscape:export-xdpi="122.62874"
-       inkscape:export-ydpi="122.62874"><tspan
+       inkscape:export-xdpi="136.50366"
+       inkscape:export-ydpi="136.50366"><tspan
          sodipodi:role="line"
          id="tspan2847-45"
          x="410.43298"
@@ -468,8 +468,8 @@
        x="339.41125"
        y="174.22295"
        inkscape:export-filename="/home/artagnon/authored/foss.in/10/res/logical-layers.png"
-       inkscape:export-xdpi="122.62874"
-       inkscape:export-ydpi="122.62874" />
+       inkscape:export-xdpi="136.50366"
+       inkscape:export-ydpi="136.50366" />
     <text
        xml:space="preserve"
        style="font-size:31.21520805px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans"
@@ -478,8 +478,8 @@
        id="text2845-4"
        transform="scale(0.97781341,1.02269)"
        inkscape:export-filename="/home/artagnon/authored/foss.in/10/res/logical-layers.png"
-       inkscape:export-xdpi="122.62874"
-       inkscape:export-ydpi="122.62874"><tspan
+       inkscape:export-xdpi="136.50366"
+       inkscape:export-ydpi="136.50366"><tspan
          sodipodi:role="line"
          id="tspan2847-7"
          x="397.45078"
@@ -501,8 +501,8 @@
        style="font-size:32px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans"
        transform="translate(6.6484,-471.82027)"
        inkscape:export-filename="/home/artagnon/authored/foss.in/10/res/logical-layers.png"
-       inkscape:export-xdpi="122.62874"
-       inkscape:export-ydpi="122.62874"><flowRegion
+       inkscape:export-xdpi="136.50366"
+       inkscape:export-ydpi="136.50366"><flowRegion
          id="flowRegion2991"><rect
            id="rect2993"
            width="224.25386"
@@ -516,8 +516,8 @@
        style="font-size:32px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans"
        transform="translate(6.6484,-414.79475)"
        inkscape:export-filename="/home/artagnon/authored/foss.in/10/res/logical-layers.png"
-       inkscape:export-xdpi="122.62874"
-       inkscape:export-ydpi="122.62874"><flowRegion
+       inkscape:export-xdpi="136.50366"
+       inkscape:export-ydpi="136.50366"><flowRegion
          id="flowRegion2991-0"><rect
            id="rect2993-7"
            width="159.6041"
@@ -531,8 +531,8 @@
        style="font-size:32px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans"
        transform="translate(7.007775,-362.86621)"
        inkscape:export-filename="/home/artagnon/authored/foss.in/10/res/logical-layers.png"
-       inkscape:export-xdpi="122.62874"
-       inkscape:export-ydpi="122.62874"><flowRegion
+       inkscape:export-xdpi="136.50366"
+       inkscape:export-ydpi="136.50366"><flowRegion
          id="flowRegion2991-8"><rect
            id="rect2993-4"
            width="125.2589"
@@ -546,8 +546,8 @@
        style="font-size:32px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans"
        transform="translate(9.882775,-304.02406)"
        inkscape:export-filename="/home/artagnon/authored/foss.in/10/res/logical-layers.png"
-       inkscape:export-xdpi="122.62874"
-       inkscape:export-ydpi="122.62874"><flowRegion
+       inkscape:export-xdpi="136.50366"
+       inkscape:export-ydpi="136.50366"><flowRegion
          id="flowRegion2991-9"><rect
            id="rect2993-2"
            width="248.49753"
@@ -561,8 +561,8 @@
        style="font-size:32px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans"
        transform="translate(7.99215,-59.748576)"
        inkscape:export-filename="/home/artagnon/authored/foss.in/10/res/logical-layers.png"
-       inkscape:export-xdpi="122.62874"
-       inkscape:export-ydpi="122.62874"><flowRegion
+       inkscape:export-xdpi="136.50366"
+       inkscape:export-ydpi="136.50366"><flowRegion
          id="flowRegion2991-2"><rect
            id="rect2993-6"
            width="224.25386"
@@ -576,8 +576,8 @@
        style="font-size:32px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans"
        transform="translate(6.6484,-141.1737)"
        inkscape:export-filename="/home/artagnon/authored/foss.in/10/res/logical-layers.png"
-       inkscape:export-xdpi="122.62874"
-       inkscape:export-ydpi="122.62874"><flowRegion
+       inkscape:export-xdpi="136.50366"
+       inkscape:export-ydpi="136.50366"><flowRegion
          id="flowRegion2991-04"><rect
            id="rect2993-8"
            width="138.47191"
@@ -591,8 +591,8 @@
        style="font-size:32px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans"
        transform="translate(6.6484,-225.01745)"
        inkscape:export-filename="/home/artagnon/authored/foss.in/10/res/logical-layers.png"
-       inkscape:export-xdpi="122.62874"
-       inkscape:export-ydpi="122.62874"><flowRegion
+       inkscape:export-xdpi="136.50366"
+       inkscape:export-ydpi="136.50366"><flowRegion
          id="flowRegion2991-7"><rect
            id="rect2993-22"
            width="250.51782"
@@ -606,8 +606,8 @@
        style="font-size:32px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans"
        transform="translate(7.99215,5.2821745)"
        inkscape:export-filename="/home/artagnon/authored/foss.in/10/res/logical-layers.png"
-       inkscape:export-xdpi="122.62874"
-       inkscape:export-ydpi="122.62874"><flowRegion
+       inkscape:export-xdpi="136.50366"
+       inkscape:export-ydpi="136.50366"><flowRegion
          id="flowRegion2991-1"><rect
            id="rect2993-5"
            width="200.01019"
