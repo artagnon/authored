@@ -16,7 +16,7 @@
 * Part I: The background noise
 ** Why is everyone obsessed with Git?
 #+BEGIN_LaTeX
-\begin{center}\includegraphics[scale=0.5]{res/opening.png}\end{center}
+\begin{center}\includegraphics[scale=0.5]{res/opening.pdf}\end{center}
 #+END_LaTeX
 \note[itemize]{
 \item Filesystems, issue trackers, wikis, databases, and backup systems
@@ -26,7 +26,7 @@
 }
 ** The guts of Git
 #+BEGIN_LaTeX
-\begin{center}\includegraphics[scale=0.4]{res/logical-layers.png}\end{center}
+\begin{center}\includegraphics[scale=0.4]{res/logical-layers.pdf}\end{center}
 #+END_LaTeX
 \note[itemize]{
 \item We're going to go all the way down to the object store
@@ -48,7 +48,7 @@
 #+BEGIN_LaTeX
 \begin{columns}
 \begin{column}[c]{2cm}
-\includegraphics[scale=0.2]{res/protocol.png}
+\includegraphics[scale=0.2]{res/protocol.pdf}
 \end{column}
 \begin{column}[c]{8cm}
 \scriptsize
@@ -82,7 +82,7 @@ data 4941
 }
 ** The concept of a remote helper
 #+BEGIN_LaTeX
-\begin{center}\includegraphics[scale=0.3]{res/remote-helper.png}\end{center}
+\begin{center}\includegraphics[scale=0.3]{res/remote-helper.pdf}\end{center}
 #+END_LaTeX
 \note[itemize]{
 \item Confession: My GSoC project was to build a remote helper for Subversion
@@ -91,7 +91,7 @@ data 4941
 ** Bi-directional how?
 #+BEGIN_LaTeX
 \begin{columns}
-\begin{column}[c]{8cm}
+\begin{column}[c]{7cm}
 \begin{itemize}
 \item Keep track of written blobs using marks
 \item Fetch a previously written blob
@@ -99,8 +99,8 @@ data 4941
 \item Write back the new blob
 \end{itemize}
 \end{column}
-\begin{column}[c]{2cm}
-\includegraphics[scale=0.4]{res/bidi.png}
+\begin{column}[c]{3cm}
+\includegraphics[scale=0.2]{res/bidi.pdf}
 \end{column}
 \end{columns}
 #+END_LaTeX
@@ -113,7 +113,7 @@ data 4941
 #+BEGIN_LaTeX
 \begin{columns}
 \begin{column}[c]{4cm}
-\includegraphics[scale=0.3]{res/piston.png}
+\includegraphics[scale=0.3]{res/gear.pdf}
 \end{column}
 \begin{column}[c]{6cm}
 \begin{itemize}
@@ -127,10 +127,10 @@ data 4941
 ** What you should hack on when you go home
 #+BEGIN_LaTeX
 \begin{columns}
-\begin{column}[c]{2cm}
-\includegraphics[scale=0.2]{res/logo.png}
+\begin{column}[c]{3cm}
+\includegraphics[scale=0.2]{res/spanner-hammer.pdf}
 \end{column}
-\begin{column}[c]{8cm}
+\begin{column}[c]{7cm}
 \begin{itemize}
 \item Foreign VCS interop: remote helpers, machinery, revision mapping
 \item Gitcore: transport layer, fast-import
@@ -155,5 +155,6 @@ data 4941
 Ramkumar Ramachandra\\
 artagnon@gmail.com\\
 \url{http://artagnon.com}\\
-Source: \url{http://github.com/artagnon/foss.in}
+Source: \url{http://github.com/artagnon/foss.in}\\
+\vfill\hfill\includegraphics[scale=0.2]{res/cc.pdf}
 #+END_LaTeX

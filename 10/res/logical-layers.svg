@@ -9,8 +9,8 @@
    xmlns="http://www.w3.org/2000/svg"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   width="744.09448819"
-   height="1052.3622047"
+   width="658.98187"
+   height="536.0296"
    id="svg2"
    version="1.1"
    inkscape:version="0.47 r22583"
@@ -131,8 +131,8 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="0.5"
-     inkscape:cx="378.19298"
-     inkscape:cy="608.52138"
+     inkscape:cx="340.16958"
+     inkscape:cy="266.41174"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -156,47 +156,47 @@
      inkscape:object-nodes="false">
     <sodipodi:guide
        orientation="0,1"
-       position="518.20825,847.84117"
+       position="480.18485,505.73153"
        id="guide2997" />
     <sodipodi:guide
        orientation="0,1"
-       position="518.9858,787.71408"
+       position="480.9624,445.60444"
        id="guide2999" />
     <sodipodi:guide
        orientation="0,1"
-       position="516.81017,735.78554"
+       position="478.78677,393.6759"
        id="guide3001" />
     <sodipodi:guide
        orientation="0,1"
-       position="516.52328,676.94339"
+       position="478.49988,334.83375"
        id="guide3003" />
     <sodipodi:guide
        orientation="0,1"
-       position="518.20825,597.93678"
+       position="480.18485,255.82714"
        id="guide3005" />
     <sodipodi:guide
        orientation="0,1"
-       position="518.20825,514.09303"
+       position="480.18485,171.98339"
        id="guide3007" />
     <sodipodi:guide
        orientation="0,1"
-       position="518.20825,432.66791"
+       position="480.18485,90.558268"
        id="guide3009" />
     <sodipodi:guide
        orientation="0,1"
-       position="518.20825,367.63715"
+       position="480.18485,25.527508"
        id="guide3011" />
     <sodipodi:guide
        orientation="1,0"
-       position="40.101525,803.19846"
+       position="2.078125,461.08882"
        id="guide3013" />
     <sodipodi:guide
        orientation="1,0"
-       position="697.00525,843.34117"
+       position="658.98185,501.23153"
        id="guide3489" />
     <sodipodi:guide
        orientation="1,0"
-       position="339.41125,843.34117"
+       position="301.38785,501.23153"
        id="guide3491" />
   </sodipodi:namedview>
   <metadata
@@ -207,16 +207,17 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
   <g
      inkscape:label="Layer 1"
      inkscape:groupmode="layer"
-     id="layer1">
+     id="layer1"
+     transform="translate(-38.0234,-174.22295)">
     <rect
-       style="fill:#005500;fill-opacity:0.38823529000000001;fill-rule:evenodd;stroke:none"
+       style="fill:#005500;fill-opacity:0.38823529;fill-rule:evenodd;stroke:none"
        id="rect2816"
        width="357.59399"
        height="51.05497"
@@ -226,7 +227,7 @@
        inkscape:export-xdpi="136.50366"
        inkscape:export-ydpi="136.50366" />
     <rect
-       style="fill:#00aa00;fill-opacity:0.38823529000000001;fill-rule:evenodd;stroke:none"
+       style="fill:#00aa00;fill-opacity:0.38823529;fill-rule:evenodd;stroke:none"
        id="rect2818"
        width="357.59399"
        height="79.006584"
@@ -236,7 +237,7 @@
        inkscape:export-xdpi="136.50366"
        inkscape:export-ydpi="136.50366" />
     <rect
-       style="fill:#00ff00;fill-opacity:0.38823529000000001;fill-rule:evenodd;stroke:none"
+       style="fill:#00ff00;fill-opacity:0.38823529;fill-rule:evenodd;stroke:none"
        id="rect2820"
        width="357.59399"
        height="83.843719"
@@ -246,7 +247,7 @@
        inkscape:export-xdpi="136.50366"
        inkscape:export-ydpi="136.50366" />
     <rect
-       style="fill:#55ff55;fill-opacity:0.38823529000000001;fill-rule:evenodd;stroke:none"
+       style="fill:#55ff55;fill-opacity:0.38823529;fill-rule:evenodd;stroke:none"
        id="rect2822"
        width="357.59399"
        height="83.843727"
@@ -278,7 +279,7 @@
     <flowRoot
        xml:space="preserve"
        id="flowRoot2851"
-       style="fill:black;stroke:none;stroke-opacity:1;stroke-width:1px;stroke-linejoin:miter;stroke-linecap:butt;fill-opacity:1;font-family:Bitstream Vera Sans;font-style:normal;font-weight:normal;font-size:40px"><flowRegion
+       style="font-size:40px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans"><flowRegion
          id="flowRegion2853"><rect
            id="rect2855"
            width="189.90868"
@@ -361,7 +362,7 @@
          style="font-size:22px"
          id="tspan2917">        diffcore-*.c</tspan></text>
     <rect
-       style="fill:#aaffaa;fill-opacity:0.38823529000000001;fill-rule:evenodd;stroke:none"
+       style="fill:#aaffaa;fill-opacity:0.38823529;fill-rule:evenodd;stroke:none"
        id="rect2923"
        width="357.59399"
        height="74.169449"
@@ -396,7 +397,7 @@
          style="font-size:22px"
          id="tspan2938">  send-pack.c, receive-pack.c</tspan></text>
     <rect
-       style="fill:#0000d4;fill-opacity:0.38823529000000001;fill-rule:evenodd;stroke:none"
+       style="fill:#0000d4;fill-opacity:0.38823529;fill-rule:evenodd;stroke:none"
        id="rect2940"
        width="357.59399"
        height="43.514923"
@@ -426,7 +427,7 @@
          id="tspan2849-9"
          style="font-size:22px">rev-parse.c</tspan></text>
     <rect
-       style="fill:#5555ff;fill-opacity:0.38823529000000001;fill-rule:evenodd;stroke:none"
+       style="fill:#5555ff;fill-opacity:0.38823529;fill-rule:evenodd;stroke:none"
        id="rect2955"
        width="357.59399"
        height="59.658035"
@@ -461,7 +462,7 @@
          style="font-size:22px"
          id="tspan2970">update-index.c, fsck.c</tspan></text>
     <rect
-       style="fill:#aaaaff;fill-opacity:0.38823529000000001;fill-rule:evenodd;stroke:none"
+       style="fill:#aaaaff;fill-opacity:0.38823529;fill-rule:evenodd;stroke:none"
        id="rect2972"
        width="357.59399"
        height="60.596142"
