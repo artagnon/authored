@@ -36,10 +36,10 @@
 }
 ** ... and the guts of the object store
 #+BEGIN_LaTeX
-\begin{center}\includegraphics[scale=0.7]{res/object-model.png}\end{center}
+\begin{center}\includegraphics[scale=0.45]{res/object-model.pdf}\end{center}
 #+END_LaTeX
 \note[itemize]{
-\item This image is taken from ProGit, the book.
+\item You haven't seen this image before; pay close attention.
 \item Git is a key-value store: commit, tree, blob and tag.
 \item Commits are in a DAG.
 }
