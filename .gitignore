@@ -1,7 +1,6 @@
 *~
 *.tex
 *.dvi
-*.pdf
 *.out
 *.nav
 *.bbl
