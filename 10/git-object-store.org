@@ -1,8 +1,8 @@
 #+LaTeX_CLASS: beamer
 #+LaTeX_HEADER: \mode<presentation>
 #+LaTeX_HEADER: \usetheme{CambridgeUS}
-#+LaTeX_HEADER: \usecolortheme{beaver}
-#+LaTeX_HEADER: \setbeameroption{show notes}
+#+LaTeX_HEADER: \usecolortheme{seagull}
+#+LaTeX_HEADER: \setbeameroption{hide notes}
 #+LaTeX_HEADER: \institute{FOSS.IN/2010}
 #+TITLE: Leveraging the Git object store
 #+AUTHOR: Ramkumar Ramachandra
@@ -29,7 +29,8 @@
 \begin{center}\includegraphics[scale=0.4]{res/logical-layers.pdf}\end{center}
 #+END_LaTeX
 \note[itemize]{
-\item We're going to go all the way down to the object store
+\item This is a plumbing-only picture: missing in-core object caching,
+      tree traversal, pretty printing, commit list, index
 \item Everything else is infrastructure
 \item The higher layers add limitations and functionality.
 \item What's special about the object store?
@@ -52,26 +53,26 @@
 \end{column}
 \begin{column}[c]{8cm}
 \scriptsize
-\begin{verbatim}
-commit refs/heads/remote-helper 
+\begin{alltt}
+\underline{commit} refs/heads/remote-helper 
 mark :30
-author Ramkumar Ramachandra <artagnon@gmail.com> 1170314617 +0530
-committer Junio C Hamano <gitster@pobox.com> 1170325891 +0100
-data 111
+\underline{author} Ramkumar Ramachandra <artagnon@gmail.com> 1170314617 +0530
+\underline{committer} Junio C Hamano <gitster@pobox.com> 1170325891 +0100
+\underline{data} 111
 vcs-svn: Fix delete operation in the treap
 
-from :28
-M 100644 :29 vcs-svn/trp.h
+\underline{from} :28
+\underline{M} 100644 :29 vcs-svn/trp.h
 
-blob
-mark :31
-data 4941
+\underline{blob}
+\underline{mark} :31
+\underline{data} 4941
 /*
  * C macro implementation of treaps.
  *
  * Usage:
 [...]
-\end{verbatim}
+\end{alltt}
 \end{column}
 \end{columns}
 #+END_LaTeX
@@ -92,12 +93,12 @@ data 4941
 #+BEGIN_LaTeX
 \begin{columns}
 \begin{column}[c]{7cm}
-\begin{itemize}
-\item Keep track of written blobs using marks
-\item Fetch a previously written blob
-\item Apply the delta
-\item Write back the new blob
-\end{itemize}
+\begin{enumerate}
+\item[1 ] Keep track of written blobs using marks
+\item[2 ] Fetch a previously written blob
+\item[3 ] Apply the delta
+\item[4 ] Write back the new blob
+\end{enumerate}
 \end{column}
 \begin{column}[c]{3cm}
 \includegraphics[scale=0.2]{res/bidi.pdf}
@@ -109,19 +110,32 @@ data 4941
 \item 'ls-tree' to to start from a non-zero point
 \item fast-import features -- backward compatibility
 }
-** The import/export and conversion machinery
+** The import/ export machinery
 #+BEGIN_LaTeX
 \begin{columns}
-\begin{column}[c]{4cm}
-\includegraphics[scale=0.3]{res/gear.pdf}
-\end{column}
 \begin{column}[c]{6cm}
-\begin{itemize}
-\end{itemize}
+\includegraphics[scale=0.3]{res/svn-layout.pdf}
+\end{column}
+\begin{column}[c]{4cm}
+\scriptsize
+\begin{alltt}
+Node-path: commons/STATUS
+Node-kind: (file|dir)
+Node-action: (change|add|delete|replace)
+\end{alltt}
+\vfill
+\begin{alltt}
+svn:special
+svn:author
+svn:date
+svn:executable
+\end{alltt}
 \end{column}
 \end{columns}
 #+END_LaTeX
 \note[itemize]{
+\item Fundamentally different object models
+\item The story of replace refs
 }
 * Part III: Conclusion
 ** What you should hack on when you go home
@@ -131,24 +145,18 @@ data 4941
 \includegraphics[scale=0.2]{res/spanner-hammer.pdf}
 \end{column}
 \begin{column}[c]{7cm}
-\begin{itemize}
-\item Foreign VCS interop: remote helpers, machinery, revision mapping
-\item Gitcore: transport layer, fast-import
-\item Related projects: bup, gimd
-\item Gitcore re-implementation: libgit2
-\item Heavy history rewrite tools: filter-branch
-\item Packfile optimization: narrow and sparse clones
-\item Heavy-duty validation/ testing tools
-\end{itemize}
+\includegraphics[scale=0.3]{res/quadrant.pdf}
 \end{column}
 \end{columns}
 #+END_LaTeX
 \note[itemize]{
-\item SVN interop: svnrdump
-\item ESR wrote reposurgeon
-\item Sverre wrote hg-remote-hg
-\item Vincent wrote libgit2 in SoC 2010
-\item The story of replace refs
+\item Gitcore + fi: transport layer, fast-import, (Heavy history
+      rewrite tools) filter-branch
+\item fi: Heavy-duty validation/ testing tools
+\item Gitcore: work on fast-import part of libgit2
+\item Git-related things: bup, gimd
+\item fi + machinery: remote helpers, revision mapping, reposurgeon
+\item Machinery: svnrdump
 }
 ** Can I have these slides?
 #+BEGIN_LaTeX
