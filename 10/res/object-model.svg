@@ -23,7 +23,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -433,7 +433,7 @@
          y="160.11298"
          x="118.32455"
          id="tspan5733-3-84"
-         sodipodi:role="line">d93bf</tspan></text>
+         sodipodi:role="line">2d1fa</tspan></text>
     <text
        id="text5907"
        y="188.11742"
@@ -861,15 +861,15 @@
     </g>
     <text
        id="text5886-7-9-1"
-       y="104.57819"
+       y="106.57819"
        x="117.40668"
        style="font-size:40px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans"
        xml:space="preserve"><tspan
          style="font-size:20px"
-         y="104.57819"
+         y="106.57819"
          x="117.40668"
          id="tspan5888-2-4-8"
-         sodipodi:role="line">be78a</tspan></text>
+         sodipodi:role="line">2d1fa</tspan></text>
     <text
        id="text5731-9-8-1-2-9"
        y="133.26389"
@@ -882,11 +882,6 @@
          id="tspan5733-3-84-0-9-6"
          sodipodi:role="line">213</tspan></text>
   </g>
-  <path
-     style="fill:none;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;marker-end:url(#Arrow1Mend)"
-     d="m 199.63407,354.44317 c 35.72672,19.84192 10.74272,48.8219 73.60353,49.53194"
-     id="path6893-4"
-     sodipodi:nodetypes="cs" />
   <path
      style="fill:none;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;marker-end:url(#Arrow1Mend)"
      d="m 486.1868,459.19195 c 56.52972,-17.34264 0.83599,-125.315 -72.57872,-189.30178 -45.48441,-39.64329 -47.81423,-62.45326 -32.77324,-112.43058"
@@ -1145,4 +1140,8 @@
        x="674.32843"
        id="tspan5888-2-4-85-39"
        sodipodi:role="line">54a52</tspan></text>
+  <path
+     style="fill:none;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stroke-miterlimit:4;stroke-dasharray:none;marker-end:url(#Arrow1Mend-8)"
+     d="m 200.32627,414.65709 77.25,-13.09322"
+     id="path9623" />
 </svg>
