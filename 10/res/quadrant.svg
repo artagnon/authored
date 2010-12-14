@@ -14,7 +14,7 @@
    id="svg2"
    version="1.1"
    inkscape:version="0.47 r22583"
-   sodipodi:docname="New document 1">
+   sodipodi:docname="quadrant.svg">
   <defs
      id="defs4">
     <inkscape:perspective
@@ -88,7 +88,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -142,15 +142,15 @@
     <text
        xml:space="preserve"
        style="font-size:40px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans"
-       x="407.64676"
+       x="413.5452"
        y="652.05811"
        id="text2856"><tspan
          sodipodi:role="line"
          id="tspan2858"
-         x="407.64676"
-         y="652.05811">import/ export</tspan><tspan
+         x="413.5452"
+         y="652.05811">import-export</tspan><tspan
          sodipodi:role="line"
-         x="407.64676"
+         x="413.5452"
          y="702.05811"
          id="tspan2860">   machinery</tspan></text>
   </g>

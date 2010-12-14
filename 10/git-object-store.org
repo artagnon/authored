@@ -6,7 +6,7 @@
 #+LaTeX_HEADER: \institute{FOSS.IN/2010}
 #+TITLE: Leveraging the Git object store
 #+AUTHOR: Ramkumar Ramachandra
-#+DATE: 15 December 2010
+#+DATE: 16th December 2010
 
 #+BEGIN_LaTeX
 \def\newblock{\hskip .11em plus .33em minus .07em} % Hack to make BibTeX work with LaTeX
@@ -19,21 +19,24 @@
 \begin{center}\includegraphics[scale=0.5]{res/opening.pdf}\end{center}
 #+END_LaTeX
 \note[itemize]{
-\item Filesystems, issue trackers, wikis, databases, and backup systems
+\item First hints of misunderstanding -- Git is a VCS? Really?
 \item Why Git? Why not hg, bzr, darcs or SVN?
-\item Reason: Simplicity. The Git object model.
-\item The applications should indicate what Git really is.
+\item Filesystems, issue trackers, wikis, databases, and backup systems
+\item Reason: Simplicity. The name "Git" suggests it.
 }
 ** The guts of Git
 #+BEGIN_LaTeX
 \begin{center}\includegraphics[scale=0.4]{res/logical-layers.pdf}\end{center}
 #+END_LaTeX
 \note[itemize]{
+\item Git isn't really layered: Idea borrowed from Subversion API.
 \item This is a plumbing-only picture: missing in-core object caching,
-      tree traversal, pretty printing, commit list, index
-\item Everything else is infrastructure
-\item The higher layers add limitations and functionality.
-\item What's special about the object store?
+      pretty printing, commit list, index, working tree.
+\item Central idea: dump everything into a key-value object store and
+      provide and API to retrieve it. A queer filesystem.
+\item Everything else is infrastructure: blame, rebase etc were
+      written much later. Linus didn't care about it in the start.
+\item Ok, so what does the object store look like?
 }
 ** ... and the guts of the object store
 #+BEGIN_LaTeX
@@ -41,8 +44,21 @@
 #+END_LaTeX
 \note[itemize]{
 \item You haven't seen this image before; pay close attention.
-\item Git is a key-value store: commit, tree, blob and tag.
-\item Commits are in a DAG.
+\item Every object is identified by compulsory SHA1 after zlib
+      compression: this is the key!
+\item Commits are in a DAG: multiple parents.
+\item Now for the main difference: deltas are not necessarily against
+      the previous revision! When packing, the full object store data
+      is available :)
+\item For good packing heuristics, we decide based on many parameters
+      like type, filename, and filesize. Using a good window size,
+      generate deltas against n "close" objects and write the smallest
+      delta. This has been engineered by Linus and Peter for maximum
+      efficiency: for example, in xdelta, delta removing data is
+      cheaper than adding data.
+\item When writing packfiles, there's an index with an ordering based
+      on "recency" or reachability from HEAD. The "loose" objects can
+      be found using the packfile index.
 }
 * Part II: A fast-import crash course
 ** What does the protocol look like?
@@ -55,7 +71,7 @@
 \scriptsize
 \begin{alltt}
 \underline{commit} refs/heads/remote-helper 
-mark :30
+\underline{mark} :30
 \underline{author} Ramkumar Ramachandra <artagnon@gmail.com> 1170314617 +0530
 \underline{committer} Junio C Hamano <gitster@pobox.com> 1170325891 +0100
 \underline{data} 111
@@ -77,17 +93,74 @@ vcs-svn: Fix delete operation in the treap
 \end{columns}
 #+END_LaTeX
 \note[itemize]{
-\item fast-import uses the object API directly.
+\item fast-import uses the object API directly: it's built only for
+      speed: almost 3x as fast as svnrdump.
 \item Commands: commit, author, mark, data, from, blob
-\item ~350 commits/sec
+\item Before the CP, only fast-import can access the objects it wrote;
+      this makes sense in the context of efficient packing discussed
+      earlier.
+\item Use it programmatically: remote helper.
 }
 ** The concept of a remote helper
 #+BEGIN_LaTeX
 \begin{center}\includegraphics[scale=0.3]{res/remote-helper.pdf}\end{center}
 #+END_LaTeX
 \note[itemize]{
-\item Confession: My GSoC project was to build a remote helper for Subversion
-\item Before the CP, only fast-import can access the objects it wrote
+\item Confession: My GSoC project was to build a remote helper for
+      Subversion. We managed to write the infrastructure.
+\item Remote helper is simply a program with a set of commands like a
+      shell; capabilities are fetch, import, push etc.
+\item Gitcore sets up UNIX pipes to call the remote helper: it
+      consumes/ produces a fast-import stream
+\item When Git core doesn't know how to handle the protocol,
+      transport-helper.c looks for a remote helper to connect to. The
+      rest is the remote helper's problem.
+}
+** The import-export machinery
+#+BEGIN_LaTeX
+\begin{columns}
+\begin{column}[c]{6cm}
+\includegraphics[scale=0.3]{res/svn-layout.pdf}
+\end{column}
+\begin{column}[c]{4cm}
+\scriptsize
+\begin{alltt}
+Node-path: commons/STATUS
+Node-kind: (file|dir)
+Node-action: (change|add|delete|replace)
+\end{alltt}
+\vfill
+\begin{alltt}
+svn:log
+svn:author
+svn:date
+svn:executable
+svn:special
+\end{alltt}
+\end{column}
+\end{columns}
+#+END_LaTeX
+\note[itemize]{
+\item SVN is directory-recursive. Any subdirectory of co is a valid co
+      as well: narrow and sparse clones aren't possible in Git.
+\item Props are stored separately, and don't have exact equivalents in
+      many VCSes.
+\item In any revision, props can be overwritten (if enabled), but not
+      data itself. In Git, the commit object (hence the hash) changes
+      when author or log message changes! In SVN, the important part
+      is the data; The props are like an afterthought.
+\item Branching and tagging are completely different concepts. Without
+      mergeinfo (in 1.5+), SVN merges are impossible to comprehend.
+\item Because of all these issues, we have to use heuristics + user
+      input to reconstruct the history. Thanks to Sam Vilain for
+      explaining.
+\item The repository can be "replayed" like a set of actions: It's
+      called replay API in SVN and it's used in svnsync and
+      svnrdump. So we replay the repository very quickly into a
+      dumpfile v3 and stream that. Using the replay API, every new
+      revision is a delta against the previous revision.
+\item Main problem we faced: The deltification. That's what the bidi
+      gateway is for! :)
 }
 ** Bi-directional how?
 #+BEGIN_LaTeX
@@ -106,36 +179,13 @@ vcs-svn: Fix delete operation in the treap
 \end{columns}
 #+END_LaTeX
 \note[itemize]{
+\item Opaque design: Gitcore doesn't care what the remote helper does
+      as long as it consumes/ produces a fast-import stream
+\item Delta applier is invoked by the remote helepr: Gitcore knows
+      nothing about it. More about this deltification in SVN context
+      in the next slide.
 \item 'cat-blob' to retrive previously written blobs
-\item 'ls-tree' to to start from a non-zero point
-\item fast-import features -- backward compatibility
-}
-** The import/ export machinery
-#+BEGIN_LaTeX
-\begin{columns}
-\begin{column}[c]{6cm}
-\includegraphics[scale=0.3]{res/svn-layout.pdf}
-\end{column}
-\begin{column}[c]{4cm}
-\scriptsize
-\begin{alltt}
-Node-path: commons/STATUS
-Node-kind: (file|dir)
-Node-action: (change|add|delete|replace)
-\end{alltt}
-\vfill
-\begin{alltt}
-svn:special
-svn:author
-svn:date
-svn:executable
-\end{alltt}
-\end{column}
-\end{columns}
-#+END_LaTeX
-\note[itemize]{
-\item Fundamentally different object models
-\item The story of replace refs
+\item 'ls' to to start from a non-zero point; incremental imports
 }
 * Part III: Conclusion
 ** What you should hack on when you go home
@@ -153,10 +203,12 @@ svn:executable
 \item Gitcore + fi: transport layer, fast-import, (Heavy history
       rewrite tools) filter-branch
 \item fi: Heavy-duty validation/ testing tools
-\item Gitcore: work on fast-import part of libgit2
-\item Git-related things: bup, gimd
-\item fi + machinery: remote helpers, revision mapping, reposurgeon
+\item Gitcore: work on fast-import part of libgit2, replace ref like
+      things for conversion tracking (replace refs are too expensive)
+\item Git-based: bup, gimd
+\item Git-based + fi: Conversion tools like svn-fe
 \item Machinery: svnrdump
+\item fi + machinery: remote helpers, revision mapping, reposurgeon
 }
 ** Can I have these slides?
 #+BEGIN_LaTeX
