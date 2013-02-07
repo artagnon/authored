@@ -215,6 +215,6 @@ svn:special
 Ramkumar Ramachandra\\
 artagnon@gmail.com\\
 \url{http://artagnon.com}\\
-Source: \url{http://github.com/artagnon/foss.in}\\
+Source: \url{http://github.com/artagnon/authored}\\
 \vfill\hfill\includegraphics[scale=0.2]{res/cc.pdf}
 #+END_LaTeX

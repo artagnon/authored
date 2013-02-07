@@ -248,5 +248,5 @@ Ramkumar Ramachandra\\
 artagnon@gmail.com\\
 \url{http://artagnon.com}\\
 Indian Institute of Technology, Kharagpur\\
-Presentation source available on \url{http://github.com/artagnon/foss.in}
+Presentation source available on \url{http://github.com/artagnon/authored}
 #+END_LaTeX
