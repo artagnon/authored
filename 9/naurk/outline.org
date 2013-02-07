@@ -1,0 +1,6 @@
+* Lecture 1: Hand waving introduction to Functional Programming
+* Lecture 2: Formal Introduction to Functional Programming in Haskell
+* Lecture 3: How a machine evaluates expressions. Enter: Imperative Programming
+* Lecture 4: Formal Introduction to Imperative Programming in Python
+* Lecture 5: Introduction to Algorithms: Implementing Sorts.
+* Lecture 6: 

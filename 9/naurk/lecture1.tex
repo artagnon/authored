@@ -1,0 +1,235 @@
+\newcommand{\be}{\begin{equation}}
+  \newcommand{\ee}{\end{equation}}
+\newcommand{\ba}{\begin{eqnarray}}
+  \newcommand{\ea}{\end{eqnarray}}
+
+\documentclass[8pt]{beamer}
+
+\usepackage{beamerthemesplit,amsmath,amssymb,latexsym,graphicx,hyperref}
+
+\title{Project Naurk: Lecture 1}
+\author{Ramkumar Ramachandra}
+\date{\today}
+
+\begin{document}
+
+\frame{\titlepage}
+
+\frame
+{
+  \frametitle{Expressing ideas precisely: What is a prime number?}
+  The objective of this course is to teach students how to think precisely. We will now answer the question in plain English, and then go on to successively replace the English constructs with \textit{expressions} that a machine can \textit{evaluate}
+  \begin{itemize}
+    \item A number whose only factors are one and itself
+    \item \small A natural number that is not a multiple of any natural number except 1 and the number itself\normalsize
+    \item \scriptsize A \colorbox{yellow}{\colorbox{red}{natural number}} that is \colorbox{yellow}{$<$not a multiple of$>$} \colorbox{yellow}{any \colorbox{green}{natural number} except 1 and \colorbox{red}{the number itself}}\normalsize
+    \item \scriptsize{(\colorbox{yellow}{\colorbox{red}{natural number}} \colorbox{yellow}{$<$not a multiple of$>$} \colorbox{yellow}{any \colorbox{green}{natural number} except 1 and \colorbox{red}{the number itself}}})\normalsize
+  \end{itemize}
+}
+\frame
+{
+  \frametitle{Enter: Expressions}
+  Problem 1: Assert if 27 is a prime number. Start off by specializing the previous expression to fit this problem statement
+  \begin{itemize}
+    \item \scriptsize{(\colorbox{yellow}{\colorbox{red}{natural number}} \colorbox{yellow}{$<$not a multiple of$>$} \colorbox{yellow}{any \colorbox{green}{natural number} except 1 and \colorbox{red}{the number itself}})}\normalsize
+    \item (\colorbox{yellow}{\colorbox{red}{27}} \colorbox{yellow}{$<$not a multiple of$>$} \colorbox{yellow}{any \colorbox{green}{natural number} except 1 and \colorbox{red}{27}})
+  \end{itemize}
+  Let us formalize our talk, and call the item above an \textit{expression}. The first property of an expression is that it can be \textit{evaluated}.\\
+  Notice how the following expressions are similar. All of them can be evaluated to produce a value.
+  \begin{itemize}
+    \item (\colorbox{yellow}{something} \colorbox{yellow}{$<$not a multiple of$>$} \colorbox{yellow}{something else})
+    \item (\colorbox{yellow}{3} \colorbox{yellow}{+} \colorbox{yellow}{5}) evaluates to the value 8
+    \item (\colorbox{yellow}{$<$square$>$} \colorbox{yellow}{5}) evaluates to the value 25
+  \end{itemize}
+}
+\frame
+{
+  \frametitle{Formalizing the algorithm I}
+  Consider the expression (m is a chocolate). This can evaluate to either \textbf{True} or \textbf{False}, depending on whether or not m is a chocolate. Set our initial problem aside for a moment and look at the following expressions:
+  \begin{enumerate}
+    \item (m is a chocolate), where m could be any item from a mixed bag of goodies
+    \item (any (m is a chocolate)), where m is an item from a mixed bag of goodies
+    \item (all (m is a chocolate)), where m is an item from a mixed bag of goodies
+  \end{enumerate}
+  What each of these mean to a machine:
+  \begin{enumerate}
+    \item Pick any (random) item from the bag, and assert that it's a chocolate
+    \item Exhaustively pick items from the bag, and assert that any of them is a chocolate
+    \item Exhaustively pick items from the bag, and assert that all of them are chocolates
+  \end{enumerate}
+  What we're doing: To find out the nature of the items in the bag, we have designed a random experiment where we pick up and test items from the bag. To be able to conclusively state that all the items in the bag are chocolates, we keep repeating procedure 1 until we've exhausted all the items. Hence 3 is just a restatement of 1, when we want a conclusion. 2 addresses a different problem.
+}
+\frame
+{
+  \frametitle{Formalizing the algorithm II}
+  Back to our original problem. To assert if 27 is prime. Notice the remarkable similarity between these two statements. We have actually expressed our algorithm as a random experiment!
+  \begin{enumerate}
+    \item (m is a chocolate), where m could be any item from a mixed bag of goodies
+    \item (27 $<$not a multiple of$>$ \colorbox{yellow}{any \colorbox{green}{natural number} except 1 and 27})
+  \end{enumerate}
+  To instruct the machine more concretely, let us rephrase it to get a conclusive result. After all, we do conclusively want to know whether or not 27 is prime.
+  \begin{enumerate}
+    \item (all (m is a chocolate)), where m is an item from a mixed bag of goodies
+    \item (\colorbox{yellow}{all} (27 $<$not a multiple of$>$ \colorbox{green}{m})), where m is a \colorbox{yellow}{natural number not 1, not 27}
+  \end{enumerate}
+}
+\frame
+{
+  \frametitle{Enter: Literals and symbols}
+  \begin{itemize}
+    \item[] (all (27 $<$not a multiple of$>$ m)), where \colorbox{yellow}{m is a natural number not 1, not 27}
+  \end{itemize}
+  Now observe the following expressions:
+  \begin{itemize}
+    \item (27 $<$not a multiple of$>$ 6)
+    \item (27 $<$not a multiple of$>$ m)
+  \end{itemize}
+  In the first expression, we have used the \textit{literals} 27 and 6 to represent their corresponding integer values. In the second, we have used the \textit{symbol} m to represent an arbitrary value.\\
+  What do I mean when I say ``value''? It could be a single number, a \textit{set} of decimal numbers, a \textit{list} of complex numbers, or just about anything else. However, an expression like (27 $<$not a multiple of$>$ [complex number]) doesn't make much sense.
+  \begin{itemize}
+    \item m is a \textit{symbol} used to represent \textit{one value} in a \textit{range} of integer values. We can rewrite it as m $\in$ [1, 2, 3 ..] - [1, 27] = [2, 3 .. 26, 28 ..]
+    \item[] (all (27 $<$not a multiple of$>$ m); \colorbox{yellow}{m $\in$ [2, 3 .. 26, 28 ..]})
+  \end{itemize}
+}
+\frame
+{
+  \frametitle{Enter: Type system and data structures}
+  Every programming language needs to provide features for data representation. Data can be represented by literals, or equivalently, bound symbols. Simple data types provided by common programming languages include integers, fixed point decimal numbers, floating point (decimal numbers), fractions, complex numbers, and characters. Many come with composite data types like lists, strings, hashtables, and vectors.
+  \begin{itemize}
+    \item[] (all \colorbox{yellow}{(27 $<$not a multiple of$>$ m)}; m $\in$ [2, 3 .. 26, 28 ..])
+  \end{itemize}
+  Here, 27 and m clearly represent integers. If m were \textit{bound} to a decimal number instead, this expression wouldn't make much sense, and the machine would throw up. We will see the mechanism for this in the next slide.
+}
+\frame
+{
+  \frametitle{Enter: Operators}
+  \begin{itemize}
+    \item[] (all (27 $<$not a multiple of$>$ m); \colorbox{yellow}{m $\in$ [2, 3 .. 26, 28 ..]})
+  \end{itemize}
+  What does 35*x mean to a machine? Several definitions need to be in order:
+  \begin{itemize}
+    \item \textbf{*} is an \textit{operator} defined to act on two \textit{operands}
+    \item The symbol x could be \textit{bound} to any value. To bind, we can use another operator \textbf{=}, and say (x = 4) to bind x to 4.
+    \item More restrictions are required to be imposed on \textbf{*}: It is defined only when both its operands are \textit{numbers} (integers, decimals or complex). So, an expression like (3*``ram'') is meaningless\footnote{unless ofcourse we define such operations explicitly}
+  \end{itemize}
+  $<$not a multiple of$>$ is a \textit{function}\footnote{we have conveniently omitted the discussion of $\in$ and \textbf{all} for the moment}
+  \begin{itemize}
+    \item[] (\textbf{all} (27 \textbf{$<$not a multiple of$>$} m); m \textbf{$\in$} [2, 3 .. 26, 28 ..])
+  \end{itemize}
+}
+\frame
+{
+  \frametitle{Expressions II}
+  \begin{itemize}
+    \item[] (\textbf{all} (27 \textbf{$<$not a multiple of$>$} m); m \textbf{$\in$} [2, 3 .. 26, 28 ..])
+  \end{itemize}
+  Time to observe. Notice how we've progressively stripped out the English in favor of expressions. Now look at each one individually:
+  \begin{enumerate}
+    \item (27 \textbf{$<$not a multiple of$>$} m)
+    \item (\textbf{all} [expression in 1])
+    \item[3.] [expression in 2]; m \textbf{$\in$} [2, 3 .. 26, 28 ..]
+  \end{enumerate}
+  Observe the general forms:
+  \begin{enumerate}
+    \item ([value] [function\footnote{the term function encapsulates operators as well}] [value]). \textbf{$<$not a multiple of$>$} is clearly an function of two \textit{parameters}\footnote{operators:operands = functions:parameters}
+    \item ([function] [expression]) =$>$ ([function] [value]) after evaluation of the expression
+    \item[3.] [expression] along with some additional data
+  \end{enumerate}
+}
+\frame
+{
+  \frametitle{S-expressions}
+  \begin{itemize}
+    \item[] (all \colorbox{yellow}{(27 $<$not a multiple of$>$ m)}; m $\in$ [2, 3 .. 26, 28 ..])
+  \end{itemize}
+  From the observations on the previous slide, there are functions of two parameters like $<$not a multiple of$>$, as well as functions of one parameter like $<$square$>$. More generally there are functions of n parameters\footnote{imagine a function that adds n numbers by repeatedly using the + operator, which adds two numbers together}. Therefore, this is a more consistent way of writing expressions:
+  \begin{itemize}
+    \item[] ([function] [parameter 1] [parameter 2] ..)
+  \end{itemize}
+  Voila! Formally, an expression written in this form is called an \textit{s-expression}. Let's rewrite our expression as an s-expression now:
+  \begin{itemize}
+    \item[] (all \colorbox{yellow}{($<$not a multiple of$>$ 27 m)}; m $\in$ [2, 3 .. 26, 28 ..])
+  \end{itemize}
+}
+\frame
+{
+  \frametitle{A closer look at $<$not a multiple of$>$}
+  \begin{itemize}
+    \item[] (all \colorbox{yellow}{($<$not a multiple of$>$ 27 m)}; m $\in$ [2, 3 .. 26, 28 ..])
+  \end{itemize}
+  Now, we simply have to design the function $<$not a multiple of$>$. First, think about what the function does in specific cases.
+  \begin{itemize}
+    \item[] ($<$not a multiple of$>$ 3 2)
+  \end{itemize}
+  It means that when 3 is divided by 2, it leaves a nonzero remainder, provided that 2 is less than 3. Rewriting it in this form, we get
+  \begin{itemize}
+    \item[] ($<$not equal to zero$>$ ($<$remainder after division$>$ 3 2))
+  \end{itemize}
+  Many languages already provide the $<$remainder after division$>$ operator. However, $<$not equal to zero$>$ seems to be nonstandard, but languages already provide operators for comparison.
+  \begin{itemize}
+    \item[] ($<$not equal to$>$ ($<$remainder after division$>$ 3 2) 0)
+  \end{itemize}
+  For the sake of brevity, let us represent these operators by symbols.
+  \begin{itemize}
+    \item[] (/= (\% 3 2) 0)
+  \end{itemize}
+  Finally, when we write the final expression, we have to make sure that m is less than 27.
+  \begin{itemize}
+    \item[] (all \colorbox{yellow}{(/= (\% 27 m) 0)}; m $\in$ \colorbox{yellow}{[2, 3 .. 26]})
+  \end{itemize}
+}
+\frame{
+  \frametitle{Enter: Functions}
+  \begin{itemize}
+    \item[] (all (/= (\% 27 m) 0); m $\in$ [2, 3 .. 26])
+  \end{itemize}
+  Notice how functions and operators are also represented by symbols. Here, we're assuming that all these symbols are bound to functions provided by the programming language. Let us now attempt to write a custom function to square a given number for example.
+  \begin{itemize}
+    \item[] ($\lambda$ x (* x x))
+  \end{itemize}
+  Our function is ready. It accepts a parameter (the symbol x), and returns the square of that number. Carefully observe the above expression: $\lambda$ itself is a in-built function of one parameter. All the expressions we've seen so far evaluate to a value (data); the one above doesn't- it evaluates to a function. Now let us use the function to square the number 3.
+  \begin{itemize}
+    \item[] (($\lambda$ x (* x x)) 3)
+  \end{itemize}
+  We could have bound some symbol to this function, say $\nu$. The above expression would then look like this
+  \begin{itemize}
+    \item[] ($\nu$ 3)
+  \end{itemize}
+  Pretty similar to writing (+ 2 4). Now, imagine that the programming language provides me the function \textbf{+} to add two numbers. And imagine that I want to add three: 1, 2 and x. How would I do it?
+  \begin{itemize}
+    \item[] (+ 2 (+ 1 x))
+  \end{itemize}
+  The inner expression doesn't evaluate to a value until x is passed to it- it remains a function and is passed as-it-is to the outer expression.
+}
+\frame{
+  \frametitle{A closer look at \textbf{all}}
+  \begin{itemize}
+    \item[] (all (/= (\% 27 m) 0); m $\in$ [2, 3 .. 26])
+  \end{itemize}
+  Now to eliminate the one unexplained symbol: $\in$. To do this, we first have to formalize \textbf{all}
+  \begin{itemize}
+    \item \textbf{all} is a function of two parameters: A (function of one parameter) and a list. The function here is the \textit{predicate} that each member of the list must satisfy, and the parameter is the list itself.
+    \item What \textbf{all} does: It picks items from the list and checks if \underline{all} of them satisfy the predicate, and accordingly return \textbf{True} or \textbf{False}. The predicate itself is a function of one parameter that returns a boolean.
+  \end{itemize}
+  In our problem, the list is the list of numbers from 2 to 26, and the predicate is to check that 27 is $<$not a multiple of$>$ the given number. Let us now rewrite our expression eliminating the need for the mysterious $\in$:
+  \begin{itemize}
+    \item[] (all ($\lambda$ m (/= (\% 27 m) 0)) [2, 3 .. 26])
+  \end{itemize}
+}
+\frame{
+  \frametitle{Putting it all together}
+  \begin{itemize}
+    \item[] (all ($\lambda$ m (/= (\% 27 m) 0)) [2, 3 .. 26])
+  \end{itemize}
+  We are now ready to get rid of our s-expression crutches and implement this program in a real-world programming language\footnote{In a Lisp like Common Lisp, Scheme, or Clojure, the s-expression is the final form}. Most programming languages use parenthesis just as separators, to explicitly define operator precedence, for example.
+  \begin{enumerate}
+    \item 3 * 4 - 6
+    \item 3 * (4 - 6)
+  \end{enumerate}
+  So finally, in Haskell, the final program is written as
+  \begin{itemize}
+    \item[] all ($\backslash$m -$>$ 27 `mod` m /= 0) [2, 3 .. 26]
+  \end{itemize}
+  Yes, the $\backslash$ is supposed to look like a $\lambda$ if you squint hard enough.
+}
+\end{document}

@@ -15,6 +15,7 @@ producing a pdf.
 * /9/foss.in: Contains my FOSS.IN 2009 presentations, namely "Haskell
   Internals", and "An Insight into CPython Compiler Design"
   (unladen-swallow).
+* /9/naurk: Experimental introductory computer science course.
 * /9/squid-breaking: A partially finished mini-book on breaking out of
   the Squid proxy server.
 * /10/foss.in: Contains my FOSS.IN 2010 presentation "Leveraging the
