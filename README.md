@@ -9,17 +9,16 @@ producing a pdf.
 :: /\<year\>/\<conference/ document name\>
 
 * /7/cs-pointers: Cellophane sheet pointers I envisioned in high
-  school.  Explains C pointers to a beginner.  Written in plain TeX.
+  school.  Explains C pointers to a beginner.
 * /9/curve-fitting: A presentation on curve fitting I made while in
   IIT Kharagpur.  Explains, most significantly, chi-square fitting.
-  Written in plain TeX.
 * /9/foss.in: Contains my FOSS.IN 2009 presentations, namely "Haskell
   Internals", and "An Insight into CPython Compiler Design"
-  (unladen-swallow).  Written in Org-Mode.
+  (unladen-swallow).
 * /9/squid-breaking: A partially finished mini-book on breaking out of
   the Squid proxy server.
 * /10/foss.in: Contains my FOSS.IN 2010 presentation "Leveraging the
-  Git Object Store" (git-object-store).  Written in Org-Mode.
+  Git Object Store" (git-object-store).
 
 ## Build instructions
 
