@@ -1,7 +1,27 @@
-# foss.in
+# authored
 
-Contains my talks for FOSS.IN 2009 and 2010, under /9 and /10,
-respectively.  They're written using Org-Mode.
+Includes all the documents and presentations I've authored.  Either in
+TeX, or in Org-Mode, which is subsequently converted to TeX before
+producing a pdf.
+
+## Contents
+
+:: /\<year\>/\<conference/ document name\>
+
+* /7/cs-pointers: Cellophane sheet pointers I envisioned in high
+  school.  Explains C pointers to a beginner.  Written in plain TeX.
+* /9/curve-fitting: A presentation on curve fitting I made while in
+  IIT Kharagpur.  Explains, most significantly, chi-square fitting.
+  Written in plain TeX.
+* /9/foss.in: Contains my FOSS.IN 2009 presentations, namely "Haskell
+  Internals", and "An Insight into CPython Compiler Design"
+  (unladen-swallow).  Written in Org-Mode.
+* /10/foss.in: Contains my FOSS.IN 2010 presentation "Leveraging the
+  Git Object Store" (git-object-store).  Written in Org-Mode.
+
+## Build instructions
+
+For projects written in Org-Mode:
 
 To compile them into a finished PDF,
 
