@@ -1,0 +1,11 @@
+Host 10.10?.*.*
+     ProxyCommand none
+Host 10.11?.*.*
+     ProxyCommand none
+Host 144.16.*.*
+     ProxyCommand none
+Host 10.3.*.*
+     ProxyCommand none
+
+Host *
+     ProxyCommand /usr/bin/connect -4 -S 127.0.0.1:9050 $(tor-resolve %h) %p

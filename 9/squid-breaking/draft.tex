@@ -1,0 +1,27 @@
+\documentclass[8pt,draft]{report}
+\usepackage{verbatim}
+\begin{document}
+
+\author{Artagnon}
+\title{The Definitive Guide to Life behind Squid}
+\date{Compiled with \LaTeX{} on \today}
+\maketitle
+
+\section{Audience}
+Moo
+
+\section{Author's note}
+It's frustrating to constantly live behind a HTTP proxy, here at IIT Kharagpur. No IRC, no email, no torrents, no GIT, and probably the worst of all- no SSH. This book initially started out as a small document describing the steps I'd taken to circumbent the system legitimately. However, because I don't like cookbooks, I started explaining the logic behind every step I was taking. The draft eventually evolved into a book for dealing with various types of proxies.
+
+\section{Introduction}
+ to enable people to do more than just web browsing and DC++ in a restrictive environment. However, I don't write cookbooks-  I'll explain every decision I've taken along the way to break every program out legitimately. Note, however, that I'm no networking expert. I might therefore have made glaring mistakes- The book is written purely from an engineeer-hacker's perspective and should not be used for academic purposes.
+
+The Squid setup at IIT Kharagpur is especially restrictive and frustrating, which is the reason tools like Corkscrew can't be used to break out\footnote{Yes, I will explain what the setup is and why it's particularly restrictive}. I've written this book for the worst Squid setup, and should hence be adaptable to any setup.
+
+\section{Networking 101}
+\input{networking101}
+\section{The ``proxy'' primer}
+A proxy server is 
+\section{Tests}
+\input{tests}
+\end{document}

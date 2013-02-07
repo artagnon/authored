@@ -1,0 +1,13 @@
+HTTP/1.1 (RFC 2616) defines eight methods or ``verbs'':
+\begin{innerlist}
+\item HEAD: Like a ping, it is used to assert the existance of a URL.
+\item GET: GET is one of the most fundamental HTTP commands. It is used to get the content offered by a webserver (often a header along with a HTML dump).
+\item POST
+\item PUT
+\item DELETE
+\item TRACE
+\item OPTIONS
+\item CONNECT
+\end{innerlist}
+
+HTTP/1.0 (RFC 1945) defines only the first three methods. The rest are only available in HTTP/1.1. Of these, CONNECT is of primary interest to us. The CONNECT command can be used to connect to arbirary ports, often used to perform SSL authentication.

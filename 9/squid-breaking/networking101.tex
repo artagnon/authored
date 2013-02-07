@@ -1,0 +1,11 @@
+\subsection{The server}
+In principle, a server is similar to a shopkeeper attending to a number of customers (clients) simultaneously. The webserver is one of the most widely cited examples of a server. Google runs a webserver, a computer application that sits and ``listens'' for connections, to server its clients. Client applications like web browsers make requests to Google's webserver situated at google.com. The client-server model principally pivots on ``sockets''. A socket is an endpoint of bidirectional communication flow, and is characterized by ``protocol'' (or language of communication) and ``address'' (
+
+However, the client-server model is used in several non-networking related applications as well. For example, the graphical user interface in modern GNU/Linux systems is often provided by the X Window System. The X server listens for connections, while serveral user applications constantly give it commands to draw/ move/ resize various windows on the screen.
+
+Two additional pieces of information is required for client-server communication: The medium of communication and the ``protocol'' (language) they'll be using to communicate with each other. Broadly, there are two mediums of communication, TCP/UDP ``ports'' and ``sockets''. 
+
+In modern computers, several servers are constantly running on different computer ``ports'' to facilitate simple actions like remote login.
+
+\subsection{Secure Shell}
+On *nix systems, the most popular way to login to a remote system is called Secure Shell (SSH). As usual, an SSH server runs on one of the machines while an SSH client polls it for connections from the client system.

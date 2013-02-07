@@ -1,0 +1,141 @@
+\message{ !name(tests.tex)}
+\message{ !name(tests.tex) !offset(-2) }
+How to use Telnet
+\begin{lstlisting}
+  ~> telnet 144.16.192.247 8080
+  Trying 144.16.192.247...
+  Connected to 144.16.192.247.
+  Escape character is '\^]'.
+  GET http://www.google.co.in HTTP/1.0
+
+  HTTP/1.0 200 OK
+  Cache-Control: private, max-age=0
+  Date: Sun, 08 Mar 2009 15:59:25 GMT
+  Expires: -1
+  Content-Type: text/html; charset=ISO-8859-1
+  Set-Cookie: PREF=ID=e3bd17f380042178:TM=1236527965:LM=1236527965:
+  S=MQRoPoeadPCftabs;expires=Tue, 08-Mar-2011 15:59:25 GMT; path=\slash; domain=.google.co.in
+  Server: gws
+  X-Cache: MISS from mohin.iitkgp.ernet.in
+  X-Cache-Lookup: MISS from mohin.iitkgp.ernet.in:8080 \\
+  Via: 1.0 mohin.iitkgp.ernet.in:8080 (squid\slash 2.6.STABLE13)
+  Proxy-Connection: close
+
+  <html><head><meta http-equiv="content-type" content="text\slash html; \\
+  charset=ISO-8859-1"><title>Google</title>
+  <!-- SNIP -->
+  Connection closed by foreign host.
+\end{lstlisting}
+
+Executions
+\begin{lstlisting}
+  ~> telnet 144.16.192.245 8080
+  Trying 144.16.192.245...
+  Connected to 144.16.192.245. \\
+  Escape character is '\^]'. \\
+  CONNECT imap.gmail.com:993 HTTP/1.1
+
+  HTTP/1.0 403 Forbidden
+  Server: squid/2.6.STABLE14
+  Date: Sun, 08 Mar 2009 16:38:02 GMT
+  Content-Type: text/html
+  Content-Length: 1058
+  Expires: Sun, 08 Mar 2009 16:38:02 GMT
+  X-Squid-Error: ERR\_ACCESS\_DENIED 0
+  X-Cache: MISS from mohin.iitkgp.ernet.in
+  X-Cache-Lookup: NONE from mohin.iitkgp.ernet.in:8080 \\
+  Via: 1.0 mohin.iitkgp.ernet.in:8080 (squid\slash 2.6.STABLE14)
+  Proxy-Connection: close
+
+  <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd"> \\
+  <HTML><HEAD><META HTTP-EQUIV="Content-Type" CONTENT="text\slash html; \\
+  charset=iso-8859-1">
+  <TITLE>ERROR: The requested URL could not be retrieved</TITLE>
+  <STYLE type="text/css"><!--BODY{background-color:\#ffffff;font-family:verdana,sans-serif}PRE{font-family:sans-serif}--><\slash STYLE>
+  </HEAD><BODY>
+  <H1>ERROR</H1>
+  <H2>The requested URL could not be retrieved</H2>
+  <HR noshade size="1px">
+  <P>
+  While trying to retrieve the URL:
+  <A HREF="imap.gmail.com:993">imap.gmail.com:993</A>
+  <P>
+  The following error was encountered:
+  <UL>
+  <LI>
+  <STRONG>
+  Access Denied.
+  </STRONG>
+  <P>
+  Access control configuration prevents your request from
+  being allowed at this time.  Please contact your service provider if
+  you feel this is incorrect.
+  </UL>
+  <P>Your cache administrator is <A HREF="mailto:webmaster">webmaster</A>.
+
+
+  <BR clear="all">
+  <HR noshade size="1px">
+  <ADDRESS>
+  Generated Sun, 08 Mar 2009 16:38:02 GMT by mohin.iitkgp.ernet.in (squid/2.6.STABLE14)
+  </ADDRESS>
+  </BODY></HTML>
+  Connection closed by foreign host.
+\end{lstlisting}
+
+In fact, I repeated this several times trying different ports, with the same result. Except port 443. Otherwise, I wouldn't be able to visit sites like gmail.com from my web browser.
+
+\begin{lstlisting}
+  [22:31]~: telnet 144.16.192.245 8080
+  Trying 144.16.192.245...
+  Connected to 144.16.192.245.
+  Escape character is '\^]'.
+  CONNECT imap.gmail.com:443 HTTP/1.1
+
+  HTTP/1.0 503 Service Unavailable
+  Server: squid/2.6.STABLE14
+  Date: Sun, 08 Mar 2009 16:39:54 GMT
+  Content-Type: text/html
+  Content-Length: 1070
+  Expires: Sun, 08 Mar 2009 16:39:54 GMT
+  X-Squid-Error: ERR\_CONNECT\_FAIL 111
+
+  <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+  <HTML><HEAD><META HTTP-EQUIV="Content-Type" CONTENT="text\slash html; \\
+  charset=iso-8859-1">
+  <TITLE>ERROR: The requested URL could not be retrieved</TITLE>
+  <STYLE type="text/css"><!--BODY{background-color:\#ffffff;font-family:verdana,sans-serif}PRE{font-family:sans-serif}--></STYLE>
+  </HEAD><BODY>
+  <H1>ERROR</H1>
+  <H2>The requested URL could not be retrieved</H2>
+  <HR noshade size="1px">
+  <P>
+  While trying to retrieve the URL:
+  <A HREF="imap.gmail.com:443">imap.gmail.com:443</A>
+  <P>
+  The following error was encountered:
+  <UL>
+  <LI>
+  <STRONG>
+  Connection to 209.85.201.109 Failed
+  </STRONG>
+  </UL>
+
+  <P>
+  The system returned:
+  <PRE><I>    (111) Connection refused</I></PRE>
+
+  <P>
+  The remote host or network may be down.  Please try the request again.
+  <P>Your cache administrator is <A HREF="mailto:webmaster">webmaster</A>.
+
+  <BR clear="all">
+  <HR noshade size="1px">
+  <ADDRESS>
+  Generated Sun, 08 Mar 2009 16:39:54 GMT by mohin.iitkgp.ernet.in (squid/2.6.STABLE14)
+  </ADDRESS>
+  </BODY></HTML>
+  Connection closed by foreign host.
+\end{lstlisting}
+
+\message{ !name(tests.tex) !offset(-141) }
