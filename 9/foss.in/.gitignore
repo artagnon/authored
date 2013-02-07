@@ -1,0 +1,11 @@
+*~
+*.tex
+*.dvi
+*.out
+*.nav
+*.bbl
+*.blg
+*.snm
+*.vrb
+*.hi
+*.o
