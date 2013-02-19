@@ -1,0 +1,119 @@
+#+LaTeX_CLASS: beamer
+#+LaTeX_HEADER: \mode<presentation>
+#+LaTeX_HEADER: \usetheme{CambridgeUS}
+#+LaTeX_HEADER: \usecolortheme{seagull}
+#+LaTeX_HEADER: \setbeameroption{hide notes}
+#+LaTeX_HEADER: \institute{FOSSMeet/2013}
+#+TITLE: Git Unchained
+#+AUTHOR: Ramkumar Ramachandra
+#+DATE: 23rd February 2013
+
+#+BEGIN_LaTeX
+\def\newblock{\hskip .11em plus .33em minus .07em} % Hack to make BibTeX work with LaTeX
+\newcommand{\hl}[1 ]{\colorbox{lightgray}{#1}} % New command: hl to highlight text
+#+END_LaTeX
+
+* Part I: Introducing the object store
+** What does the object store look like?
+#+BEGIN_LaTeX
+\begin{center}\includegraphics[scale=0.45]{res/object-model.pdf}\end{center}
+#+END_LaTeX
+\note[itemize]{
+\item You haven't seen this image before; pay close attention.
+\item Every object is identified by compulsory SHA1 after zlib
+      compression: this is the key!
+\item Commits are in a DAG: multiple parents.
+\item Now for the main difference: deltas are not necessarily against
+      the previous revision! When packing, the full object store data
+      is available :)
+\item For good packing heuristics, we decide based on many parameters
+      like type, filename, and filesize. Using a good window size,
+      generate deltas against n "close" objects and write the smallest
+      delta. This has been engineered by Linus and Peter for maximum
+      efficiency: for example, in xdelta, delta removing data is
+      cheaper than adding data.
+\item When writing packfiles, there's an index with an ordering based
+      on "recency" or reachability from HEAD. The "loose" objects can
+      be found using the packfile index.
+}
+* Part II: Advanced Git commands
+** Commands
+**** pickaxe, rev-parse, rev-list, rerere, read-tree, filter-branch, and blame
+** What does the protocol look like?
+#+BEGIN_LaTeX
+\begin{columns}
+\begin{column}[c]{2cm}
+\includegraphics[scale=0.2]{res/protocol.pdf}
+\end{column}
+\begin{column}[c]{8cm}
+\scriptsize
+\begin{alltt}
+\underline{commit} refs/heads/remote-helper 
+\underline{mark} :30
+\underline{author} Ramkumar Ramachandra <artagnon@gmail.com> 1170314617 +0530
+\underline{committer} Junio C Hamano <gitster@pobox.com> 1170325891 +0100
+\underline{data} 111
+vcs-svn: Fix delete operation in the treap
+
+\underline{from} :28
+\underline{M} 100644 :29 vcs-svn/trp.h
+
+\underline{blob}
+\underline{mark} :31
+\underline{data} 4941
+/*
+ * C macro implementation of treaps.
+ *
+ * Usage:
+[...]
+\end{alltt}
+\end{column}
+\end{columns}
+#+END_LaTeX
+\note[itemize]{
+\item fast-import uses the object API directly: it's built only for
+      speed: almost 3x as fast as svnrdump.
+\item Commands: commit, author, mark, data, from, blob
+\item Before the CP, only fast-import can access the objects it wrote;
+      this makes sense in the context of efficient packing discussed
+      earlier.
+\item Use it programmatically: remote helper.
+}
+** The concept of a remote helper
+#+BEGIN_LaTeX
+\begin{center}\includegraphics[scale=0.3]{res/remote-helper.pdf}\end{center}
+#+END_LaTeX
+\note[itemize]{
+\item Confession: My GSoC project was to build a remote helper for
+      Subversion. We managed to write the infrastructure.
+\item Remote helper is simply a program with a set of commands like a
+      shell; capabilities are fetch, import, push etc.
+\item Gitcore sets up UNIX pipes to call the remote helper: it
+      consumes/ produces a fast-import stream
+\item When Git core doesn't know how to handle the protocol,
+      transport-helper.c looks for a remote helper to connect to. The
+      rest is the remote helper's problem.
+}
+* Part III: Conclusion
+** What you should hack on when you go home
+#+BEGIN_LaTeX
+\begin{columns}
+\begin{column}[c]{3cm}
+\includegraphics[scale=0.2]{res/spanner-hammer.pdf}
+\end{column}
+\begin{column}[c]{7cm}
+\includegraphics[scale=0.3]{res/quadrant.pdf}
+\end{column}
+\end{columns}
+#+END_LaTeX
+\note[itemize]{
+\item libgit2/ Rugged
+}
+** Can I have these slides?
+#+BEGIN_LaTeX
+Ramkumar Ramachandra\\
+artagnon@gmail.com\\
+\url{http://artagnon.com}\\
+Source: \url{http://github.com/artagnon/authored}\\
+\vfill\hfill\includegraphics[scale=0.2]{res/cc.pdf}
+#+END_LaTeX
