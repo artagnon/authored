@@ -48,7 +48,7 @@
 \begin{column}[c]{8cm}
 \scriptsize
 \begin{alltt}
-\underline{commit} refs/heads/remote-helper 
+\underline{commit} refs/heads/remote-helper
 \underline{mark} :30
 \underline{author} Ramkumar Ramachandra <artagnon@gmail.com> 1170314617 +0530
 \underline{committer} Junio C Hamano <gitster@pobox.com> 1170325891 +0100
@@ -63,8 +63,6 @@ vcs-svn: Fix delete operation in the treap
 \underline{data} 4941
 /*
  * C macro implementation of treaps.
- *
- * Usage:
 [...]
 \end{alltt}
 \end{column}
