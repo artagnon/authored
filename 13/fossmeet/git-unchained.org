@@ -37,8 +37,73 @@
       be found using the packfile index.
 }
 * Part II: Advanced Git commands
-** Commands
-**** pickaxe, rev-parse, rev-list, rerere, read-tree, filter-branch, and blame
+** pickaxe
+#+BEGIN_LaTeX
+\begin{center}
+\begin{verbatim}
+$ git log --oneline -S 'static char *get_encoding(const char *message)'
+043a449 sequencer: factor code out of revert builtin
+d685654 revert: clarify label on conflict hunks
+81b50f3 Move 'builtin-*' into a 'builtin/' subdirectory
+52fae7d Missing statics.
+\end{verbatim}
+\end{center}
+#+END_LaTeX
+** rev-parse
+#+BEGIN_LaTeX
+\begin{center}
+\begin{verbatim}
+$ git rev-parse --short origin/master~13^2
+073678b
+\end{verbatim}
+\end{center}
+#+END_LaTeX
+** rev-list
+#+BEGIN_LaTeX
+\begin{center}
+\begin{verbatim}
+$ git rev-list --abbrev-comit --topo-order -5 master~724
+261ec7d
+59f9b8a
+8c5b1ae
+f9bc573
+c73f384
+\end{verbatim}
+\end{center}
+#+END_LaTeX
+** rerere
+#+BEGIN_LaTeX
+\begin{center}
+\begin{verbatim}
+$ git rerere
+\end{verbatim}
+\end{center}
+#+END_LaTeX
+** read-tree
+#+BEGIN_LaTeX
+\begin{center}
+\begin{verbatim}
+$ git read-tree
+\end{verbatim}
+\end{center}
+#+END_LaTeX
+** filter-branch
+#+BEGIN_LaTeX
+\begin{center}
+\begin{verbatim}
+$ git filter-branch
+\end{verbatim}
+\end{center}
+#+END_LaTeX
+** blame
+#+BEGIN_LaTeX
+\begin{center}
+\begin{verbatim}
+$ git blame sequencer.c
+\end{verbatim}
+\end{center}
+#+END_LaTeX
+* Part III: A small fast-import detour
 ** What does the protocol look like?
 #+BEGIN_LaTeX
 \begin{columns}
@@ -92,7 +157,7 @@ vcs-svn: Fix delete operation in the treap
       transport-helper.c looks for a remote helper to connect to. The
       rest is the remote helper's problem.
 }
-* Part III: Conclusion
+* Part IV: Conclusion
 ** What you should hack on when you go home
 #+BEGIN_LaTeX
 \begin{columns}
