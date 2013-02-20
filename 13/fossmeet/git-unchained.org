@@ -10,7 +10,7 @@
 
 #+BEGIN_LaTeX
 \def\newblock{\hskip .11em plus .33em minus .07em} % Hack to make BibTeX work with LaTeX
-\newcommand{\hl}[1 ]{\colorbox{lightgray}{#1}} % New command: hl to highlight text
+\renewcommand{\hl}[1 ]{\colorbox{lightgray}{#1}} % New command: hl to highlight text
 #+END_LaTeX
 
 * Part I: Introducing the object store
