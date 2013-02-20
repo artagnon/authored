@@ -98,6 +98,8 @@ b27cfb0d (Neil Horman           2012-04-20 10:36:15 -0400   16) #include "argv-a
 ** pickaxe
 #+BEGIN_LaTeX
 \begin{center}
+\begin{center}\includegraphics[scale=0.2]{res/pickaxe.pdf}\end{center}
+\vfill
 \begin{verbatim}
 $ git log --oneline -S 'static char *get_encoding(const char *message)'
 043a449 sequencer: factor code out of revert builtin
