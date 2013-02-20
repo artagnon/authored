@@ -36,7 +36,65 @@
       on "recency" or reachability from HEAD. The "loose" objects can
       be found using the packfile index.
 }
+** What is inside a tree?
+#+BEGIN_LaTeX
+\begin{center}
+\begin{alltt}
+$ git ls-tree HEAD^\{tree\}
+\scriptsize
+100644 blob 5e98806c6cc246acef5f539ae191710a0c06ad3f    .gitattributes
+100644 blob 6669bf0c6c9a0b42f74e2ed189350a6a9f11f17d    .gitignore
+100644 blob c7e86183001a00ad2105765708b5b59852ef6640    .mailmap
+100644 blob 536e55524db72bd2acf175208aef4f3dfc148d42    COPYING
+040000 tree 53e11809b8bdfcd6486ba8aa2afd8839c4c73cfe    Documentation
+100755 blob e9f7abca91b96c2f9c99744c49adefe04a4daf56    GIT-VERSION-GEN
+120000 blob bdce3136ea5164d82f0d25d0a7a8b50181f572f7    RelNotes
+100644 blob 59b394eea38494d5dfa525e28ca949e5a03efcf5    blob.h
+040000 tree 5fb111c6a71bf720621724f54bec4679041f8ab6    block-sha1
+100644 blob 2bef1e7e71b7cb3375b3d96fab5c4f20e0c3adff    branch.c
+040000 tree 41d60c10d7a21e786ec863bfc5f75a073dc7b8e5    builtin
+[...]
+\end{alltt}
+\end{center}
+#+END_LaTeX
+\note[itemize]{
+\item <mode> SP <type> SP <object> TAB <file>
+}
 * Part II: Advanced Git commands
+** Swiss Army knives
+#+BEGIN_LaTeX
+\begin{center}\includegraphics[scale=1.5]{res/swiss-army-knife.jpg}\end{center}
+#+END_LaTeX
+** blame
+#+BEGIN_LaTeX
+\begin{center}
+\begin{alltt}
+$ git blame sequencer.c
+\scriptsize
+26ae337b (Ramkumar Ramachandra  2011-08-04 16:09:11 +0530    1) #include "cache.h"
+26ae337b (Ramkumar Ramachandra  2011-08-04 16:09:11 +0530    2) #include "sequencer.h"
+26ae337b (Ramkumar Ramachandra  2011-08-04 16:09:11 +0530    3) #include "dir.h"
+043a4492 (Ramkumar Ramachandra  2012-01-11 23:45:57 +0530    4) #include "object.h"
+043a4492 (Ramkumar Ramachandra  2012-01-11 23:45:57 +0530    5) #include "commit.h"
+043a4492 (Ramkumar Ramachandra  2012-01-11 23:45:57 +0530    6) #include "tag.h"
+043a4492 (Ramkumar Ramachandra  2012-01-11 23:45:57 +0530    7) #include "run-command.h"
+043a4492 (Ramkumar Ramachandra  2012-01-11 23:45:57 +0530    8) #include "exec_cmd.h"
+043a4492 (Ramkumar Ramachandra  2012-01-11 23:45:57 +0530    9) #include "utf8.h"
+043a4492 (Ramkumar Ramachandra  2012-01-11 23:45:57 +0530   10) #include "cache-tree.h"
+043a4492 (Ramkumar Ramachandra  2012-01-11 23:45:57 +0530   11) #include "diff.h"
+043a4492 (Ramkumar Ramachandra  2012-01-11 23:45:57 +0530   12) #include "revision.h"
+043a4492 (Ramkumar Ramachandra  2012-01-11 23:45:57 +0530   13) #include "rerere.h"
+043a4492 (Ramkumar Ramachandra  2012-01-11 23:45:57 +0530   14) #include "merge-recursive.h"
+043a4492 (Ramkumar Ramachandra  2012-01-11 23:45:57 +0530   15) #include "refs.h"
+b27cfb0d (Neil Horman           2012-04-20 10:36:15 -0400   16) #include "argv-array.h"
+043a4492 (Ramkumar Ramachandra  2012-01-11 23:45:57 +0530   17) 
+043a4492 (Ramkumar Ramachandra  2012-01-11 23:45:57 +0530   18) #define GIT_REFLOG_ACTION "GIT_REFLOG_ACTION"
+26ae337b (Ramkumar Ramachandra  2011-08-04 16:09:11 +0530   19) 
+5ed75e2a (Miklos Vajna          2012-09-14 08:52:03 +0200   20) const char sign_off_header[] = "Signed-off-by: ";
+[...]
+\end{alltt}
+\end{center}
+#+END_LaTeX
 ** pickaxe
 #+BEGIN_LaTeX
 \begin{center}
@@ -47,41 +105,6 @@ d685654 revert: clarify label on conflict hunks
 81b50f3 Move 'builtin-*' into a 'builtin/' subdirectory
 52fae7d Missing statics.
 \end{verbatim}
-\end{center}
-#+END_LaTeX
-** rev-parse
-#+BEGIN_LaTeX
-\begin{center}
-\begin{verbatim}
-$ git rev-parse --short origin/master~13^2
-073678b
-\end{verbatim}
-\end{center}
-#+END_LaTeX
-** rev-list
-#+BEGIN_LaTeX
-\begin{center}
-\begin{verbatim}
-$ git rev-list --abbrev-comit --topo-order -5 master~724
-261ec7d
-59f9b8a
-8c5b1ae
-f9bc573
-c73f384
-\end{verbatim}
-\end{center}
-#+END_LaTeX
-** read-tree
-#+BEGIN_LaTeX
-\begin{center}
-\begin{alltt}
-$ git remote add -f Bproject /path/to/B
-$ git merge -s ours --no-commit Bproject/master
-$ git read-tree --prefix=dir-B/ -u Bproject/master
-$ git commit -m "Merge B project as our subdirectory"
-\vfill
-See also: Documentation/howto/using-merge-subtree.txt
-\end{alltt}
 \end{center}
 #+END_LaTeX
 ** filter-branch
@@ -112,34 +135,41 @@ $ git filter-branch --tree-filter 'mv blog/_posts . || ;' HEAD
 \end{verbatim}
 \end{center}
 #+END_LaTeX
-** blame
+** read-tree
 #+BEGIN_LaTeX
 \begin{center}
 \begin{alltt}
-$ git blame sequencer.c
-\scriptsize
-26ae337b (Ramkumar Ramachandra  2011-08-04 16:09:11 +0530    1) #include "cache.h"
-26ae337b (Ramkumar Ramachandra  2011-08-04 16:09:11 +0530    2) #include "sequencer.h"
-26ae337b (Ramkumar Ramachandra  2011-08-04 16:09:11 +0530    3) #include "dir.h"
-043a4492 (Ramkumar Ramachandra  2012-01-11 23:45:57 +0530    4) #include "object.h"
-043a4492 (Ramkumar Ramachandra  2012-01-11 23:45:57 +0530    5) #include "commit.h"
-043a4492 (Ramkumar Ramachandra  2012-01-11 23:45:57 +0530    6) #include "tag.h"
-043a4492 (Ramkumar Ramachandra  2012-01-11 23:45:57 +0530    7) #include "run-command.h"
-043a4492 (Ramkumar Ramachandra  2012-01-11 23:45:57 +0530    8) #include "exec_cmd.h"
-043a4492 (Ramkumar Ramachandra  2012-01-11 23:45:57 +0530    9) #include "utf8.h"
-043a4492 (Ramkumar Ramachandra  2012-01-11 23:45:57 +0530   10) #include "cache-tree.h"
-043a4492 (Ramkumar Ramachandra  2012-01-11 23:45:57 +0530   11) #include "diff.h"
-043a4492 (Ramkumar Ramachandra  2012-01-11 23:45:57 +0530   12) #include "revision.h"
-043a4492 (Ramkumar Ramachandra  2012-01-11 23:45:57 +0530   13) #include "rerere.h"
-043a4492 (Ramkumar Ramachandra  2012-01-11 23:45:57 +0530   14) #include "merge-recursive.h"
-043a4492 (Ramkumar Ramachandra  2012-01-11 23:45:57 +0530   15) #include "refs.h"
-b27cfb0d (Neil Horman           2012-04-20 10:36:15 -0400   16) #include "argv-array.h"
-043a4492 (Ramkumar Ramachandra  2012-01-11 23:45:57 +0530   17) 
-043a4492 (Ramkumar Ramachandra  2012-01-11 23:45:57 +0530   18) #define GIT_REFLOG_ACTION "GIT_REFLOG_ACTION"
-26ae337b (Ramkumar Ramachandra  2011-08-04 16:09:11 +0530   19) 
-5ed75e2a (Miklos Vajna          2012-09-14 08:52:03 +0200   20) const char sign_off_header[] = "Signed-off-by: ";
-[...]
+$ git remote add -f Bproject /path/to/B
+$ git merge -s ours --no-commit Bproject/master
+$ git read-tree --prefix=dir-B/ -u Bproject/master
+$ git commit -m "Merge B project as our subdirectory"
+\vfill
+See also: Documentation/howto/using-merge-subtree.txt
 \end{alltt}
+\end{center}
+#+END_LaTeX
+** rev-parse
+#+BEGIN_LaTeX
+\begin{center}
+\begin{center}\includegraphics[scale=0.5]{res/scene-curtain.png}\end{center}
+\vfill
+\begin{verbatim}
+$ git rev-parse --short origin/master~13^2
+073678b
+\end{verbatim}
+\end{center}
+#+END_LaTeX
+** rev-list
+#+BEGIN_LaTeX
+\begin{center}
+\begin{verbatim}
+$ git rev-list --abbrev-comit --topo-order -5 master~724
+261ec7d
+59f9b8a
+8c5b1ae
+f9bc573
+c73f384
+\end{verbatim}
 \end{center}
 #+END_LaTeX
 * Part III: A small fast-import detour
