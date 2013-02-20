@@ -243,9 +243,11 @@ vcs-svn: Fix delete operation in the treap
 }
 ** Can I have these slides?
 #+BEGIN_LaTeX
-Ramkumar Ramachandra\\
-artagnon@gmail.com\\
-\url{http://artagnon.com}\\
-Source: \url{http://github.com/artagnon/authored}\\
+\begin{alltt}
+Ramkumar Ramachandra
+artagnon@gmail.com
+\url{http://artagnon.com}
+Sources: \url{http://github.com/artagnon/authored}
+\end{alltt}
 \vfill\hfill\includegraphics[scale=0.2]{res/cc.pdf}
 #+END_LaTeX
