@@ -69,28 +69,28 @@ $ git ls-tree HEAD^\{tree\}
 #+BEGIN_LaTeX
 \begin{center}
 \begin{alltt}
-$ git blame sequencer.c
+$ git blame object.c
 \scriptsize
-26ae337b (Ramkumar Ramachandra  2011-08-04 16:09:11 +0530    1) #include "cache.h"
-26ae337b (Ramkumar Ramachandra  2011-08-04 16:09:11 +0530    2) #include "sequencer.h"
-26ae337b (Ramkumar Ramachandra  2011-08-04 16:09:11 +0530    3) #include "dir.h"
-043a4492 (Ramkumar Ramachandra  2012-01-11 23:45:57 +0530    4) #include "object.h"
-043a4492 (Ramkumar Ramachandra  2012-01-11 23:45:57 +0530    5) #include "commit.h"
-043a4492 (Ramkumar Ramachandra  2012-01-11 23:45:57 +0530    6) #include "tag.h"
-043a4492 (Ramkumar Ramachandra  2012-01-11 23:45:57 +0530    7) #include "run-command.h"
-043a4492 (Ramkumar Ramachandra  2012-01-11 23:45:57 +0530    8) #include "exec_cmd.h"
-043a4492 (Ramkumar Ramachandra  2012-01-11 23:45:57 +0530    9) #include "utf8.h"
-043a4492 (Ramkumar Ramachandra  2012-01-11 23:45:57 +0530   10) #include "cache-tree.h"
-043a4492 (Ramkumar Ramachandra  2012-01-11 23:45:57 +0530   11) #include "diff.h"
-043a4492 (Ramkumar Ramachandra  2012-01-11 23:45:57 +0530   12) #include "revision.h"
-043a4492 (Ramkumar Ramachandra  2012-01-11 23:45:57 +0530   13) #include "rerere.h"
-043a4492 (Ramkumar Ramachandra  2012-01-11 23:45:57 +0530   14) #include "merge-recursive.h"
-043a4492 (Ramkumar Ramachandra  2012-01-11 23:45:57 +0530   15) #include "refs.h"
-b27cfb0d (Neil Horman           2012-04-20 10:36:15 -0400   16) #include "argv-array.h"
-043a4492 (Ramkumar Ramachandra  2012-01-11 23:45:57 +0530   17) 
-043a4492 (Ramkumar Ramachandra  2012-01-11 23:45:57 +0530   18) #define GIT_REFLOG_ACTION "GIT_REFLOG_ACTION"
-26ae337b (Ramkumar Ramachandra  2011-08-04 16:09:11 +0530   19) 
-5ed75e2a (Miklos Vajna          2012-09-14 08:52:03 +0200   20) const char sign_off_header[] = "Signed-off-by: ";
+8f1d2e6f (Junio C Hamano       2006-01-07 01:33:54 -0800   1) #include "cache.h"
+175785e5 (Daniel Barkalow      2005-04-18 11:39:48 -0700   2) #include "object.h"
+e9eefa67 (Daniel Barkalow      2005-04-28 07:46:33 -0700   3) #include "blob.h"
+e9eefa67 (Daniel Barkalow      2005-04-28 07:46:33 -0700   4) #include "tree.h"
+e9eefa67 (Daniel Barkalow      2005-04-28 07:46:33 -0700   5) #include "commit.h"
+e9eefa67 (Daniel Barkalow      2005-04-28 07:46:33 -0700   6) #include "tag.h"
+175785e5 (Daniel Barkalow      2005-04-18 11:39:48 -0700   7) 
+0556a11a (Linus Torvalds       2006-06-30 11:20:33 -0700   8) static struct object **obj_hash;
+0556a11a (Linus Torvalds       2006-06-30 11:20:33 -0700   9) static int nr_objs, obj_hash_size;
+fc046a75 (Linus Torvalds       2006-06-29 21:38:55 -0700  10) 
+fc046a75 (Linus Torvalds       2006-06-29 21:38:55 -0700  11) unsigned int get_max_object_index(void)
+fc046a75 (Linus Torvalds       2006-06-29 21:38:55 -0700  12) {
+0556a11a (Linus Torvalds       2006-06-30 11:20:33 -0700  13)   return obj_hash_size;
+fc046a75 (Linus Torvalds       2006-06-29 21:38:55 -0700  14) }
+fc046a75 (Linus Torvalds       2006-06-29 21:38:55 -0700  15) 
+fc046a75 (Linus Torvalds       2006-06-29 21:38:55 -0700  16) struct object *get_indexed_object(unsigned int idx)
+fc046a75 (Linus Torvalds       2006-06-29 21:38:55 -0700  17) {
+0556a11a (Linus Torvalds       2006-06-30 11:20:33 -0700  18)   return obj_hash[idx];
+fc046a75 (Linus Torvalds       2006-06-29 21:38:55 -0700  19) }
+175785e5 (Daniel Barkalow      2005-04-18 11:39:48 -0700  20) 
 [...]
 \end{alltt}
 \end{center}
