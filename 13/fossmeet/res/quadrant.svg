@@ -13,7 +13,7 @@
    height="564.5"
    id="svg2"
    version="1.1"
-   inkscape:version="0.47 r22583"
+   inkscape:version="0.48.4 r9939"
    sodipodi:docname="quadrant.svg">
   <defs
      id="defs4">
@@ -46,10 +46,10 @@
      inkscape:snap-bbox-midpoints="true"
      inkscape:snap-bbox-edge-midpoints="true"
      inkscape:bbox-nodes="true"
-     inkscape:window-width="1278"
-     inkscape:window-height="778"
+     inkscape:window-width="1280"
+     inkscape:window-height="786"
      inkscape:window-x="0"
-     inkscape:window-y="20"
+     inkscape:window-y="14"
      inkscape:window-maximized="0">
     <sodipodi:guide
        orientation="0,1"
@@ -108,50 +108,46 @@
     <text
        xml:space="preserve"
        style="font-size:40px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans"
-       x="127.65067"
-       y="677.05811"
+       x="63.383083"
+       y="648.06396"
        id="text2842"><tspan
          sodipodi:role="line"
          id="tspan2844"
-         x="127.65067"
-         y="677.05811">gitcore</tspan></text>
+         x="63.383083"
+         y="648.06396">       env</tspan><tspan
+         sodipodi:role="line"
+         x="63.383083"
+         y="698.06396"
+         id="tspan3075">improvement</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:40px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans"
-       x="459.24832"
-       y="372.05807"
+       x="440.31277"
+       y="397.05807"
        id="text2846"><tspan
          sodipodi:role="line"
-         id="tspan2848"
-         x="459.24832"
-         y="372.05807">git-based</tspan><tspan
-         sodipodi:role="line"
-         x="459.24832"
-         y="422.05807"
-         id="tspan2850">   things</tspan></text>
+         x="440.31277"
+         y="397.05807"
+         id="tspan2850">fast-import</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:40px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans"
-       x="86.312775"
+       x="77.367462"
        y="397.05807"
        id="text2852"><tspan
          sodipodi:role="line"
          id="tspan2854"
-         x="86.312775"
-         y="397.05807">fast-import</tspan></text>
+         x="77.367462"
+         y="397.05807">scripting git</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:40px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans"
-       x="413.5452"
-       y="652.05811"
+       x="408.70145"
+       y="677.05811"
        id="text2856"><tspan
          sodipodi:role="line"
-         id="tspan2858"
-         x="413.5452"
-         y="652.05811">import-export</tspan><tspan
-         sodipodi:role="line"
-         x="413.5452"
-         y="702.05811"
-         id="tspan2860">   machinery</tspan></text>
+         x="408.70145"
+         y="677.05811"
+         id="tspan2860">explore libgit2</tspan></text>
   </g>
 </svg>
