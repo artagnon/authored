@@ -247,7 +247,7 @@ vcs-svn: Fix delete operation in the treap
 #+BEGIN_LaTeX
 \begin{alltt}
 Ramkumar Ramachandra
-artagnon@gmail.com
+@artagnon
 \url{http://artagnon.com}
 Sources: \url{http://github.com/artagnon/authored}
 \end{alltt}
