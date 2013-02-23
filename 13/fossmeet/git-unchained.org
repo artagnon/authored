@@ -14,6 +14,19 @@
 #+END_LaTeX
 
 * Part I: Introducing the object store
+** Who am I?
+#+BEGIN_LaTeX
+\begin{alltt}
+\huge
+Ramkumar Ramachandra
+\normalsize
+(Git contributor)
+\vfill
+@artagnon
+\url{https://github.com/artagnon}
+\url{http://artagnon.com}
+\end{alltt}
+#+END_LaTeX
 ** What does the object store look like?
 #+BEGIN_LaTeX
 \begin{center}\includegraphics[scale=0.45]{res/object-model.pdf}\end{center}
@@ -246,10 +259,7 @@ vcs-svn: Fix delete operation in the treap
 ** Can I have these slides?
 #+BEGIN_LaTeX
 \begin{alltt}
-Ramkumar Ramachandra
-@artagnon
-\url{http://artagnon.com}
-Sources: \url{http://github.com/artagnon/authored}
+\url{http://github.com/artagnon/authored}
 \end{alltt}
 \vfill\hfill\includegraphics[scale=0.2]{res/cc.pdf}
 #+END_LaTeX
