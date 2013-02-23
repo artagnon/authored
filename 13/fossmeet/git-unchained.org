@@ -6,7 +6,7 @@
 #+LaTeX_HEADER: \institute{FOSSMeet/2013}
 #+TITLE: Git Unchained
 #+AUTHOR: Ramkumar Ramachandra
-#+DATE: 23rd February 2013
+#+DATE: 24th February 2013
 
 #+BEGIN_LaTeX
 \def\newblock{\hskip .11em plus .33em minus .07em} % Hack to make BibTeX work with LaTeX
