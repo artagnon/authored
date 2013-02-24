@@ -260,6 +260,7 @@ vcs-svn: Fix delete operation in the treap
 #+BEGIN_LaTeX
 \begin{alltt}
 \url{http://github.com/artagnon/authored}
+\url{http://artagnon.github.com/authored}
 \end{alltt}
 \vfill\hfill\includegraphics[scale=0.2]{res/cc.pdf}
 #+END_LaTeX
