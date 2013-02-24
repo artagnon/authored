@@ -20,6 +20,8 @@ producing a pdf.
   the Squid proxy server.
 * /10/foss.in: Contains my FOSS.IN 2010 presentation "Leveraging the
   Git Object Store" (git-object-store).
+* /13/fossmeet: Contains my FOSSMeet 2013 presentation "Git Unchained"
+  (git-unchained).
 
 ## Build instructions
 
