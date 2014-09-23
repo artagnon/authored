@@ -1,0 +1,6 @@
+(defn map
+  [f coll]
+  (if coll
+    (cons (f (first coll))
+          (map f (rest coll)))
+    []))
