@@ -4,9 +4,11 @@
 \usepackage{xcolor}
 \usepackage{listings}
 \usepackage{textcomp}
+\usepackage{ulem}
+\usepackage{listings}
 \title{Lowering high-level language constructs to LLVM IR}
 \author{Ramkumar Ramachandra}
-\titlegraphic{\includegraphics[scale=0.25]{llvm-logo}}
+\titlegraphic{\includegraphics[scale=0.20]{llvm-logo}}
 
 \lstset{
     inputencoding=utf8,
@@ -65,7 +67,7 @@
   },
   classoffset=1, keywordstyle=\color{purple},
   morekeywords={
-    fadd, sub, fsub, mul, fmul,
+    add, fadd, sub, fsub, mul, fmul,
     sdiv, udiv, fdiv, srem, urem, frem,
     and, or, xor,
     icmp, fcmp,
@@ -99,8 +101,40 @@
 \end{frame}
 
 \begin{frame}
+  \lstinputlisting[language=c]{add.c}
+  \lstinputlisting[language=llvm]{add.ll}
+\end{frame}
+
+\begin{frame}
+  \lstinputlisting[language=c]{add-print.c}
+  \lstinputlisting[language=llvm]{add-print.ll}
+\end{frame}
+
+\begin{frame}{varargs}
+  \begin{columns}
+    \begin{column}[b]{5.5cm}
+      \includegraphics[scale=0.05]{variable-knob}
+    \end{column}
+    \begin{column}[b]{4.5cm}
+      \begin{itemize}
+      \item[] \texttt{@llvm.va\_start}
+      \item[] \texttt{@llvm.va\_end}
+      \item[] \texttt{\sout{@llvm.va\_arg}}
+      \end{itemize}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+\begin{frame}{the x86 detail}
+  \lstinputlisting[language=llvm,frame=none,
+    numbers=none,basicstyle=\scriptsize\ttfamily]{vararg.ll}
+  \vfill
+  \lstinputlisting[language=ml]{vararg.ml}
+\end{frame}
+
+\begin{frame}
   \lstinputlisting[language=rhine]{map.rh}
-  \includegraphics{map}
+  \begin{center}\includegraphics{map}\end{center}
 \end{frame}
 
 \end{document}
