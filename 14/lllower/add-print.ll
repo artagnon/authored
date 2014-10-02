@@ -1,4 +1,4 @@
-@.str = private unnamed_addr constant [3 x i8] c"%d\00", align 1
+@.str = private unnamed_addr constant [3 x i8] c"%d\00"
 
 define i32 @main() {
   %1 = call i32 @add(i32 3, i32 4)

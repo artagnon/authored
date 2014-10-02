@@ -27,7 +27,7 @@
     showtabs=false,
     showspaces=false,
     showstringspaces=false,
-    basicstyle=\tiny\ttfamily,
+    basicstyle=\scriptsize\ttfamily,
     identifierstyle=\ttfamily,
     keywordstyle=\ttfamily\color[rgb]{0,0,1},
     commentstyle=\ttfamily\color[rgb]{0.133,0.545,0.133},
@@ -36,7 +36,7 @@
 
 \lstloadlanguages{Lisp}
 \lstdefinelanguage{rhine}{
-    morekeywords={defn, first, rest, cons, if}
+  morekeywords={defn, first, rest, cons, if}
 }  
 
 \makeatletter
@@ -44,8 +44,10 @@
   morecomment = [l]{;},
   morestring=[b]", 
   sensitive = true,
-  classoffset=0,
-  morekeywords={
+  keywordstyle=[1]\color{blue},
+  keywordstyle=[2]\color{purple},
+  keywordstyle=[3]\colorbox{yellow},
+  morekeywords=[1]{
     define, declare, global, constant,
     internal, external, private,
     linkonce, linkonce_odr, weak, weak_odr, appending,
@@ -65,8 +67,7 @@
     target, datalayout, triple,
     blockaddress
   },
-  classoffset=1, keywordstyle=\color{purple},
-  morekeywords={
+  morekeywords=[2]{
     add, fadd, sub, fsub, mul, fmul,
     sdiv, udiv, fdiv, srem, urem, frem,
     and, or, xor,
@@ -84,6 +85,7 @@
     extractelement, insertelement, shufflevector,
     extractvalue, insertvalue,
   },
+  morekeywords=[3]{@malloc},
   alsoletter={\%},
   keywordsprefix={\%},
 }
@@ -126,8 +128,7 @@
 \end{frame}
 
 \begin{frame}{the x86 detail}
-  \lstinputlisting[language=llvm,frame=none,
-    numbers=none,basicstyle=\scriptsize\ttfamily]{vararg.ll}
+  \lstinputlisting[language=llvm,frame=none,numbers=none]{vararg.ll}
   \vfill
   \lstinputlisting[language=ml]{vararg.ml}
 \end{frame}
