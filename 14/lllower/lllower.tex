@@ -29,24 +29,28 @@
     showstringspaces=false,
     basicstyle=\scriptsize\ttfamily,
     identifierstyle=\ttfamily,
-    keywordstyle=\ttfamily\color[rgb]{0,0,1},
+    keywordstyle=[1]\ttfamily\color{blue},
+    keywordstyle=[2]\ttfamily\color{purple},
+    keywordstyle=[3]\ttfamily\colorbox{yellow},
     commentstyle=\ttfamily\color[rgb]{0.133,0.545,0.133},
     stringstyle=\ttfamily\color[rgb]{0.627,0.126,0.941},
 }
 
-\lstloadlanguages{Lisp}
 \lstdefinelanguage{rhine}{
-  morekeywords={defn, first, rest, cons, if}
-}  
+  morekeywords=[1]{defn, first, rest, cons, if},
+  morekeywords=[3]{map},
+}
+
+\lstdefinelanguage{ocaml}{
+  morekeywords=[1]{let, in},
+  morekeywords=[3]{const_8},
+}
 
 \makeatletter
 \lstdefinelanguage{llvm}{
   morecomment = [l]{;},
   morestring=[b]", 
   sensitive = true,
-  keywordstyle=[1]\color{blue},
-  keywordstyle=[2]\color{purple},
-  keywordstyle=[3]\colorbox{yellow},
   morekeywords=[1]{
     define, declare, global, constant,
     internal, external, private,
@@ -130,7 +134,7 @@
 \begin{frame}{the x86 detail}
   \lstinputlisting[language=llvm,frame=none,numbers=none]{vararg.ll}
   \vfill
-  \lstinputlisting[language=ml]{vararg.ml}
+  \lstinputlisting[language=ocaml]{vararg.ml}
 \end{frame}
 
 \begin{frame}
