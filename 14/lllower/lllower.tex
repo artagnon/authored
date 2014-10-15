@@ -39,7 +39,7 @@
 
 \lstdefinelanguage{rhine}{
   morestring=[b]",
-  morekeywords=[1]{defn, first, rest, cons, if},
+  morekeywords=[1]{defn, fn, let, first, rest, cons, if},
   morekeywords=[2]{true, false},
   morekeywords=[3]{map, map2},
 }
@@ -195,6 +195,33 @@
   \lstinputlisting[language=llvm,frame=none,numbers=none]{vararg.ll}
   \vfill
   \lstinputlisting[language=ocaml]{vararg.ml}
+\end{frame}
+
+\begin{frame}{$\lambda$ lifting}
+  \begin{columns}
+    \begin{column}[b]{3.8cm}
+      \includegraphics[scale=0.4]{lambda}
+    \end{column}
+    \begin{column}[b]{6.2cm}
+      \lstinputlisting[language=rhine]{lambda.rh}
+      \lstinputlisting[language=rhine]{lambda-defn.rh}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+\begin{frame}{closure}
+  \begin{columns}
+    \begin{column}[b]{3.8cm}
+      \includegraphics[scale=0.3]{closure}
+    \end{column}
+    \begin{column}[b]{6.2cm}
+      \lstinputlisting[language=rhine]{closure-init.rh}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+\begin{frame}[advanced closures]
+  \lstinputlisting[language=rhine]{closure-advanced.rh}
 \end{frame}
 
 \end{document}

@@ -1,0 +1,6 @@
+(defn quux []
+  (println aenv)
+  (println env))
+
+(defn closure []
+  (let [env 12 aenv 17] (quux)))
