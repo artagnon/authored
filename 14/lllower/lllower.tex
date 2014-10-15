@@ -119,17 +119,24 @@
   \lstinputlisting[language=llvm]{add-print.ll}
 \end{frame}
 
-\begin{frame}
+\begin{frame}{map!}
+  \begin{center}\includegraphics[scale=0.6]{map}\end{center}
+  \vfill
+  \lstinputlisting[language=haskell,frame=none,numbers=none]{map.hs}
+\end{frame}
+
+\begin{frame}{the functor}
   \begin{columns}
     \begin{column}[b]{5.5cm}
-      \includegraphics[scale=0.6]{map}
+      \includegraphics[scale=0.6]{list}
     \end{column}
     \begin{column}[b]{4.5cm}
+      \lstinputlisting[language=rhine]{list.rh}
     \end{column}
   \end{columns}
 \end{frame}
 
-\begin{frame}
+\begin{frame}{types dance}
   \begin{columns}
     \begin{column}[b]{5.5cm}
       \includegraphics[scale=0.6]{types-dance}
@@ -146,7 +153,7 @@
   \end{columns}
 \end{frame}
 
-\begin{frame}
+\begin{frame}{sum type (tagged union?)}
   \begin{columns}
     \begin{column}[b]{5.5cm}
       \includegraphics[scale=0.4]{dynamic-static-types}
@@ -157,22 +164,11 @@
   \end{columns}
 \end{frame}
 
-\begin{frame}
-  \begin{columns}
-    \begin{column}[b]{5.5cm}
-      \includegraphics[scale=0.6]{list}
-    \end{column}
-    \begin{column}[b]{4.5cm}
-      \lstinputlisting[language=rhine]{list.rh}
-      \begin{itemize}
-      \item[] \texttt{\%value\_t**}
-      \item[] \texttt{i64}
-      \end{itemize}
-    \end{column}
-  \end{columns}
+\begin{frame}{the array type}
+  \lstinputlisting[language=llvm]{value_t_array.ll}
 \end{frame}
 
-\begin{frame}{map!}
+\begin{frame}{a look at the implementation}
   \lstinputlisting[language=rhine]{map.rh}
 \end{frame}
 

@@ -1,7 +1,7 @@
 %value_t = type {
 	 i32,
-	 double,
 	 i64,
+	 double,
 	 i1,
 	 i8,
 	 i8*,
