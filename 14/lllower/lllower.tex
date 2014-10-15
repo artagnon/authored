@@ -45,8 +45,9 @@
 }
 
 \lstdefinelanguage{ocaml}{
-  morekeywords=[1]{let, in},
-  morekeywords=[3]{const_8, magic_lim},
+  morestring=[b]",
+  morekeywords=[1]{let, in, fun},
+  morekeywords=[3]{const_8, magic_lim, llenv},
 }
 
 \makeatletter
@@ -222,6 +223,14 @@
       \lstinputlisting[language=rhine]{closure-init.rh}
     \end{column}
   \end{columns}
+\end{frame}
+
+\begin{frame}{closure implementation}
+  \lstinputlisting[language=ocaml]{closure.ml}
+\end{frame}
+
+\begin{frame}{the final value_t}
+  \lstinputlisting[language=llvm]{value_t.ll}
 \end{frame}
 
 \end{document}
