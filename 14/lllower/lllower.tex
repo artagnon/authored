@@ -173,10 +173,14 @@
 \end{frame}
 
 \begin{frame}{the function type}
-  \lstinputlisting[language=llvm]{value_t.ll}
+  \lstinputlisting[language=llvm]{value_t_simplefunction.ll}
 \end{frame}
 
-\begin{frame}{varargs}
+\begin{frame}{a vaargs refresher}
+  \lstinputlisting[language=c]{vaargs.c}
+\end{frame}
+
+\begin{frame}{varargs in llvm}
   \begin{columns}
     \begin{column}[b]{5.5cm}
       \includegraphics[scale=0.05]{variable-knob}
@@ -218,10 +222,6 @@
       \lstinputlisting[language=rhine]{closure-init.rh}
     \end{column}
   \end{columns}
-\end{frame}
-
-\begin{frame}[advanced closures]
-  \lstinputlisting[language=rhine]{closure-advanced.rh}
 \end{frame}
 
 \end{document}
