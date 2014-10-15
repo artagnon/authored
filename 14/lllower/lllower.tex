@@ -6,6 +6,7 @@
 \usepackage{textcomp}
 \usepackage{ulem}
 \usepackage{listings}
+
 \title{Lowering high-level language constructs to LLVM IR}
 \author{Ramkumar Ramachandra}
 \titlegraphic{\includegraphics[scale=0.20]{llvm-logo}}
@@ -37,13 +38,15 @@
 }
 
 \lstdefinelanguage{rhine}{
+  morestring=[b]",
   morekeywords=[1]{defn, first, rest, cons, if},
-  morekeywords=[3]{map},
+  morekeywords=[2]{true, false},
+  morekeywords=[3]{map, map2},
 }
 
 \lstdefinelanguage{ocaml}{
   morekeywords=[1]{let, in},
-  morekeywords=[3]{const_8},
+  morekeywords=[3]{const_8, magic_lim},
 }
 
 \makeatletter
@@ -116,6 +119,67 @@
   \lstinputlisting[language=llvm]{add-print.ll}
 \end{frame}
 
+\begin{frame}
+  \begin{columns}
+    \begin{column}[b]{5.5cm}
+      \includegraphics[scale=0.6]{map}
+    \end{column}
+    \begin{column}[b]{4.5cm}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+\begin{frame}
+  \begin{columns}
+    \begin{column}[b]{5.5cm}
+      \includegraphics[scale=0.6]{types-dance}
+    \end{column}
+    \begin{column}[b]{4.5cm}
+      \begin{itemize}
+      \item[] \texttt{i64}
+      \item[] \texttt{double}
+      \item[] \texttt{i1}
+      \item[] \texttt{i8}
+      \item[] \texttt{i8*}
+      \end{itemize}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+\begin{frame}
+  \begin{columns}
+    \begin{column}[b]{5.5cm}
+      \includegraphics[scale=0.4]{dynamic-static-types}
+    \end{column}
+    \begin{column}[b]{4.5cm}
+      \lstinputlisting[language=llvm]{value_t_intro.ll}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+\begin{frame}
+  \begin{columns}
+    \begin{column}[b]{5.5cm}
+      \includegraphics[scale=0.6]{list}
+    \end{column}
+    \begin{column}[b]{4.5cm}
+      \lstinputlisting[language=rhine]{list.rh}
+      \begin{itemize}
+      \item[] \texttt{\%value\_t**}
+      \item[] \texttt{i64}
+      \end{itemize}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+\begin{frame}{map!}
+  \lstinputlisting[language=rhine]{map.rh}
+\end{frame}
+
+\begin{frame}{the function type}
+  \lstinputlisting[language=llvm]{value_t.ll}
+\end{frame}
+
 \begin{frame}{varargs}
   \begin{columns}
     \begin{column}[b]{5.5cm}
@@ -135,11 +199,6 @@
   \lstinputlisting[language=llvm,frame=none,numbers=none]{vararg.ll}
   \vfill
   \lstinputlisting[language=ocaml]{vararg.ml}
-\end{frame}
-
-\begin{frame}
-  \lstinputlisting[language=rhine]{map.rh}
-  \begin{center}\includegraphics{map}\end{center}
 \end{frame}
 
 \end{document}
