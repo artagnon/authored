@@ -41,7 +41,20 @@
   morestring=[b]",
   morekeywords=[1]{defn, fn, let, first, rest, cons, if},
   morekeywords=[2]{true, false},
+}
+
+\lstdefinelanguage{rhine-hl}{
+  morestring=[b]",
+  morekeywords=[1]{defn, fn, let, first, rest, cons, if},
+  morekeywords=[2]{true, false},
   morekeywords=[3]{map, map2},
+}
+
+\lstdefinelanguage{rhine-hl2}{
+  morestring=[b]",
+  morekeywords=[1]{defn, fn, let, first, rest, cons, if},
+  morekeywords=[2]{true, false},
+  morekeywords=[3]{map2f},
 }
 
 \lstdefinelanguage{ocaml}{
@@ -170,7 +183,7 @@
 \end{frame}
 
 \begin{frame}{a look at the implementation}
-  \lstinputlisting[language=rhine]{map.rh}
+  \lstinputlisting[language=rhine-hl]{map.rh}
 \end{frame}
 
 \begin{frame}{the function type}
@@ -200,6 +213,10 @@
   \lstinputlisting[language=llvm,frame=none,numbers=none]{vararg.ll}
   \vfill
   \lstinputlisting[language=ocaml]{vararg.ml}
+\end{frame}
+
+\begin{frame}{one step further}
+  \lstinputlisting[language=rhine-hl2]{map-closure.rh}
 \end{frame}
 
 \begin{frame}{$\lambda$ lifting}

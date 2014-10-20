@@ -1,0 +1,16 @@
+(defn add2 [a b] (+ a b))
+(defn sub2 [a b] (- a b))
+
+(defn map2
+  [f c1 c2]
+  (if (and c1 c2)
+    (cons (f (first c1) (first c2))
+          (map2 f (rest c1) (rest c2)))
+    []))
+
+(def map2f add2)
+
+(defn main []
+  (let [map2-wrapper (fn [c1 c2] (map2 map2f c1 c2))
+        map2f sub2]
+    (map2-wrapper [4 5 6] [1 2 3])))
