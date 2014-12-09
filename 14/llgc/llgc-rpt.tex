@@ -1,0 +1,273 @@
+\documentclass{article}
+
+\usepackage{xcolor}
+\usepackage{listings}
+\usepackage{textcomp}
+\usepackage{ulem}
+\usepackage{listings}
+\usepackage[T1]{fontenc}
+\usepackage{fancyhdr} % Required for custom headers
+\usepackage{lastpage} % Required to determine the last page for the footer
+\usepackage{extramarks} % Required for headers and footers
+\usepackage{graphicx} % Required to insert images
+\usepackage{courier} % Required for the courier font
+
+% Margins
+\topmargin=-0.45in
+\evensidemargin=0in
+\oddsidemargin=0in
+\textwidth=6.5in
+\textheight=9.0in
+\headsep=0.25in
+
+\linespread{1.1} % Line spacing
+
+% Set up the header and footer
+\pagestyle{fancy}
+\lhead{} % Top left header
+\rhead{\firstxmark} % Top right header
+\lfoot{\lastxmark} % Bottom left footer
+\cfoot{} % Bottom center footer
+\rfoot{Page\ \thepage\ of\ \protect\pageref{LastPage}} % Bottom right footer
+\renewcommand\headrulewidth{0.4pt} % Size of the header rule
+\renewcommand\footrulewidth{0.4pt} % Size of the footer rule
+
+\setlength\parindent{0pt} % Removes all indentation from paragraphs
+
+\lstset{
+    inputencoding=utf8,
+    tabsize=4,
+    rulecolor=,
+    numbers=left,
+    upquote=true,
+    columns=fixed,
+    showstringspaces=false,
+    extendedchars=true,
+    breaklines=true,
+    prebreak=\raisebox{0ex}[0ex][0ex]{\ensuremath{\hookleftarrow}},
+    frame=single,
+    showtabs=false,
+    showspaces=false,
+    showstringspaces=false,
+    basicstyle=\small\ttfamily,
+    identifierstyle=\ttfamily,
+    keywordstyle=[1]\ttfamily\color{blue},
+    keywordstyle=[2]\ttfamily\color{purple},
+    keywordstyle=[3]\ttfamily\colorbox{yellow},
+    commentstyle=\ttfamily\color[rgb]{0.133,0.545,0.133},
+    stringstyle=\ttfamily\color[rgb]{0.627,0.126,0.941},
+}
+
+\makeatletter
+\lstdefinelanguage{llvm}{
+  morecomment = [l]{;},
+  morestring=[b]", 
+  sensitive = true,
+  morekeywords=[1]{
+    define, declare, global, constant,
+    internal, external, private,
+    linkonce, linkonce_odr, weak, weak_odr, appending,
+    common, extern_weak,
+    thread_local, dllimport, dllexport,
+    hidden, protected, default,
+    except, deplibs,
+    volatile, fastcc, coldcc, cc, ccc,
+    x86_stdcallcc, x86_fastcallcc,
+    ptx_kernel, ptx_device,
+    signext, zeroext, inreg, sret, nounwind, noreturn,
+    nocapture, byval, nest, readnone, readonly, noalias, uwtable,
+    inlinehint, noinline, alwaysinline, optsize, ssp, sspreq,
+    noredzone, noimplicitfloat, naked, alignstack,
+    module, asm, align, tail, to,
+    addrspace, section, alias, sideeffect, c, gc,
+    target, datalayout, triple,
+    blockaddress
+  },
+  morekeywords=[2]{
+    add, fadd, sub, fsub, mul, fmul,
+    sdiv, udiv, fdiv, srem, urem, frem,
+    and, or, xor,
+    icmp, fcmp,
+    eq, ne, ugt, uge, ult, ule, sgt, sge, slt, sle,
+    oeq, ogt, oge, olt, ole, one, ord, ueq, ugt, uge,
+    ult, ule, une, uno,
+    nuw, nsw, exact, inbounds,
+    phi, call, select, shl, lshr, ashr, va_arg,
+    trunc, zext, sext,
+    fptrunc, fpext, fptoui, fptosi, uitofp, sitofp,
+    ptrtoint, inttoptr, bitcast,
+    ret, br, indirectbr, switch, invoke, unwind, unreachable,
+    malloc, alloca, free, load, store, getelementptr,
+    extractelement, insertelement, shufflevector,
+    extractvalue, insertvalue,
+  },
+  morekeywords=[3]{@malloc},
+  alsoletter={\%},
+  keywordsprefix={\%},
+}
+\makeatother
+
+\title{
+\vspace{2in}
+\textmd{\textbf{Precise GC Support in LLVM}}\\
+\vspace{0.1in}\large{COMS\ W4115}\\
+\vspace{0.1in}\large{\textit{Alfred A. Aho}}
+\vspace{2in}
+}
+\author{Ramkumar Ramachandra, rr2893}
+\begin{document}
+\maketitle
+\newpage
+\tableofcontents
+\newpage
+\section{A gentle introduction to LLVM}
+\begin{lstlisting}[language=llvm]
+define %value_t* @0() {
+entry:
+  %value = call i8* @malloc(i64 ptrtoint (%value_t* getelementptr (%value_t* null, i32 1) to i64))
+  %malloc_value = bitcast i8* %value to %value_t*
+\end{lstlisting}
+
+\section{The need for garbage collection}
+A garbage collector gives the program a view of infinite memory, and
+frees it up from making memory management decisions. Consider the
+program:
+\begin{lstlisting}[language=c]
+int main() {
+	int *v = malloc(3 * sizeof(int));
+	...
+	v++; // We permanently lose a handle on v[0];
+	...
+	free(v); // 1 int leaked!
+}
+\end{lstlisting}
+$v$ is a stack-allocated variable which points to memory for 3
+integers on the heap. The program happens to lose reference to one of
+those integers; hence, a subsequent free would result in a leak. One
+might argue that only C allows such semantics, but that is not at all
+true. Consider:
+\begin{lstlisting}[language=ruby]
+class IndexPage < Page
+  def initialize(filename)
+    if filename.contains('.index')
+      @permalink = filename.split('.index')[0]
+    end
+    @target = "#{@permalink}.html"
+  end
+end
+\end{lstlisting}
+Here, the semantics of a hypothetical free are very complicated. What
+happens when filename.split('.index') returns N splits? Only the first
+split is captured in a variable, so what happens to the other N-1
+splits? Does the first split share memory with ``filename''? Is it
+safe to free ``filename'' at the end of the function? As Ruby
+designers refine the language constantly, and optimize things, must
+they always worry about the lifetimes and reference counts of
+variables?
+
+To illustrate how reference counting works, let's implement a
+simplistic version of shared pointers in C++:
+\begin{lstlisting}[language=c++]
+template <class T>
+
+class SharedPtr{
+public:
+	SharedPtr(){
+		nRefCount=new int;
+		(*nRefCount)=1;
+		data=0;
+	}
+	SharedPtr(T* SpArgument){
+		nRefCount=new int;
+		this->data=SpArgument;
+		(*nRefCount)=1;
+	}
+	SharedPtr(const SharedPtr &SpArgument){
+		this->data = SpArgument.data;
+		this->nRefCount = SpArgument.nRefCount;
+		(*nRefCount)++;
+	}
+	SharedPtr& operator=(const SharedPtr &SpArgument){
+		// Emulate dtor call, destroy this
+		(*nRefCount)--;
+		if((*nRefCount)==0){
+			delete nRefCount;
+			delete data;
+		}
+
+		this->data = SpArgument.data;
+		this->nRefCount = SpArgument.nRefCount;
+		(*nRefCount)++;
+		return *this;
+	}
+	T* get() const{
+		return data;
+	}
+	T& operator*() const{
+		return *data;
+	}
+	T* operator->() const{
+		return data;
+	}
+	~SharedPtr(){
+		(*nRefCount)--;
+		if((*nRefCount)==0){
+			delete nRefCount;
+			delete data;
+		}
+	}
+private:
+	T* data;
+	int* nRefCount;
+};
+\end{lstlisting}
+As you can imagine, it's horribly inefficient. Everytime, there is a
+pointer creation, deletion, or assignment, there's the extra
+reference-counting overhead.
+
+Now, think about what would happen if we wanted to allocate small
+segments of memory over and over again:
+\begin{lstlisting}[language=c]
+int main() {
+	int *v[100];
+	for (int i = 0; i < 100; i++) {
+		v[i] = malloc(sizeof(int));
+		...
+	}
+}
+\end{lstlisting}
+We need a manager to $mmap$ a slab of memory and hand that bits of it
+at each ``malloc'' callsite. As you can imagine, most languages like
+Python and Ruby use a slab allocator, instead of calling out to
+``malloc'' each time an object is created.
+
+The same argument applies to many disparate $free$ calls. Freeing
+memory is an expensive operation, and a dedicated routine to batch up
+these calls and fire them off when the program is waiting on IO or
+something.
+
+Hence, we get a garbage collector.
+\section{A garbage collection primer}
+So the problem statement is quite simple. You have references to the
+heap with no corresponding references on the stack. To find the chunks
+of memory to free, we obviously have to manage the heap using a custom
+allocator. This is the first component of a garbage collector.
+\begin{lstlisting}[language=c]
+static struct value_t *gcroot;
+
+void *gc_malloc(size_t nbytes) {
+	if (nbytes != sizeof(struct value_t))
+		return malloc(nbytes);
+	struct value_t *v = malloc(nbytes);
+	v->gc_marked = 0;
+	v->gc_next = gcroot;
+	gcroot = v->gc_next;
+	return v;
+}
+\end{lstlisting}
+
+\section{Work on rhine.git}
+The main project that drives
+\section{Work on llvm.git}
+\section{Work on ocaml-ctypes.git}
+\end{document}
