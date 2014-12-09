@@ -1,0 +1,4 @@
+(defn lambda-wrapper []
+  (fn []
+    (println aenv)
+    (println env)))

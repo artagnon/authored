@@ -1,0 +1,6 @@
+(defn the-lambda []
+  (println aenv)
+  (println env))
+
+(defn lambda-wrapper []
+  (the-lambda))

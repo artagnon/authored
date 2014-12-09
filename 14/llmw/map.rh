@@ -1,0 +1,13 @@
+(defn map
+  [f coll]
+  (if coll
+    (cons (f (first coll))
+          (map f (rest coll)))
+    []))
+
+(defn map2
+  [f c1 c2]
+  (if (and c1 c2)
+    (cons (f (first c1) (first c2))
+          (map2 f (rest c1) (rest c2)))
+    []))
