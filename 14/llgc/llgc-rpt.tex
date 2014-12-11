@@ -110,7 +110,7 @@
 \vspace{2in}
 \textmd{\textbf{Precise GC Support in LLVM}}\\
 \vspace{0.1in}\large{COMS\ W4115}\\
-\vspace{0.1in}\large{\textit{Alfred A. Aho}}
+\vspace{0.1in}\large{\textit{Alfred V. Aho}}
 \vspace{2in}
 }
 \author{Ramkumar Ramachandra, rr2893}
@@ -291,6 +291,20 @@ heap with no corresponding references on the stack. To find the chunks
 of memory to free, we obviously have to manage the heap using a custom
 allocator. This is the first component of a garbage collector.
 \begin{lstlisting}[language=c]
+struct value_t {
+	int type_tag;
+	long int_val;
+	bool bool_val;
+	char *string_val;
+	struct value_t **array_val;
+	long array_len;
+	double dbl_val;
+	struct value_t *(*function_val)(struct value_t *);
+	char char_val;
+	bool gc_marked;                   // <-- new field
+	struct value_t *gc_next;          // <-- new field
+};
+
 static struct value_t *gcroot;
 
 void *gc_malloc(size_t nbytes) {
@@ -332,9 +346,65 @@ void gc_sweep() {
 \end{lstlisting}
 
 \section{Garbage collection in LLVM, today}
-Foom
+\subsection{current state}
+LLVM does not provide a garbage collector itself -- that should be
+part of the language runtime. Instead, it provides supporting
+infrastructure for various kinds of collectors to run and do their
+work, including mark-and-sweep, generational, and concurrent. This
+supporting infrastructure has two aspects: garbage collection
+intrinsics, and compile-time code generation plugins which specifies
+the behavior of the former.\\
+
+The four primary components of gc intrinsics. The first is the
+$gc "..."$ annotation on functions to specify the name of the garbage
+collector that should be used. The second, albeit the most critical,
+is the $@llvm.gcroot$ intrinsic, used to specify the stack roots
+pointing to heap references. The third and fourth are the
+$@llvm.gcread$ and $llvm.gcwrite$, the read and write barriers; they
+are used for more advanced collectors, and are out of the scope of
+this project.\\
+
+The collector plugin can do many things, but one of the key tasks is
+to emit the stack map for the runtime to pick up.
+
+\subsection{the big issue}
+Now, the issue with the $gcroot$ approach is that safepoint insertion
+opportunities are blown away during optimization:
+
+\begin{lstlisting}[language=llvm]
+define i32* @factory() gc "foom" {
+  ; This is the gc root setup
+  %p = alloca i32*, align 8
+  %tmp = bitcast i32** %p to i8**
+  call void @llvm.gcroot(i8** %tmp, i8* null)
+  store i32* null, i32** %p, align 8
+  ; This is the allocation and initialization
+  %1 = call noalias i8* @_Znwm(i64 4) #3
+  %2 = bitcast i8* %1 to i32*
+  store i32 0, i32* %2, align 4
+  store i32* %2, i32** %p, align 8
+  ; This is where we want the safepoint
+  ; This is the return (including the required reload)
+  %3 = load i32** %p, align 8
+  ret i32* %3
+}
+\end{lstlisting}
+\begin{lstlisting}[language=llvm]
+define i32* @factory() gc "foom" {
+  ; Still the gcroot setup
+  %p = alloca i8*, align 8
+  call void @llvm.gcroot(i8** %p, i8* null)
+  ; allocation, init, and return
+  ; there is no store to the gcroot slot!
+  %1 = call noalias i8* @_Znwm(i64 4) #2
+  %2 = bitcast i8* %1 to i32*
+  store i32 0, i32* %2, align 4
+  ret i32* %2
+}
+\end{lstlisting}
 
 \section{A taste of practical work required on the road}
+\subsection{llvm 3.5 update}
 The $ExecutionEngine$ changed in this major update of LLVM. Earlier,
 users could use $ExecutionEngine.run\_function$ and pass any OCaml
 function to it, and use $GenericValue.as\_pointer$ to capture the
@@ -409,4 +479,115 @@ let run_f f =
   let mainf = get_pointer_to_global f mainty ee in
   unbox_value (!@ (mainf ()))
 \end{lstlisting}
+
+\subsection{ocaml-ctypes bool type}
+Notice these two lines in the previous section:
+
+\begin{lstlisting}[language=caml]
+let lang_bool = field cvalue_t "lang_bool" char
+\end{lstlisting}
+\begin{lstlisting}[language=caml]
+  | 2 -> LangBool (bool_of_int (Char.code (getf value lang_bool)))
+\end{lstlisting}
+
+Coercing a bool into a char and back is ugly. To alleviate the
+problem, ocaml-ctypes was patched to support a true bool type.
+
+\subsection{collector plugin}
+A collector plugin was attempted as follows:
+\begin{lstlisting}[language=c++]
+#include "llvm/CodeGen/GCMetadataPrinter.h"
+#include "llvm/CodeGen/AsmPrinter.h"
+#include "llvm/IR/Function.h"
+#include "llvm/IR/DataLayout.h"
+#include "llvm/MC/MCStreamer.h"
+#include "llvm/Target/TargetLoweringObjectFile.h"
+#include "llvm/Target/TargetMachine.h"
+
+using namespace llvm;
+
+namespace {
+	class LLVM_LIBRARY_VISIBILITY RgcPrinter : public GCMetadataPrinter {
+	public:
+		virtual void beginAssembly(AsmPrinter &AP);
+		virtual void finishAssembly(AsmPrinter &AP);
+	};
+}
+
+static GCMetadataPrinterRegistry::Add<RgcPrinter> X("rhine", "md printer");
+
+void RgcPrinter::beginAssembly(AsmPrinter &AP) {
+	// Nothing to do.
+}
+
+void RgcPrinter::finishAssembly(AsmPrinter &AP) {
+	MCStreamer &OS = AP.OutStreamer;
+	unsigned IntPtrSize = AP.TM.getDataLayout()->getPointerSize();
+
+	// Put this in the data section.
+	OS.SwitchSection(AP.getObjFileLowering().getDataSection());
+
+	// For each function...
+	for (iterator FI = begin(), FE = end(); FI != FE; ++FI) {
+		GCFunctionInfo &MD = **FI;
+
+		// A compact GC layout. Emit this data structure:
+		//
+		// struct {
+		//   int32_t PointCount;
+		//   void *SafePointAddress[PointCount];
+		//   int32_t StackFrameSize; // in words
+		//   int32_t StackArity;
+		//   int32_t LiveCount;
+		//   int32_t LiveOffsets[LiveCount];
+		// } __gcmap_<FUNCTIONNAME>;
+
+		// Align to address width.
+		// AP.EmitAlignment(IntPtrSize == 4 ? 2 : 3);
+
+		// Emit PointCount.
+		OS.AddComment("safe point count");
+		AP.EmitInt32(MD.size());
+
+		// And each safe point...
+		for (GCFunctionInfo::iterator PI = MD.begin(),
+			     PE = MD.end(); PI != PE; ++PI) {
+			// Emit the address of the safe point.
+			OS.AddComment("safe point address");
+			MCSymbol *Label = PI->Label;
+			AP.EmitLabelPlusOffset(Label/*Hi*/, 0/*Offset*/, 4/*Size*/);
+		}
+
+		// Stack information never change in safe points! Only print info from the
+		// first call-site.
+		GCFunctionInfo::iterator PI = MD.begin();
+
+		// Emit the stack frame size.
+		OS.AddComment("stack frame size (in words)");
+		AP.EmitInt32(MD.getFrameSize() / IntPtrSize);
+
+		// Emit stack arity, i.e. the number of stacked arguments.
+		unsigned RegisteredArgs = IntPtrSize == 4 ? 5 : 6;
+		unsigned StackArity = MD.getFunction().arg_size() > RegisteredArgs ?
+			MD.getFunction().arg_size() - RegisteredArgs : 0;
+		OS.AddComment("stack arity");
+		AP.EmitInt32(StackArity);
+
+		// Emit the number of live roots in the function.
+		OS.AddComment("live root count");
+		AP.EmitInt32(MD.live_size(PI));
+
+		// And for each live root...
+		for (GCFunctionInfo::live_iterator LI = MD.live_begin(PI),
+			     LE = MD.live_end(PI);
+		     LI != LE; ++LI) {
+			// Emit live root's offset within the stack frame.
+			OS.AddComment("stack index (offset / wordsize)");
+			AP.EmitInt32(LI->StackOffset);
+		}
+	}
+}
+\end{lstlisting}
+Unfortunately, the project hit a road block here: the stack map that
+the stack emitter was printing couldn't be picked up by the runtime.
 \end{document}
