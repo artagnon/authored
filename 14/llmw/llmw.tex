@@ -7,7 +7,7 @@
 \usepackage{ulem}
 \usepackage{listings}
 
-\title{Lowering a Lisp to LLVM IR}
+\title{Lisp on LLVM, Locking in Linux}
 \author{Ramkumar Ramachandra}
 \titlegraphic{\includegraphics[scale=0.20]{llvm-logo}}
 
@@ -35,6 +35,8 @@
     keywordstyle=[3]\ttfamily\colorbox{yellow},
     commentstyle=\ttfamily\color[rgb]{0.133,0.545,0.133},
     stringstyle=\ttfamily\color[rgb]{0.627,0.126,0.941},
+    emph={tickets, list_head, task_struct},
+    emphstyle=\ttfamily\colorbox{yellow},
 }
 
 \lstdefinelanguage{rhine}{
@@ -117,7 +119,7 @@
 \begin{frame}
   \titlepage
 \end{frame}
-
+\section{introduction}
 \begin{frame}{who is ram?}
   \begin{columns}
     \begin{column}[b]{4.5cm}
@@ -132,7 +134,7 @@
       \includegraphics[scale=0.4]{columbia-logo}
       \begin{itemize}
       \item[] OS course: kernel hacking
-      \item[] Compilers course: you'll see
+      \item[] Compilers course: llvm
       \end{itemize}
     \end{column}
   \end{columns}
@@ -152,8 +154,12 @@
     \end{column}
   \end{columns}
 \end{frame}
+\section{rhine}
+\begin{frame}{what is llvm anyway?}
+  \includegraphics[scale=0.5]{llvm-3phases}
+\end{frame}
 
-\begin{frame}{IR is pretty readable}
+\begin{frame}{it's is pretty readable}
   \lstinputlisting[language=llvm]{scary.ll}
   \lstinputlisting[language=llvm]{scary2.ll}
 \end{frame}
@@ -285,13 +291,32 @@
   \lstinputlisting[language=llvm]{value_t.ll}
 \end{frame}
 
-\begin{frame}{end notes}
-  \begin{enumerate}
-  \item https://github.com/artagnon/rhine
-  \item http://llvm.org/docs/LangRef.html
-  \item clang -S -emit-llvm
-  \item \#llvm on OFTC IRC
-  \end{enumerate}
+\section{locking in linux}
+\begin{frame}{the primitives}
+  \begin{columns}
+    \begin{column}[b]{3.5cm}
+      \includegraphics[scale=0.2]{lock}
+    \end{column}
+    \begin{column}[b]{6.5cm}
+      \begin{enumerate}
+        \item[] spinlock: busy-waiting
+        \item[] semaphore: sleeping lock
+        \item[] mutex: single acquisition sema
+      \end{enumerate}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+\begin{frame}{spinlock}
+\lstinputlisting[language=c]{spinlock.c}
+\end{frame}
+
+\begin{frame}{semaphore}
+\lstinputlisting[language=c]{semaphore.c}
+\end{frame}
+
+\begin{frame}{mutex}
+\lstinputlisting[language=c]{mutex.c}
 \end{frame}
 
 \end{document}
