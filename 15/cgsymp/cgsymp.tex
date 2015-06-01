@@ -1,0 +1,106 @@
+\documentclass{beamer}
+\usetheme{Warsaw}
+
+\usepackage{xcolor}
+\usepackage{listings}
+\usepackage{textcomp}
+\usepackage{ulem}
+\usepackage{listings}
+
+\title{LLVM at MathWorks}
+\author{Ramkumar Ramachandra}
+\titlegraphic{\includegraphics[scale=0.20]{llvm-matlab}}
+
+\lstset{
+  inputencoding=utf8,
+  % backgroundcolor=\color{white},
+  tabsize=4,
+  rulecolor=,
+  numbers=left,
+  upquote=true,
+  % aboveskip={1.5\baselineskip},
+  columns=fixed,
+  showstringspaces=false,
+  extendedchars=true,
+  breaklines=true,
+  prebreak = \raisebox{0ex}[0ex][0ex]{\ensuremath{\hookleftarrow}},
+  frame=single,
+  showtabs=false,
+  showspaces=false,
+  showstringspaces=false,
+  basicstyle=\scriptsize\ttfamily,
+  identifierstyle=\ttfamily,
+  keywordstyle=[1]\ttfamily\color{blue},
+  keywordstyle=[2]\ttfamily\color{purple},
+  keywordstyle=[3]\ttfamily\colorbox{yellow},
+  commentstyle=\ttfamily\color[rgb]{0.133,0.545,0.133},
+  stringstyle=\ttfamily\color[rgb]{0.627,0.126,0.941},
+}
+
+\lstdefinelanguage{matlab}{
+  morestring=[b]",
+  morekeywords=[1]{for, function, zeros, end},
+  morekeywords=[2]{},
+}
+
+\makeatletter
+\lstdefinelanguage{llvm}{
+  morecomment = [l]{;},
+  morestring=[b]", 
+  sensitive = true,
+  morekeywords=[1]{
+    define, declare, global, constant,
+    internal, external, private,
+    linkonce, linkonce_odr, weak, weak_odr, appending,
+    common, extern_weak,
+    thread_local, dllimport, dllexport,
+    hidden, protected, default,
+    except, deplibs,
+    volatile, fastcc, coldcc, cc, ccc,
+    x86_stdcallcc, x86_fastcallcc,
+    ptx_kernel, ptx_device,
+    signext, zeroext, inreg, sret, nounwind, noreturn,
+    nocapture, byval, nest, readnone, readonly, noalias, uwtable,
+    inlinehint, noinline, alwaysinline, optsize, ssp, sspreq,
+    noredzone, noimplicitfloat, naked, alignstack,
+    module, asm, align, tail, to,
+    addrspace, section, alias, sideeffect, c, gc,
+    target, datalayout, triple,
+    blockaddress
+  },
+  morekeywords=[2]{
+    add, fadd, sub, fsub, mul, fmul,
+    sdiv, udiv, fdiv, srem, urem, frem,
+    and, or, xor,
+    icmp, fcmp,
+    eq, ne, ugt, uge, ult, ule, sgt, sge, slt, sle,
+    oeq, ogt, oge, olt, ole, one, ord, ueq, ugt, uge,
+    ult, ule, une, uno,
+    nuw, nsw, exact, inbounds,
+    phi, call, select, shl, lshr, ashr, va_arg,
+    trunc, zext, sext,
+    fptrunc, fpext, fptoui, fptosi, uitofp, sitofp,
+    ptrtoint, inttoptr, bitcast,
+    ret, br, indirectbr, switch, invoke, unwind, unreachable,
+    malloc, alloca, free, load, store, getelementptr,
+    extractelement, insertelement, shufflevector,
+    extractvalue, insertvalue,
+  },
+  morekeywords=[3]{@malloc},
+  alsoletter={\%},
+  keywordsprefix={\%},
+}
+\makeatother
+
+\begin{document}
+\begin{frame}
+  \titlepage
+\end{frame}
+
+\begin{frame}{so you like the C backend?}
+  \lstinputlisting[language=matlab]{simple_loop.m}
+  generates:
+  \lstinputlisting[language=c]{simple_loop.c}
+\end{frame}
+
+\end{document}
