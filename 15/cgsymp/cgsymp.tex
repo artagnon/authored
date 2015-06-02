@@ -26,7 +26,7 @@
   extendedchars=true,
   breaklines=true,
   prebreak=\raisebox{0ex}[0ex][0ex]{\ensuremath{\hookleftarrow}},
-  frame=none,
+  frame=single,
   showtabs=false,
   showspaces=false,
   showstringspaces=false,
@@ -124,8 +124,48 @@
   \begin{itemize}
   \item The LLVM dump is a literal representation of all the data structures in
     memory.
-  \item Safety not well thought-out. Inconsistent types are simply bit-casted.
+  \item Safety not well thought-out. Inconsistent types come in from frontend,
+    and cause crashes.
   \item Maze of different visitors.
+  \item Our LLVM usage is basically an in-memory ahead-of-time compile. There is
+    no JIT or VM.
+  \end{itemize}
+  \noindent\rule{8cm}{0.4pt}
+  Solution: Possibly introduce a lower intermediate representation of CGIR
+  before the final lowering. Start working towards building a VM.
+\end{frame}
+
+\begin{frame}{more problems: the fight with upstream}
+  \begin{center}\includegraphics[scale=0.3]{llvm-bug}\end{center}
+  \begin{itemize}
+  \item MCJIT is buggy on Windows.
+  \item MCJIT is slower and uses up more memory than old JIT, if used
+    naively.
+  \item Many corner case bugs because of Matlab's large memory model.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{work that \textit{should} be done}
+  \begin{itemize}
+  \item A real lazy JIT with object caching.
+  \item Different tiers of optimization, triggered with runtime data.
+  \item Stackmaps for deoptimization.
+  \item Patchpoints for generating the optimized specialized code.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{end notes}
+  \begin{itemize}
+  \item \href{http://blog.llvm.org/2014/07/ftl-webkits-llvm-based-jit.html}{LLVM
+      blog: FTL}
+  \item
+    \href{https://www.webkit.org/blog/3362/introducing-the-webkit-ftl-jit/}{Webkit
+      blog: FTL}
+  \item
+    \href{http://blog.llvm.org/2013/08/object-caching-with-kaleidoscope.html}{LLVM
+      blog: object caching}
+  \item \href{http://llvm.org/devmtg/2014-10/Slides/Trick-FTL.pdf}{2014 Dev Meet:
+      FTL}
   \end{itemize}
 \end{frame}
 
