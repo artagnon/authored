@@ -1,6 +1,7 @@
 *~
 .#*
 \#*
+.nfs*
 .DS_Store
 *.out
 *.nav

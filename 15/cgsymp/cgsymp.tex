@@ -1,5 +1,6 @@
 \documentclass{beamer}
-\usetheme{Warsaw}
+\usetheme{Bergen}
+\usecolortheme{wolverine}
 
 \usepackage{xcolor}
 \usepackage{listings}
@@ -7,28 +8,29 @@
 \usepackage{ulem}
 \usepackage{listings}
 
-\title{LLVM at MathWorks}
+\title{LLVM at The MathWorks}
 \author{Ramkumar Ramachandra}
-\titlegraphic{\includegraphics[scale=0.20]{llvm-matlab}}
+\institute{The MathWorks}
+\titlegraphic{\includegraphics[scale=0.30]{llvm-matlab}}
 
 \lstset{
   inputencoding=utf8,
   % backgroundcolor=\color{white},
-  tabsize=4,
+  tabsize=2,
   rulecolor=,
-  numbers=left,
+  numbers=none,
   upquote=true,
   % aboveskip={1.5\baselineskip},
   columns=fixed,
   showstringspaces=false,
   extendedchars=true,
   breaklines=true,
-  prebreak = \raisebox{0ex}[0ex][0ex]{\ensuremath{\hookleftarrow}},
-  frame=single,
+  prebreak=\raisebox{0ex}[0ex][0ex]{\ensuremath{\hookleftarrow}},
+  frame=none,
   showtabs=false,
   showspaces=false,
   showstringspaces=false,
-  basicstyle=\scriptsize\ttfamily,
+  basicstyle=\ttfamily\tiny,
   identifierstyle=\ttfamily,
   keywordstyle=[1]\ttfamily\color{blue},
   keywordstyle=[2]\ttfamily\color{purple},
@@ -97,10 +99,34 @@
   \titlepage
 \end{frame}
 
-\begin{frame}{so you like the C backend?}
+\begin{frame}{why bother with llvm?}
+  \begin{center}\includegraphics[scale=0.55]{asmjs-ftl-shootout}\end{center}
+\end{frame}
+
+\begin{frame}{the hairy C backend}
   \lstinputlisting[language=matlab]{simple_loop.m}
   generates:
   \lstinputlisting[language=c]{simple_loop.c}
+\end{frame}
+
+\begin{frame}{the even hairier llvm backend}
+  ... [17 pages of crap]
+  \lstinputlisting[language=llvm]{hairy.ll}
+  ... [does this end?]
+\end{frame}
+
+\begin{frame}{let's ask \ttfamily{clang -S -emit-llvm}}
+  1 beautiful page
+  \lstinputlisting[language=llvm]{clang.ll}
+\end{frame}
+
+\begin{frame}{the problem?}
+  \begin{itemize}
+  \item The LLVM dump is a literal representation of all the data structures in
+    memory.
+  \item Safety not well thought-out. Inconsistent types are simply bit-casted.
+  \item Maze of different visitors.
+  \end{itemize}
 \end{frame}
 
 \end{document}
