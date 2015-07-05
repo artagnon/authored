@@ -5,3 +5,6 @@
 *.toc
 *.aux
 *.pdf
+*.bc
+*.s
+vaargs.ll
