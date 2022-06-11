@@ -1,0 +1,1993 @@
+\documentclass[10pt]{amsart}
+
+\usepackage[allbordercolors={.192157 .76862 .28627}]{hyperref} % Emerald Green
+\usepackage{amsmath, amsthm, amssymb, amsaddr, mathrsfs, url, bookmark, xargs, xpatch}
+\usepackage{tikz-cd, lmodern, fancyhdr}
+\usepackage[a4paper, inner=25mm, outer=25mm, headheight=10pt]{geometry}
+
+% Typing
+\newcommand{\8}{\ensuremath{\infty}}
+\newcommand{\0}{\ensuremath{\overset{\rightarrow}{0}}}
+\newcommand{\1}{\ensuremath{\mathbf{1}}}
+\newcommand{\C}{\ensuremath{\mathscr{C}}}
+\newcommand{\D}{\ensuremath{\mathscr{D}}}
+\newcommand{\F}{\ensuremath{\mathscr{F}}}
+\newcommand{\I}{\ensuremath{\mathscr{I}}}
+\newcommand{\J}{\ensuremath{\mathscr{J}}}
+\newcommand{\id}{\ensuremath{\mathsf{id}}}
+\newcommand{\obj}{\ensuremath{\mathsf{obj}}}
+\newcommand{\mor}{\ensuremath{\mathsf{mor}}}
+
+% Various categories
+\newcommand{\Set}{\ensuremath{\mathsf{Set}}}
+\newcommand{\Grp}{\ensuremath{\mathsf{Grp}}}
+\newcommand{\Ab}{\ensuremath{\mathsf{Ab}}}
+\newcommand{\Mod}{\ensuremath{\mathsf{Mod}}}
+\newcommand{\Gpd}{\ensuremath{\mathsf{Gpd}}}
+\newcommand{\Cat}{\ensuremath{\mathsf{Cat}}}
+\newcommand{\CG}{\ensuremath{\mathscr{CG}}}
+\renewcommand{\H}{\ensuremath{\mathcal{H}}}
+
+% Hom and Map
+\newcommand{\Hom}{\ensuremath{\mathsf{Hom}}}
+\newcommand{\Map}{\ensuremath{\mathsf{Map}}}
+
+% Monoidal categories
+\newcommand{\langrang}[1]{\ensuremath{\langle {#1} \rangle}}
+
+% Simplicial sets
+\newcommand{\Simplex}[1]{\ensuremath{\boldsymbol{\Delta^{#1}}}}
+\newcommand{\Horn}[2]{\ensuremath{\boldsymbol{\Lambda^{#1}_{#2}}}}
+\newcommand{\SSet}{\ensuremath{\mathsf{Set}_{\boldsymbol{\Delta}}}}
+\newcommand{\CatDel}{\ensuremath{\mathsf{Cat}_{\boldsymbol{\Delta}}}}
+\newcommand{\sq}[1]{\ensuremath{\mathsf{[#1]}}}
+\newcommand{\Fun}{\ensuremath{\mathsf{Fun}}}
+\newcommand{\N}{\ensuremath{\mathsf{N}}}
+\newcommand{\op}{\ensuremath{\mathsf{op}}}
+\newcommand{\el}{\ensuremath{\mathsf{el}}}
+\newcommand{\Sp}[1]{\ensuremath{\mathsf{Sp^{#1}}}}
+
+% Cone and Cocone
+\newcommand{\Cone}{\ensuremath{\mathsf{Cone}}}
+\newcommand{\Cocone}{\ensuremath{\mathsf{Cocone}}}
+
+% Colimit, cokernel, image, coimage
+\DeclareMathOperator*{\colim}{colim}
+\newcommand{\coker}{\ensuremath{\mathsf{coker}}}
+\newcommand{\im}{\ensuremath{\mathsf{im}}}
+\newcommand{\coim}{\ensuremath{\mathsf{coim}}}
+
+% Homotopical theories
+\newcommand{\M}{\ensuremath{\mathscr{M}}}
+\newcommand{\Wcal}{\ensuremath{\mathcal{W}}}
+\newcommand{\Ccal}{\ensuremath{\mathcal{C}}}
+\newcommand{\Fcal}{\ensuremath{\mathcal{F}}}
+\newcommand{\Lcal}{\ensuremath{\mathcal{L}}}
+\newcommand{\Rcal}{\ensuremath{\mathcal{R}}}
+\newcommand{\Sing}{\ensuremath{\mathsf{Sing}}}
+
+% \8 categories
+\newcommand{\Cfrak}{\ensuremath{\mathfrak{C}}}
+\newcommand{\Nfrak}{\ensuremath{\mathfrak{N}}}
+
+% Use lettered footnotes
+\renewcommand{\thefootnote}{\alph{footnote}}
+
+% amsthm theorems
+\swapnumbers
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}[section]
+\newtheorem{terminology}[definition]{Terminology}
+\newtheorem{notation}[definition]{Notation}
+\newtheorem{proposition}[definition]{Proposition}
+\newtheorem{lemma}[definition]{Lemma}
+\newtheorem{theorem}[definition]{Theorem}
+\newtheorem{corollary}[definition]{Corollary}
+\newtheorem{remark}[definition]{Remark}
+\newtheorem{example}[definition]{Example}
+\newtheorem{caution}[definition]{Caution}
+\newtheorem{discussion}[definition]{Discussion}
+
+\usepackage{thmtools}
+
+% Roman numerals for chapters
+\renewcommand{\thesection}{\Roman{section}}
+
+% Fancy headers
+\pagestyle{fancy} % choose the "fancy" pagestyle
+\fancyhf{}        % clear all headers and footers
+% Now set the headers
+\fancyhead[LE,RO]{\footnotesize\thepage}
+\fancyhead[LO,RE]{\footnotesize\leftmark}
+\makeatletter
+\xapptocmd{\@sect}{\csname #1mark\endcsname{#7}}{}{}
+\makeatother
+
+% Subsection centering
+\makeatletter
+\def\subsection{\@startsection{subsection}{2}
+  \z@{.5\linespacing\@plus.7\linespacing}{.6\baselineskip}{\centering}}
+\makeatother
+
+% Nested numbering of sections and subsections
+\makeatletter
+\newif\ifsection
+\newif\ifsubsection
+\preto\section{\sectiontrue\subsectionfalse}
+\preto\subsection{\sectionfalse\subsectiontrue}
+\patchcmd{\@xsect}% <cmd>
+  {\ignorespaces}% <search>
+  {\ifsubsection
+   \numberwithin{definition}{subsection}
+   \else
+   \numberwithin{definition}{section}
+   \fi
+   \setcounter{definition}{0}\relax\ignorespaces}% <replace>
+  {}{}% <success><failure>
+\makeatother
+
+\title{A warm introduction to stable \8-categories}
+\author{Ramkumar Ramachandra}
+\address{Université de Paris}
+
+\begin{document}
+\begin{abstract}
+  A Masters-level expository memoir that initiates the study of stable \8-categories, based on Jacob Lurie's \textit{Higher Algebra}.
+\end{abstract}
+\maketitle
+\tableofcontents
+\newpage
+
+% Exclude preface from toc
+{\renewcommand{\addtocontents}[2]{}
+  \section*{Raison d'être}
+  Allow us to address a couple of questions before we begin on our journey. First, why you, as the reader, should be interested in stable \8-categories. Second, what the contribution of this particular memoir is, and how it aims to achieve this.
+
+  Stable \8-categories are beautiful mathematical objects that unify the study of homology and homotopy, and address shortcomings of classical \emph{stable homotopy theory}. Its study is a particular flavor of modern homotopy theory that involves an enormous number of moving parts with thousands of definitions and results, although each definition or result is succint. In short, we are embarking on an area of mathematics that's arranged like a huge jigsaw puzzle with lots of tiny pieces, with this memoir serving as the guide. The memoir completes just enough of the puzzle for the reader to form a coherent idea on stable \8-categories. It hopes to ignite their imagination and curiosity to complete more pieces, and embark on the journey to scale \emph{Higher Algebra} and \emph{Spectral Algebraic Geometry}, piecewise.
+
+  Jacob Lurie's first book, \emph{Higher Topos Theory}, collects several results on \8-categories, and chapters I-IV mainly serve as reference on \8-categories. His second book, \emph{Higher Algebra} introduces stable \8-categories in its first chapter to replace the commutative algebra object in the category of abelian groups by a higher analog of spectra, yielding a theory of \emph{$\mathbb{E}_\8$-rings}. This, in turn, lays the foundation for his third book, \emph{Spectral Algebraic Geometry}, where he replaces differential-graded commutative algebras by $\mathbb{E}_\8$-rings in schemes yielding the theory of \emph{spectral schemes}. Lurie's works are pure works of art, not textbooks in the traditional sense.
+
+  Modern homotopy theory, and Lurie's writing in particular, place heavy emphasis on simple and elegant definitions, with consequences that are far-reaching. Indeed, what this manuscript focuses on, is not on the definitions and consequences, but rather the motivations: \emph{why} something is defined the way it is.
+
+  The memoir opens with the two main prerequisites to understanding \8-categories, category theory and simplicial sets. We focus on \emph{abelian categories} and \emph{enrichment} in category theory, in the first chapter, and on constructions required to understand the \emph{nerve} functor, in the second. Our attention then shifts to \emph{homotopical theories}, in a rather modern and exciting third chapter, for which Emily Riehl's recent manuscript has served as the primary reference. Chapter IV dedicates itself to studying the basics of \8-categories, with this firm foundation. The final chapter then delivers on the promise of initiating the reader in the study of stable \8-categories, presenting extensive motivation and commentary on material that appears in the first chapter of \emph{Higher Algebra}.
+
+  Being a memoir, this manuscript aims to be relatively self-contained, and a cursory look at the first two chapters is sufficient for the seasoned mathematician. Familiarity with basic notions of category theory, simplicial sets, algebraic topology, and model categories is assumed.
+
+  The author is grateful to Antoine Touzé\footnote{Université de Lille} for the excellent guidance and supervision.}
+
+\section{Category theory}
+After warming up with the Yoneda lemma and limits from \cite{Riehl17}, we study abelian categories using \cite{Schapira03} as a reference, and enrichment using the Appendix A.1.4 of \cite{Lurie09a}. Monoidal categories are covered in \cite{MacLane13}. The seasoned reader may wish to study Kan extensions from \cite{Riehl17}, which will eventually be necessary to make significant progress in Lurie's books.
+
+\subsection{Yoneda lemma}
+The Yoneda lemma is perhaps the most important result that category theorists should be intimately familiar with. Here, we state it, along with a consequence.
+
+\begin{notation}[Functor category]
+  The category $\C^\D$ is defined to the category whose objects are functors $\D \rightarrow \C$, and morphisms are natural transforms between these functors. It is termed as the functor category.
+\end{notation}
+
+\begin{proposition}[Yoneda lemma]
+  Let us first state the Yoneda lemma in its classical form, as it appears in most literature:
+  \begin{align}\label{eqn:yoneda}\tag{Yoneda, stm.}
+    \Hom_{\Set^\C}(\C(c, -), K) \cong K(c)
+  \end{align}
+
+  The isomorphism is natural in $K$ and $c$, and this natural transform can be drawn as:
+
+  \begin{equation}\label{dia:yoneda}\tag{Yoneda, dia.}
+    \begin{tikzcd}
+      \C \times \Set^\C \arrow[r, bend left, "{\Hom(y(-), -)}", ""{name=U, below}] \arrow[r, bend right, "ev"', ""{name=D, above}] & \Set \arrow[Rightarrow, from=U, to=D, "\cong" near start] \\
+    \end{tikzcd}
+  \end{equation}
+
+  where $ev$ is an evaluation functor that maps $(c, K) \mapsto K(c)$, and $y$ is the Yoneda embedding functor, which we will discuss next.
+\end{proposition}
+
+\begin{definition}[Yoneda embedding functor]
+  The Yoneda embedding refers to the embedding of a category $\C$ into its presheaf category $\Set^{\C^\op}$. It is an incarnation of the bifunctor $\C^\op \times \C \rightarrow \Set$, from the Yoneda lemma.
+
+  The Yoneda embedding functor is $y$ in \eqref{dia:yoneda}, and can be described in terms of its action on objects $c$ and $d$, and morphisms $c \rightarrow d$ in the category as:
+  \begin{align*}
+    y                      & : \C \rightarrow \Set^{\C^\op}       \\
+    y(c)                   & \mapsto \C(-, c)                     \\
+    y(c \xrightarrow{f} d) & \mapsto y(c) \xrightarrow{y(f)} y(d) \\
+  \end{align*}
+
+  $\Hom(y(-), -)$ operates in the aforementioned diagram as:
+
+  \begin{equation*}
+    \begin{matrix}
+      \Hom(y(-), -) & :  & \C \times \Set^\C & \xrightarrow{y \times 1_{\Set^\C}} & \Set^{\C^\op} \times \Set^\C & \xrightarrow{\Hom} & \Set              \\
+                    & := & (c, K)            & \mapsto                            & (\C(c, -), K)                & \mapsto            & \Hom(\C(c, -), K) \\
+    \end{matrix}
+  \end{equation*}
+\end{definition}
+
+\begin{lemma}
+  The Yoneda embedding is full and faithful.
+\end{lemma}
+
+\begin{proof}
+  We want to show that a category embeds into its preshef category in a full and faithful way.
+  In \eqref{eqn:yoneda}, let us plug $K = \C(-, d)$:
+  \begin{align*}
+    \Hom_{\Set^{\C^\op}}(\C(-, c), \C(-, d)) \cong \C(c, d)
+  \end{align*}
+
+  This bijection yields the required result.
+\end{proof}
+
+\subsection{Limits}
+We will take the vantage point of directly defining limits, and show that several other notions in category theory are merely special cases of limits. Informally, limit can be thought of as a generalization of the product construction, when the objects over which we are operating are connected by non-zero morphisms. Given a discrete diagram in a category, the limit of the diagram indeed coincides with the product of the objects. Since limits are defined in terms of products and equilizers, we will open this section with their introduction.
+
+\begin{definition}[Product\label{def:catprod}]
+  The product of objects $A$ and $B$ in category $\C$ is another object $A \times B \in \C$ together with morphisms $p_1: A \times B \rightarrow A$ and $p_2: A \times B \rightarrow B$, that is characterized by the following universal property:
+
+  \begin{equation*}
+    \begin{tikzcd}
+      & P \arrow[dl, "f"'] \arrow[dr, "g"] \arrow[d, dashed, "\exists! h" description] & \\
+      A & A \times B \arrow[l, "p_1"] \arrow[r, "p_2"'] & B \\
+    \end{tikzcd}
+  \end{equation*}
+
+  The notion of coproducts is dual, and is denoted $A \sqcup B$.
+\end{definition}
+
+\begin{lemma}[Relationship with cartesian product]
+  In usual categories such as \Set, \Grp, $\Mod_R$, product as defined in \ref{def:catprod} coincides with cartesian product.
+\end{lemma}
+
+\begin{proof}
+  By commutativity of the diagram, $f = p_1 \circ h$ and $g = p_2 \circ h$. Let $f = (f_1, f_2)$ so that $f_1(p) = p_1(h(p))$. But $h : P \rightarrow A \times B$ is determined by $h(p) = (a, b)$. Hence $f_1(p) = a$ and $f_2(p) = b$. This is independent of the choice of $f$ and $g$, and hence, there is a unique $h$.
+\end{proof}
+
+\begin{definition}[Equilizer]
+  Let $f, g \in \C$ be a pair of parallel morphisms between the same two objects. The equilizer of $f$ and $g$ is another object $E \in \C$ that factors uniquely through $F \in \C$ in the following commuatative diagram showing the universal property of $E$:
+
+  \begin{equation*}
+    \begin{tikzcd}
+      F \arrow[d, dashed, "\exists!" description] \arrow[dr, "h"] & & \\
+      E \arrow[r] & \bullet \arrow[r, shift left, "f"] \arrow[r, shift right, "g"'] & \bullet \\
+    \end{tikzcd}
+  \end{equation*}
+
+  The notion of coequilizers is dual.
+\end{definition}
+
+We will now define limits, and present a handful of examples.
+
+\begin{terminology}[Diagram in ordinary category theory\label{not:diacat}]
+  Given small category $\I$, a diagram of \emph{shape} $\I$ in category $\C$ is a functor $\F: \I \rightarrow \C$.
+\end{terminology}
+
+\begin{definition}[General definition of limit]
+  Limit of diagram $\F : \I \rightarrow \C$ is written $\lim_{\I} \F$, and is defined by the following universal property:
+
+  \begin{equation*}
+    \begin{tikzcd}
+      & & \F(I) \arrow[dd] \\
+      c \arrow[r, dashed, "\exists!" description] \arrow[urr] \arrow[drr] & L \arrow[ur] \arrow[dr] & \\
+      & & \F(J) \\
+    \end{tikzcd} \; \forall I, J \in \I \;\;\;\; \forall I \rightarrow J \in \C
+  \end{equation*}
+
+  Here, $c \in \C$ is the limit of the given diagram.
+\end{definition}
+
+\begin{corollary}[Formula for limit, in terms of products and equilizers\label{cor:limformula}]
+  Looking at the above figure, and the definition of products and equilizers, it is straightforward to reformulate the limit as the equilizer of parallel arrows:
+
+  \begin{equation*}
+    \begin{tikzcd}
+      \prod_{I \in \I} \F(I) \arrow[r, shift left] \arrow[r, shift right] & \prod_{J \rightarrow K \in \I} \F(J)
+    \end{tikzcd}
+  \end{equation*}
+
+  Colimits may dually be expressed as a coequilizer of coproducts.
+\end{corollary}
+
+\begin{proposition}
+  Limit is the initial object in the category of cones.
+\end{proposition}
+
+\begin{proof}
+  A cone in $\C$ \emph{over} a diagram $\F : \I \rightarrow \C$ with \emph{apex} $K \in \C$ is defined a natural transform from the constant functor on $\C$ at $K$ to \F.
+
+  \begin{equation*}
+    \begin{tikzcd}
+      & c \arrow[dd] \\
+      K \arrow[ur] \arrow[dr] & \\
+      & d \\
+    \end{tikzcd} \; \forall \F : c \rightarrow d \in \C \;\;\;\; \forall K \in \C
+  \end{equation*}
+
+  In the category of cones, morphisms between cones over the same diagram $\F$ with apexes $L$ and $K$ can be shown as
+
+  \begin{equation*}
+    \begin{tikzcd}
+      & & c \arrow[dd] \\
+      L \arrow[r] \arrow[urr] \arrow[drr] & K \arrow[ur] \arrow[dr] & \\
+      & & d \\
+    \end{tikzcd} \; \forall \F : c \rightarrow d \in \C \;\;\;\; \forall K \in \C
+  \end{equation*}
+
+  Since we are free to replace $L$ with any object in the category \C, replacing it with the initial object yields a unique arrow to $K$. Hence, limit is the initial object in the category of cones.
+\end{proof}
+
+\begin{lemma}
+  The Hom-functor preserves limits, and is otherwise termed \emph{left exact}.
+\end{lemma}
+
+\begin{proof}
+  We would like to show that:
+
+  \begin{align*}
+    \Hom(X, \lim Y_\bullet)   & \cong \lim \Hom(X, Y_\bullet) \\
+    \Hom(\colim X_\bullet, Y) & \cong \lim \Hom(X_\bullet, Y) \\
+  \end{align*}
+
+  $\Hom(X, \lim Y_\bullet)$ is equivalent to cones over $Y_\bullet$ with apex $X$, and the limit of $X \rightarrow Y_\bullet$ is the again the same expression.
+
+  For the second part, $\Hom(\colim X_\bullet, Y)$ is equivalent with cones under (or \emph{cocones}) $X_\bullet$ with apex $Y$. The limit of $X_\bullet \rightarrow Y$ is once again, a cone under $X_\bullet$ with apex $Y$.
+\end{proof}
+
+\begin{proposition}
+  Left adjoints preserve colimits.
+\end{proposition}
+
+\begin{proof}
+  Consider the following adjunction:
+
+  \begin{equation*}
+    \begin{tikzcd}
+      \C \arrow[r, bend left, "L"] \arrow[r, phantom, "\bot" description] & \D \arrow[l, bend left, "R"]
+    \end{tikzcd}
+  \end{equation*}
+
+  The natural isomorphism can be written as $\Hom(L(c), d) \cong \Hom(c, R(d))$, $c \in \C, d \in \D$.
+
+  We want to prove that:
+  \begin{align*}
+    L(\colim_\J X_i) \cong \colim_\J L(X_i)
+  \end{align*}
+
+  Let $c = \colim_\J X_i$, so that:
+
+  \begin{align*}
+    \Hom(L(c), d) & \cong \Hom(L(\colim_\J X_i), d) \\
+                  & \cong \Hom(\colim_\J X_i, R(d)) \\
+                  & \cong \lim_\J \Hom(X_i, R(d))   \\
+                  & \cong \colim_\J \Hom(L(X_i), d) \\
+                  & \cong \Hom(\colim_\J L(X_i), d) \\
+  \end{align*}
+
+  Therefore, we have the result:
+  \begin{align*}
+    \Hom(L(\colim_\J X_i, -)) \cong \Hom(\colim_\J L(X_i), -)
+  \end{align*}
+
+  This is an isomorphism between two representables. By a consequence of the Yoneda lemma we have already discussed, we get the required result. Moreover, it can be shown that right adjoints preserve limits.
+\end{proof}
+
+\begin{definition}[Pushouts and pullbacks]
+  Pushouts and pullbacks, too, are special cases of limits.
+
+  The pushout construction is defined as the colimit of the diagram:
+
+  \begin{equation*}
+    \begin{tikzcd}
+      \bullet & \bullet \arrow[l] \arrow[r] & \bullet
+    \end{tikzcd}
+  \end{equation*}
+
+  and the pullback construction is defined as the limit of the diagram:
+
+  \begin{equation*}
+    \begin{tikzcd}
+      \bullet \arrow[r] & \bullet & \bullet \arrow[l]
+    \end{tikzcd}
+  \end{equation*}
+\end{definition}
+
+Now, we provide a simple example of colimit computation, which is not a pushout.
+
+\begin{example}[Limit and colimit of a simple diagram]
+  Consider the diagram,
+
+  \begin{equation*}
+    \begin{tikzcd}
+      X_1 \arrow[r, "f_1"] & X_2 \arrow[r, "f_2"] & \ldots \arrow[r, "f_{n - 1}"] & X_n
+    \end{tikzcd}
+  \end{equation*}
+
+  To compute its limit, let us first consider:
+
+  \begin{equation*}
+    \begin{tikzcd}
+      & X_1 \arrow[d, "f_1"] \\
+      L \arrow[ur] \arrow[r] \arrow[dr] & X_2 \arrow[d, "f_2"] \\
+      & X_3 \\
+    \end{tikzcd}
+  \end{equation*}
+
+  In terms of products and equilizers, this expands to:
+
+  \begin{equation*}
+    \begin{tikzcd}
+      L \arrow[r, hookrightarrow, "i"] & X_1 \times X_2 \times X_3 \arrow[r, shift left, "s"] \arrow[r, shift right, "t"'] & X_2 \times X_3
+    \end{tikzcd}
+  \end{equation*}
+
+  For this constraint to hold for any $s$ and any $t$, $i$ must be independent of any $f_i$, leaving one choice for $L$, namely $X_1$. Generalizing, we can assert that the limit of any diagram of this form will be $X_1$, and will be independent of any $f_i$. Similarly, the colimit of this type of diagram can be shown to be $X_n$.
+\end{example}
+
+Our next example of a limit is that of a kernel, which appear in the definition of abelian categories.
+
+\begin{definition}[Kernel\label{def:kerequiliz}]
+  Kernels are not guaranteed to be defined in an arbitrary category, so let us use the special case of \Grp. The kernel of an homomorphism $f : G \rightarrow H$ is the inverse image of unit. In other words, we can describe it as an equilizer of an arrow that sends the entire domain to $0$ (which we label as $0$) and the arrow corresponding to the given homomorphism.
+
+  \begin{equation*}
+    \begin{tikzcd}
+      G \arrow[r, hookrightarrow] & L \arrow[r, shift left, "0"] \arrow[r, shift right] & H
+    \end{tikzcd}
+  \end{equation*}
+
+  The notion of cokernel is dual. As the kernel is an equilizer, and because the limit can be expressed in terms of products and equilizers as in \ref{cor:limformula}, the kernel is also a limit.
+\end{definition}
+
+\subsection{Monoidal categories}
+Monoidal categories are a distillation of properties of categories we will encounter frequently. Moreover, the machinery of enriched categories requires an understanding of monoidal categories.
+
+\begin{definition}[Monoidal category]
+  A monoidal category $\C$ comes equipped with a bifunctor $\otimes : \C \times \C \rightarrow \C$ that acts as an abstract multiplication operator, which is associative upto a natural transformation $\alpha$, the data of which is part of the monoidal category. We present below the \emph{Mac Lane pentagon} that $\alpha$ satisfies with respect to $\otimes$:
+
+  \begin{equation*}
+    \begin{tikzcd}
+      & (a \otimes b) \otimes (c \otimes d) \arrow[dr, "\alpha"] & \\
+      a \otimes (b \otimes (c \otimes d)) \arrow[d, "1 \otimes \alpha"'] \arrow[ur, "\alpha"] & & ((a \otimes b) \otimes c) \otimes d \\
+      a \otimes ((b \otimes c) \otimes d) \arrow[rr, "\alpha"] & & (a \otimes (b \otimes c)) \otimes d \arrow[u, "\alpha \otimes 1"'] \\
+    \end{tikzcd}
+  \end{equation*}
+
+  where $\alpha : (a \otimes b) \otimes c \cong a \otimes (b \otimes c)$.
+
+  It also comes equipped with unit $e$, which, when acting as the left unit, must be associative upto natural transform $\lambda$, and when acting as right unit, must be associative upto natural transform $\rho$, satisfying the following diagram:
+
+  \begin{equation*}
+    \begin{tikzcd}
+      a \otimes (e \otimes b) \arrow[r, "\alpha"] \arrow[d, "1 \otimes \lambda"'] & (a \otimes e) \otimes b \arrow[d, "\rho \otimes 1"] \\
+      a \otimes b \arrow[r, equal] & a \otimes b \\
+    \end{tikzcd}
+  \end{equation*}
+
+  and ofcourse, $e \otimes e \cong e$, given by either $\lambda$ or $\rho$, where
+  \begin{align*}
+    \lambda & : e \otimes a \cong a \\
+    \rho    & : a \otimes a \cong a \\
+  \end{align*}
+\end{definition}
+
+\begin{definition}[Strict monoidal category]
+  A strict monoidal category is one in which the isomorphisms are replaced by equalities. In  \ref{sec:sset}, we will encounter \langrang{\Simplex{}, \star, \sq{0}}, which is a prototypical example.
+\end{definition}
+
+\begin{definition}[Symmetric monoidal category]
+  A symmetric monoidal category is a monoidal category in which $\lambda = \rho$, and there is an extra symmetry condition: $a \otimes b \cong b \otimes a$.
+\end{definition}
+
+\begin{example}
+  $\langrang{\Ab, \otimes_\mathbb{Z}, \mathbb{Z}}$ and $\langrang{\Mod_R, \otimes_R, R}$ ($R$ being a commutative ring) are symmetric monoidal categories.
+\end{example}
+
+\begin{remark}
+  In \ref{sec:sset}, we will encounter \langrang{\SSet, \times, \Simplex{0}}, which is a rather important example of symmetric monoidal categories. In fact, we can make a more general statement: any category with finite products is symmetric monoidal. This includes \langrang{\Cat, \times, *}, \langrang{\Set, \times, \emptyset}, \langrang{\Grp, \times, \mathbb{Z}}, and \langrang{\CG, \times, \emptyset}.
+\end{remark}
+
+\begin{definition}[Cartesian-closed monoidal categories]
+  Cartesian-closed monoidal categories come equipped with a right adjoint to $- \otimes a$:
+
+  \begin{equation*}
+    \begin{tikzcd}
+      - \otimes a \arrow[r, bend left] \arrow[r, phantom, "\bot" description] & (-)^a \arrow[l, bend left]
+    \end{tikzcd}
+  \end{equation*}
+\end{definition}
+
+\begin{definition}[\CG]
+  As is a common practice in algebraic topology, we will exclusively work with compactly-generated weak Hausdorff spaces, instead of $\mathsf{Top}$~\cite{Strickland09}, and use $\CG$ to denote this category.
+\end{definition}
+
+\begin{example}
+  A trivial example of cartesian-closed monoidal categories is \Set. A non-trivial example is \CG. This property of $\CG$ is essential to doing homotopy theory.
+\end{example}
+
+A monoidal functor is a functor between monoidal categories that preserves the monoidal structure; in other words, it is a homomorphism of monoidal categories. The section on enrichment requires right-lax monoidal functors, and we take the opportunity to introduce them here. Left-lax monoidal functors can also be defined, and they satisfy different commutative diagrams.
+
+\begin{definition}[Right-lax monoidal functor]
+  A right-lax monoidal functor between monoidal categories $\langrang{\C, \otimes_\C, \1_\C}$ and $\langrang{\D, \otimes_\D, \1_\D}$ consists of the following data:
+
+  \begin{enumerate}
+    \item[(a)] A functor $\F : \C \rightarrow \D$.
+    \item[(b)] A morphism $\1_\D \rightarrow \F(\1_\C)$.
+    \item[(c)] For $x, y \in \C$, a natural transform $\F(x) \otimes_\D \F(y) \rightarrow \F(x \otimes_\C y)$.
+  \end{enumerate}
+
+  satisfying the following commuative diagrams for $x, y, z \in \C$:
+
+  \begin{equation*}
+    \begin{tikzcd}
+      (\F(x) \otimes_\D \F(y)) \otimes_\D \F(z) \arrow[r] \arrow[d] & \F(x) \otimes_\D (\F(y) \otimes_\D \F(z)) \arrow[d] \\
+      \F(x \otimes_\C y) \otimes_\D \F(z) \arrow[d] & \F(x) \otimes_\D \F(y \otimes_\C z) \arrow[d] \\
+      \F((x \otimes_\C y) \otimes_\C z) \arrow[r] & \F(x \otimes_\C (y \otimes_\C z)) \\
+    \end{tikzcd}
+  \end{equation*}
+
+  \begin{equation*}
+    \begin{tikzcd}
+      F(x) \otimes_\D \1_\D \arrow[r] \arrow[d] & \F(x) \otimes_\D \F(\1_\C) \arrow[d] \\
+      F(x) & \F(x \otimes_\C \1_\C) \arrow[l]
+    \end{tikzcd}
+  \end{equation*}
+\end{definition}
+
+\subsection{Abelian categories}
+The axioms of stable \8-categories involve kernels, cokernels, and a zero object, which is motivated by the corresponding definitions in abelian categories. Another strong reason for presenting this section is forward-looking: one can work with chain complexes in the context of stable \8-categories, although it is beyond the scope of this manuscript.
+
+\begin{definition}[Zero object]
+  An object that is both initial and final is termed as a zero object.
+\end{definition}
+
+\begin{definition}[Additive category]
+  An additive category $\C$ is a category which satisfies the following conditions:
+
+  \begin{enumerate}
+    \item[(a)] There exists a zero object $0 \in \C$.
+    \item[(b)] $\C$ admits finite products and coproducts.
+    \item[(c)] Every hom-set comes with the structure of an abelian group\footnote{See \ref{sec:enrichment} for a general theory on hom-sets with structure}.
+    \item[(d)] Composition $\circ$ is bilinear.
+  \end{enumerate}
+\end{definition}
+
+\begin{remark}[Kernel in additive categories]
+  Thanks to axiom (a), we can extend the definition \ref{def:kerequiliz} to additive categories. Note, however, that not every morphism is guaranteed to admit a kernel or cokernel in an additive category. When kernel and cokernel and defined, we can define the image of morphism $f : c \rightarrow d$ as $d/\coker f$ and its coimage as $c/\ker f$.
+\end{remark}
+
+\begin{remark}
+  The kernel is always monic and the cokernel is always epic.
+\end{remark}
+
+\begin{proposition}[Characterization of existence of zero object]
+  In an ordinary category \C, having a zero object is equivalent to having:
+
+  \begin{enumerate}
+    \item[(a)] Initial object $1$.
+    \item[(b)] Terminal object $\phi$.
+    \item[(c)] A morphism from terminal to initial object.
+  \end{enumerate}
+\end{proposition}
+
+\begin{proof}
+  A zero object is defined as an object that is both terminal and initial. $f: \phi \rightarrow 1$ exists by virtue of $\phi$ being initial. $g: 1 \rightarrow \phi$ is the inverse of $f$, because $g \circ f \cong \id_\phi$, $f \circ g \cong \id_1$, there exists a canonical $\phi \rightarrow \phi$, and a canonical $1 \rightarrow 1$. Hence, $f$ is an isomorphism, yielding the zero object, $1 \cong \phi$, as required.
+\end{proof}
+
+\begin{definition}[Zero morphism]
+  A zero morphism $\0: X \rightarrow Y$ in $\C$ is characterized by being the neutral element of the abelian group $\Hom_\C(X, Y)$.
+\end{definition}
+
+\begin{definition}[Abelian category]
+  An additive category $\C$ is abelian if:
+
+  \begin{enumerate}
+    \item[(a)] Every morphism admits a kernel and cokernel.
+    \item[(b)] There is a canonical isomorphism $\coim f \cong \im f$.
+  \end{enumerate}
+\end{definition}
+
+\begin{remark}
+  Item (a) in the definition of abelian categories is equivalent to: abelian categories admit finite limits and colimits. Kernels and cokernels are merely equilizers and coequilizers.
+\end{remark}
+
+\begin{remark}[Abelian categories abstract properties of $R$-modules]
+  Consider the $R$-module morphism $f : M \rightarrow N$. The following notions are defined in terms of sets:
+
+  \begin{align*}
+    \ker f   & = \{m \in M \mid f(m) = 0\}                  \\
+    \im f    & = \{n \in N \mid \exists m \in M, f(m) = n\} \\
+    \coker f & = N/\im f                                    \\
+    \coim f  & = M/\ker f                                   \\
+  \end{align*}
+
+  Further, $\coim f \cong \im f$ is a natural isomorphism. Every arrow admitting a cokernel and kernel, along with this natural isomorphism is exactly what turns an additive category into an abelian category.
+\end{remark}
+
+\begin{example}
+  A prototypical example of abelian categories is the category of $R$-modules. Another example is the category of chain complexes. Homological algebra rests on the theory of abelian categories.
+\end{example}
+
+\begin{lemma}[Characterization of kernel and cokernel\label{lemma:kercoker}]
+  In an abelian category, every kernel is a cokernel of a kernel of some morphism, and every cokernel is a kernel of a cokernel of some morphism. We refer the reader to the chapter on abelian categories in \cite{MacLane13} for the proof.
+\end{lemma}
+
+\begin{corollary}
+  In an abelian category, every morphism can be factored as an epic followed by a monic.
+\end{corollary}
+
+\begin{lemma}[Relationship between zero object and zero morphism]
+  A morphism in an additive category is zero if and only if it factors through a zero object.
+\end{lemma}
+
+\begin{proof}
+  Let $\C$ be an abelian category, $X, Y \in \C$ be objects. Let $g$ be the composite $X \rightarrow 0 \rightarrow Y$. Then, $g = \0 \circ \0$. Hence, $g = \0$ by bilinearity of composition.
+\end{proof}
+
+\begin{definition}[Alternative definition of kernel\label{def:abker}]
+  In abelian categories, we define kernel in terms of pullbacks, instead of equalizers. Let us derive this definition.
+
+  \begin{equation*}
+    \begin{tikzcd}
+      \ker f \arrow[r, hookrightarrow, "i"] & X \arrow[r, "0", shift left] \arrow[r, "f"', shift right] & Y
+    \end{tikzcd}
+  \end{equation*}
+
+  This says that $0 \circ f = f \circ i$, but $0 \circ i = 0$:
+
+  \begin{equation*}
+    \begin{tikzcd}
+      & X \arrow[dr, "f"] & \\
+      \ker f \arrow[ru, "i"] \arrow[rr, "0"] & & Y \\
+    \end{tikzcd}
+  \end{equation*}
+
+  Next, we add morphisms $Z \overset{0}{\rightarrow} Y$ and $Z \overset{g}{\rightarrow} X$:
+
+  \begin{equation*}
+    \begin{tikzcd}
+      Z \arrow[ddr, bend right] \arrow[drr, bend left, "g"] & & \\
+      & \ker f \arrow[d, "0"'] \arrow[r, "i"] & X \arrow[d, "f"] \\
+      & 0 \arrow[r] & Y \\
+    \end{tikzcd}
+  \end{equation*}
+
+  Among morphisms from $X$ to $Y$, we know that $\ker f$ satisfies a universal property, namely $f \circ i = 0$. $Z$ is another candidate for the kernel since $f \circ g = 0$, but $i$ has been chosen by construction from the equilizer, while $g$ is just any morphism that satisfies $f \circ g = 0$. Hence, the special choice of $i$ and the universal property of $\ker$ can be encoded in the diagram as:
+
+  \begin{equation*}
+    \begin{tikzcd}
+      Z \arrow[ddr, bend right] \arrow[dr, dashed, "\exists!" description] \arrow[drr, bend left] & & \\
+      & \ker f \arrow[d, "0"'] \arrow[r, "i"] & X \arrow[d, "f"] \\
+      & 0 \arrow[r] & Y \\
+    \end{tikzcd}
+  \end{equation*}
+
+  Now, all the information about the kernel is completely encoded in the new diagram, yielding the required definition. Cokernels are dual, and can be expressed in terms of pushouts.
+\end{definition}
+
+\subsection{Enrichment\label{sec:enrichment}}
+The hom-set in unenriched category theory is always a set (or class). The topic of our study in this section is the structure that this hom-set often posseses. Thinking back on our section on abelian categories, the hom-set there formed an abelian group, but this was auxiliary data that wasn't kept track of in any mathematical object. Enriched category theory replaces the hom-set entirely by a mathematical object, an object of a category, carrying this additional structure. In this way, category theory becomes more elegant: we have objects, and we have a ``mapping space'' or ``mapping object'', which carries the structure of the morphisms between the objects.
+
+\begin{definition}[Base of enrichment]
+  Enriched category theory starts with the assumption that the desired structure on the hom-set we begin with is a monoidal category, and this is known as the base of enrichment.
+\end{definition}
+
+\begin{definition}[\C-enriched category]
+  Given $\langrang{\C, \otimes, \1}$ as the base of enrichment, a \C-enriched category $\D$ consists of the following data:
+
+  \begin{enumerate}
+    \item[(i)] A collection of objects.
+    \item[(ii)] For every pair of objects $X, Y \in \D$, a \emph{mapping space}, denoted $\Map_\D(X, Y)$.
+    \item[(iii)] For every triple of objects $X, Y, Z \in \D$, a composition operation:
+      \begin{align*}
+        \circ : \Map_\D(Y, Z) \otimes \Map_\D(X, Y) \rightarrow \Map_\D(X, Z)
+      \end{align*}
+
+      whose associativity is determined by (for $X, Y, Z, W \in \D$):
+
+      \begin{equation*}
+        \begin{tikzcd}[cramped, column sep=tiny]
+          & \Map_\D(Y, Z) \otimes \Map_\D(X, Y) \otimes \Map_\D(W, X) \arrow[dl, "\1 \otimes \circ"'] \arrow[dr, "\circ \otimes \1"] & \\
+          \Map_\D(Y, Z) \otimes \Map_\D(W, Y) \arrow[dr, "\circ"'] & & \Map_\D(X, Z) \otimes \Map_\D(W, X) \arrow[dl, "\circ"] \\
+          & \Map_\D(W, Z) & \\
+        \end{tikzcd}
+      \end{equation*}
+
+    \item[(iv)] A unit map $\1 \rightarrow \Map_\D(X, X)$ that satisfies:
+      \begin{equation*}
+        \begin{tikzcd}
+          \1 \otimes \Map_\D(Y, X) \arrow[rr] \arrow[dr] & & \Map_\D(X, X) \otimes \Map_\D(Y, X) \arrow[dl] \\
+          & \Map_\D(Y, X) & \\
+        \end{tikzcd}
+      \end{equation*}
+
+      \begin{equation*}
+        \begin{tikzcd}
+          \Map_\D(X, Y) \otimes \1 \arrow[rr] \arrow[dr] & & \Map_\D(X, Y) \otimes \Map_\D(X, X) \arrow[dl] \\
+          & \Map_\D(X, Y) & \\
+        \end{tikzcd}
+      \end{equation*}
+  \end{enumerate}
+\end{definition}
+
+\begin{example}
+  Let $\C$ be $\Set$ endowed with cartesian-closed monoidal structure. Then, a \C-enriched category is a category in the usual sense.
+\end{example}
+
+\begin{remark}
+  Let $\langrang{\C, \otimes, \1}$ be a cartesian-closed monoidal category\footnote{This condition can be weakened to a \emph{right-closed} monoidal category, but this is a minor subtlety}. Then, $\C$ is enriched over itself in a natural way, if we set $\Map_\C(X, Y) := Y^X$.
+\end{remark}
+
+\begin{caution}
+  In most mathematicial literature, including \cite{Riehl11}, authors are careful to separate out three distinct notions:
+
+  \begin{enumerate}
+    \item[(a)] The category we start out with.
+    \item[(b)] The base of enrichment.
+    \item[(c)] The resulting enriched category.
+  \end{enumerate}
+
+  However, all of Lurie's writings omit the mention of (a) entirely, and we follow this tradition. Instead, we focus on \C-enriched categories (where the mapping space has the structure of \C), and \emph{underlying categories} of \C-enriched categories, which is not at all the same thing as (a). In literature, the resulting enriched category (d) is said to be \emph{enriched over} the base of enrichment, category (b).
+\end{caution}
+
+\begin{definition}[Underlying category of an enriched category]
+  Let $\F : \C \rightarrow \C'$ be a right-lax monoidal functor between monoidal categories. Suppose $\D$ is a category enriched over \C, then we can define $\F(\D)$, a category enriched over $\C'$ as:
+
+  \begin{enumerate}
+    \item[(i)] Objects of $\F(\D)$ are the objects of $\D$.
+    \item[(ii)] Given $X, Y \in \D$, we set:
+      \begin{align*}
+        \Map_{\F(\D)}(X, Y) := \F(\Map_\D(X, Y))
+      \end{align*}
+    \item[(iii)] Composition law in $\F(\D)$ is given by:
+      \begin{align*}
+        \F(\Map_\D(Y, Z)) \otimes \F(\Map_\D(X, Y)) & \rightarrow \F(\Map_\D(Y, Z)) \otimes \Map_\D(X, Y)) \\
+                                                    & \rightarrow \F(\Map_\D(X, Z))                        \\
+      \end{align*}
+
+      The first map is given by the right-laxness of \F, and the second is obtained by applying \F to the composition law in \D.
+    \item[(iv)] The unit map in $\F(\D)$ is given by the composition:
+      \begin{align*}
+        \1_{\C'} \rightarrow \F(\1_\C) \rightarrow \F(\Map_\D(X, X))
+      \end{align*}
+  \end{enumerate}
+
+  Suppose $\C$ is a monoidal category, and there exists a right-lax monoidal functor $\C \rightarrow \Set$ given by
+  \begin{align*}
+    X \mapsto \Hom_\C(\1, X)
+  \end{align*}
+
+  then we may equip any \C-enriched category $\D$ with the structure of an ordinary category by setting:
+  \begin{align*}
+    \Hom_\D(X, Y) := \Hom_\C(\1, \Map_\D(X, Y))
+  \end{align*}
+
+  We will refer to the (unnamed) category with the same objects as \C, and morphisms given by this hom-set as the underlying category of \C-enriched category \D.
+\end{definition}
+
+\begin{example}[Underlying category of a \CG-enriched category]
+  Let $\C$ be a \CG-enriched category. The category $\CG$ is a cartesian-closed monoidal category. Further, there exists a functor $\CG \rightarrow \Set$ that retains information about the points in the space. It is given by $X \mapsto \Hom_\CG(*, X)$, and this functor is monoidal. The hom-set of the underlying category is hence:
+  \begin{align*}
+    \Hom_\C(X, Y) & = \Hom_\CG(*, \Map_\C(X, Y))
+  \end{align*}
+
+  The objects of the underlying category are the same as the objects of \CG, topological spaces.
+\end{example}
+
+\section{Simplicial sets\label{sec:sset}}
+Simplicial sets are powerful mathematical objects, that form the basis of much of modern homotopy theory. Their power derives from the fact that their homotopy category is exceptionally well-behaved, and different model structures on them, as we will see in the following chapter. Unlike CW-complexes that rely on pure topological notions like spheres and disks to ``tame'' a topological space, the definition of simplicial sets is purely categorical, and exist independent of topological spaces. The geometric realization and singular complex functors facilitate travelling back-and-forth between simplicial sets and topological spaces, and these are non-trivial constructions. As such, simplicial sets exist purely in the imagination of the mathematician; each simplicial set has an infinite number of degenerate simplices.
+
+There exists vast mathematical literature on the subject, and we refer the uninitiated reader to \cite{Friedman08} for a gentle introduction with excellent intutions. With these intuitions in place, we proceed with a purely categorical treatment. Emily Riehl's \cite{Riehl11} is a well-written manuscript on the subject, and we refer the reader to \cite{Cisinki19} for certain constructs.
+
+\subsection{The category of simplicial sets}
+The category of simplicial sets can be defined quite simply as $\Set^{\Simplex{}^\op}$. Here, we unroll each mathematical object in the definition, and fill in the pieces that will be required to view them as \8-categories.
+
+\begin{definition}[\sq{n}]
+  $\sq{n}$ is used to denote a totally-ordered set of natural numbers less than or equal to $n$, ordered by magnitude.
+  \begin{align*}
+    \sq{n} := \{0, 1, \ldots, n\}
+  \end{align*}
+
+  We will regard the totally-ordered set as a category in certain contexts, and it should be clear which interpretation we're referring to from the context.
+  \begin{align*}
+    \sq{n} := 0 \rightarrow 1 \rightarrow \ldots \rightarrow n
+  \end{align*}
+\end{definition}
+
+\begin{definition}[\Simplex{}]
+  The category $\Simplex{}$ is defined in terms of its objects and morphisms:
+  \begin{align*}
+    \obj(\Simplex{}) & := \sq{n}, \text{regarded as a totally-ordered set}   \\
+    \mor(\Simplex{}) & := \sq{m} \rightarrow \sq{n}, \text{order-preserving}
+  \end{align*}
+\end{definition}
+
+\begin{definition}[\SSet]
+  The category of simplicial sets is defined as:
+  \begin{align*}
+    \SSet := \Set^{\Simplex{}^\op}
+  \end{align*}
+
+  It is a functor category, whose objects and morphisms are given by:
+  \begin{align*}
+    \obj(\SSet)            & := \text{functors} \; \Simplex{}^\op \rightarrow \Set      \\
+    \mor(\SSet)            & := \text{natural transforms between the functors}          \\
+    \text{composition law} & := \text{the usual composition of natural transformations} \\
+  \end{align*}
+\end{definition}
+
+\begin{definition}[\Simplex{n}]
+  The Yoneda embedding of $\sq{n}$ is referred to as the standard $n$-simplex.
+  \begin{align*}
+    \Simplex{n} := y(\sq{n})
+  \end{align*}
+\end{definition}
+
+With the definition of the category of simplicial sets firmly in place, we look inside a simplicial set to see the data it actually encodes concretely.
+
+\begin{definition}[Coface and codegeneracy]
+  We define the coface and codegeneracy maps, operating on \Simplex{} as:
+  \begin{align*}
+    d^i                       & : \sq{n - 1} \rightarrow \sq{n}     \\
+    s^i                       & : \sq{n + 1} \rightarrow \sq{n}     \\
+    d^i(\{0, \ldots, n - 1\}) & = \{0, \ldots, \hat{i}, \ldots, n\} \\
+    s^i(\{0, \ldots, n + 1\}) & = \{0, \ldots, i, i, \ldots, n\}    \\
+  \end{align*}
+\end{definition}
+
+\begin{definition}[The data of a simplicial set]
+  A simplicial set is equivalent to the data of a set of $n$-simplices, related to each other via face and degeneracy maps.
+  \begin{align*}
+    X_n : \Set                      & \;\;\text{a set of n-simplices} \\
+    d_i : X_{n + 1} \rightarrow X_n & \;\;\text{face maps}            \\
+    s_i : X_n \rightarrow X_{n + 1} & \;\;\text{degeneracy maps}      \\
+  \end{align*}
+  where $X_n$, the set of $n$-simplices contained within the simplicial set $X$, is given by:
+  \begin{equation*}
+    \begin{matrix}
+      X_n & := & \Hom(\Simplex{n}, X)    &                        \\
+          & =  & y(\sq{n}) \rightarrow X & \text{simplicial maps} \\
+    \end{matrix}
+  \end{equation*}
+  and $d_i$ and $s_i$ are defined as:
+  \begin{align*}
+    d_i(\Simplex{n + 1} \rightarrow X) & := X(d^i) \\
+    s_i(\Simplex{n} \rightarrow X)     & := X(s^i) \\
+  \end{align*}
+  and $d_i$, $s_i$ are constrained by the following ``simplicial identities'':
+  \begin{align*}
+    d_i d_j & = d_{j - 1} d_i, i < j \\
+    s_i s_j & = s_{j + 1} s_i, i < j \\
+    d_i s_j & =
+    \begin{cases}
+      s_{j - 1} d_i & i < j \\
+      id            & i = j \\
+      s_j d_{i - 1} & i > j \\
+    \end{cases}
+  \end{align*}
+\end{definition}
+
+We mentioned degeneracies in the introduction to this section, and we define precisely what a degenerate simplex is now.
+
+\begin{definition}[Degenerate simplex]
+  A simplex is $x \in X_n$ is termed degenerate if it is the image of some degeneracy map $s_i$, and non-degenerate otherwise.
+\end{definition}
+
+\begin{example}[Non-degenerate simplices of \Simplex{n}]
+  The non-degenerate $k$-simplices of $\Simplex{n}$ are the injective maps $\sq{k} \rightarrow \sq{n}$ in $\Simplex{}$. In particular, $\Simplex{n}$ has a unique non-degenerate $n$-simplex.
+\end{example}
+
+To interpret simplicial sets as \8-categories, as we will see in a later chapter, we will need a way to represent a simplicial sets as commutative diagrams. As is clear from the above definitions, simplicial sets have an infinite number of degeneracies, and the first step towards drawing a simplicial set is to define a convention that omits these degeneracies in the drawing.
+
+\begin{notation}[Drawing of a simplicial set\label{not:drawsset}]
+  A diagram of the form
+
+  \begin{equation*}
+    \begin{tikzcd}
+      x \arrow[r, "f"] & y
+    \end{tikzcd}
+  \end{equation*}
+
+  in simplicial set $S$ will mean that $f$ is a non-degenerate $1$-simplex, and $x$ and $y$ are $0$-simplices. The simplices have a relationship to the simplicial set $S$ given by the following commutative diagram:
+
+  \begin{equation*}
+    \begin{tikzcd}
+      \Simplex{0} \arrow[dr] \arrow[drr, "x", bend left] & & \\
+      & \Simplex{1} \arrow[r, "f"] & S \\
+      \Simplex{0} \arrow[ur] \arrow[urr, "y"', bend right] & & \\
+    \end{tikzcd}
+  \end{equation*}
+
+  To draw simplices of dimension greater than $1$, we see that there is a potential ambiguity. Consider the following diagram:
+
+  \begin{equation*}
+    \begin{tikzcd}
+      & \bullet \arrow[ddr] & \\
+      \\
+      \bullet \arrow[uur] \arrow[rr] & & \bullet
+    \end{tikzcd}
+  \end{equation*}
+
+  In the above diagram, it is clear that there are three non-degenerate $1$-simplices, but it is unclear whether there is a non-degenerate $2$-simplex. By convention, when we draw such a diagram, we will assume that there is a non-degenerate $2$-simplex border by the three non-degenerate $1$-simplices. To generalize, we will always assume that there exists a non-degenerate $n$-simplex, when bounded by non-degenerate $(n - 1)$-simplices. In interpreting certain simplicial sets as \8-categories, as we will see in a later chapter, this assumption is equivalent to assuming that the non-degenerate $1$-simplices always commute.
+\end{notation}
+
+\begin{example}[\Simplex{0}, \Simplex{1}, and \Simplex{2}]
+  $\Simplex{0}$ can be drawn as:
+
+  $$
+    \begin{tikzcd}
+      0
+    \end{tikzcd}
+  $$
+
+  $\Simplex{1}$ can be drawn as:
+
+  $$
+    \begin{tikzcd}
+      0 \arrow[r] & 1
+    \end{tikzcd}
+  $$
+
+  and $\Simplex{2}$ can be drawn as:
+
+  $$
+    \begin{tikzcd}
+      & 1 \arrow[ddr] & \\
+      \\
+      0 \arrow[uur] \arrow[rr] & & 2
+    \end{tikzcd}
+  $$
+\end{example}
+
+We conclude this section with a few propositions on simplicial sets.
+
+\begin{proposition}
+  $\SSet$ has all limits and colimits.
+\end{proposition}
+
+\begin{proof}
+  Expanding out the definition, $\SSet := \Set^{\Simplex{}^\op}$. The functor category has functors $\F : \Simplex{}^\op \rightarrow \Set$. Notice that the pointwise colimit $\colim \Simplex{}^\op \rightarrow \Set$ has codomain $\Set$. Now, since $\Set$ has all limits and colimits, it follows that $\SSet$ has all limits and colimits.
+\end{proof}
+
+\begin{example}[Underlying category of a \SSet-enriched category]
+  There exists a faithful functor $\SSet \rightarrow \Set$ that retains the data of the $0$-simplices. The hom-set of an \SSet-enriched category $\C$ is given by:
+  \begin{align*}
+    \Hom_\C(X, Y) = \Hom_{\SSet}(\Simplex{0}, \Map_\C(X, Y))
+  \end{align*}
+\end{example}
+
+\subsection{Constructions}
+In this section, we study three simplicial sets satisfying certain properties: Spines, Horns, and Kan complexes. These constructions are presented here so they can be referred to in later chapters.
+
+\begin{definition}[Spine]
+  For any integer $n \geq 1$, the spine of $\Simplex{n}$ is defined as:
+
+  \begin{equation*}
+    \Sp{n} := \bigcup_{0 \leq i < n} \Simplex{\{i, i + 1\}} \subset \Simplex{n}
+  \end{equation*}
+
+  where $\Simplex{\{i, i + 1\}}$ denotes the edge joining vertices $i$ and $i + 1$. Informally, $\Sp{n}$ consists of all vertices of $\Simplex{n}$, together with edges joining adjacent vertices.
+
+  $\Sp{2}$ is easily seen to be equal to $\Horn{2}{1}$.
+\end{definition}
+
+\begin{definition}[Horn]
+  The $k$-th horn of standard n-simplex $\Simplex{n}$, denoted $\Horn{n}{k}$, is the union of all faces of $\Simplex{n}$ except the $k$-th face. For example, $\Horn{2}{2}$ can be drawn as:
+
+  \begin{equation*}
+    \begin{tikzcd}
+      & 1 \arrow[ddr, dash] & \\
+      \\
+      0 \arrow[uur, dash, dotted] \arrow[rr, dash] & & 2 \\
+    \end{tikzcd}
+  \end{equation*}
+\end{definition}
+
+\begin{definition}[Kan complex]
+  Kan complex $K$ is a simplicial set that has filler property with respect to all horns:
+
+  \begin{equation*}
+    \begin{tikzcd}
+      \Horn{n}{k} \arrow[d, hookrightarrow] \arrow[r] & K \\
+      \Simplex{n} \arrow[ur, dashed, "\exists" description] \\
+    \end{tikzcd} \forall 0 \leq k \leq n
+  \end{equation*}
+\end{definition}
+
+\subsection{Geometric realization}
+As mentioned in the introduction, some care is required to define the geometric realization functor. Since, as will shortly see, it forms an adjoint pair with the singular complex functor, and we will study them together.
+
+\begin{definition}[Geometric realization]
+  The geometric realization functor produces a topological space out of a simplicial set, by gluing together topological $n$-simplicies for each non-degenerate $n$-simplex along its lower-dimensional faces.
+  \begin{align*}
+    |-| & : \SSet \rightarrow \CG                                  \\
+    |X| & = \coprod_{n = 0}^{\infty} X_n \times |\Simplex{n}|/\sim
+  \end{align*}
+  where $\sim$ is the equivalence relation,
+  \begin{align*}
+    (x, d^i(p)) & \sim (d_i(x), p) \\
+    (x, s^i(p)) & \sim (s_i(x), p) \\
+  \end{align*}
+  $\forall p \in |\Simplex{n}|$, $x \in X_{n + 1}$ or $X_{n - 1}$, as appropriate.
+\end{definition}
+
+\begin{definition}[\Sing]
+  The singular simplicial complex of a topological space is given by:
+  \begin{align*}
+    \Sing      & : \CG \rightarrow \SSet       \\
+    \Sing_n(X) & := \Hom_\CG(|\Simplex{n}|, X)
+  \end{align*}
+\end{definition}
+
+\begin{remark}
+  The singular simplicial complex of a topological space is a Kan complex.
+\end{remark}
+
+\begin{proposition}[Relationship between $|-|$ and \Sing]
+  The geometric realization functor and the singular complex functor form an adjoint pair:
+
+  \begin{equation*}
+    \begin{tikzcd}
+      \SSet : |-| \arrow[r, bend left] \arrow[r, phantom, "\bot" description] & \Sing : \CG \arrow[l, bend left]
+    \end{tikzcd}
+  \end{equation*}
+\end{proposition}
+
+\subsection{Operations}
+There are two common operations on simplicial sets, products and joins. The definition of product is straightforward, while the definition of join is somewhat more delicate. However, both are fairly non-trivial operations, since we have to keep track of the degenerate simplices carefully. Fortunately, our study involves products and joins of small standard $n$-simplices.
+
+\begin{definition}[Product\label{def:prodsset}]
+  Given simplicial sets $X$ and $Y$, their product $X \times Y$ is a simplicial set given by:
+
+  \begin{enumerate}
+    \item[(i)] $(X \times Y)_n = X_n \times Y_n$.
+    \item[(ii)] $d_i(x, y) = (d_i x, d_i y)$.
+    \item[(iii)] $s_i(x, y) = (s_i x, s_i y)$.
+  \end{enumerate}
+
+  where $(x, y) \in (X \times Y)_n$.
+\end{definition}
+
+\begin{lemma}
+  The geometric realization of the product of two simplicial sets, $|X \times Y|$, is isomorphic to the product of each of their geometric realizations.
+
+  \begin{equation*}
+    |X \times Y| \cong |X| \times |Y|
+  \end{equation*}
+\end{lemma}
+
+\begin{example}
+  The following example is discussed in full in \cite{Friedman08}. $\Simplex{1} \times \Simplex{1}$ can be drawn as:
+
+  \begin{equation*}
+    \begin{tikzcd}
+      & \bullet \arrow[dr, dash] \arrow[dd, dash] & \\
+      \bullet \arrow[ur, dash] \arrow[dr, dash] & & \bullet \\
+      & \bullet \arrow[ur, dash] & \\
+    \end{tikzcd}
+  \end{equation*}
+
+  Two copies of $\Simplex{2}$ glued along an edge.
+\end{example}
+
+\begin{definition}[Join of simplicial sets\label{def:ssetjoin}]
+  For non-empty finite linearly-ordered set $J$, the join of simplicial sets $S$ and $T$ is given by:
+
+  \begin{equation*}
+    (S \star T)(J) = \sqcup_{J = I \cup I'} S(I) \times S(I')
+  \end{equation*}
+
+  More concretely,
+
+  \begin{equation*}
+    (S \star T)_n = S_n \cup T_n \cup \bigcup_{i + j = n - 1} S_i \times S_j'
+  \end{equation*}
+
+  where the faces and degeneracies are given by:
+
+  \begin{align*}
+    d_i               & : (S \star T)_n \rightarrow (S \star T)_{n - 1} \\
+    d_i(\sigma, \tau) & =
+    \begin{cases}
+      (d_i \sigma, \tau)      & i \leq j, j \neq 0 \\
+      (\sigma, d_{i - j - 1}) & i > j, k \neq 0    \\
+    \end{cases} \;\;\;\; \sigma \in S_j, \tau \in T_k   \\
+    s_i               & : (S \star T)_n \rightarrow (S \star T)_{n + 1} \\
+    s_i(\sigma, \tau) & =
+    \begin{cases}
+      (s_i \sigma, \tau)      & i \leq j, j \neq 0 \\
+      (\sigma, s_{i - j + 1}) & i > j, k \neq 0    \\
+    \end{cases} \;\;\;\; \sigma \in S_j, \tau \in T_k
+  \end{align*}
+\end{definition}
+
+\begin{example}
+  We present some join computations on standard $n$-simplices.
+  \begin{align*}
+    \Simplex{m} \star \Simplex{n}          & = \Simplex{m + n + 1}                                                                         \\
+    \Simplex{n}                            & = \Simplex{0} \star \Simplex{0} \star \ldots \star \Simplex{0} \;\;\;\; (n + 1 \text{ times}) \\
+    \partial \Simplex{n} \star \Simplex{0} & = \Horn{n + 1}{n + 1}                                                                         \\
+    \Simplex{0} \star \partial \Simplex{n} & = \Horn{n + 1}{0}                                                                             \\
+  \end{align*}
+
+  The last example shows that the join is not a commutative operation.
+\end{example}
+
+\begin{notation}[Cone and cocone]
+  For convenience, we define two different joins of simplicial set $S$ with $\Simplex{0}$, the cone, denoted $S^\triangleright$, and the cocone, denoted $S^\triangleleft$:
+  \begin{align*}
+    S^\triangleright & := S \star \Simplex{0} \\
+    S^\triangleleft  & := \Simplex{0} \star S \\
+  \end{align*}
+\end{notation}
+
+\section{Homotopical theories}
+Having covered category theory and simplicial sets, we will now begin doing some homotopy theory by taking a bird's eye view, and defining the umbrella under which homotopy theories nest. Our objective is to lay the groundwork to define limits in \8-categories, without which no pullback or pushout in \8-categories would make sense. We follow the approach outlined in the recent manuscript, \cite{Riehl19}, and start covering material from the first chapter of \cite{Lurie09a}.
+
+\subsection{Homotopical categories}
+A homotopical category is a category equipped with a class of weak equivalences. It is a distillation of properties required for doing homotopy theory, although we postpone the discussion of the \emph{homotopy category} until the next section on model categories.
+
+\begin{definition}[Weak equivalence]
+  A class of weak equivalences $\Wcal$ is a class of morphisms in a category that is closed under composition, that contains identities, is closed under retracts, and satisfies the 2-out-of-6 property. The last two conditions may be elaborated as:
+
+  \begin{equation*}
+    \begin{tikzcd}
+      \bullet \arrow[d, "t"] \arrow[r] \arrow[rr, bend left, equals] & \bullet \arrow[d, "s"] \arrow[r] & \bullet \arrow[d, "t"] \\
+      \bullet \arrow[r] \arrow[rr, bend right, equals] & \bullet \arrow[r] & \bullet \\
+    \end{tikzcd}
+    \begin{tikzcd}
+      \bullet \arrow[rr, "f"] \arrow[ddrr, "gf"'] \arrow[ddrrrr, "hgf" near start] & & \bullet \arrow[dd, "g" near start, crossing over] \arrow[ddrr, "fg"] & & \\
+      \\
+      & & \bullet \arrow[rr, "h"] & & \bullet \\
+    \end{tikzcd}
+  \end{equation*}
+
+  In the diagram on the left, if $s$ is in \Wcal, so is $t$. In the diagram on the right, if $hg$ and $gf$ are in \Wcal, so are $f$, $g$, $h$, and $hgf$.
+\end{definition}
+
+\begin{definition}[Homotopical category]
+  A homotopical category is a category equipped with a class of weak equivalences. A functor between homotopical categories is said to be homotopical if it preserves weak equivalences. Often\footnote{See \ref{sec:modelcat}}, homotopical categories come with an associated \emph{homotopy category}, $h\C$ in the shown diagram, characterized by the following universal property, where all functors are homotopical:
+
+  \begin{equation*}
+    \begin{tikzcd}
+      \C \arrow[r, "\F"] \arrow[dr] & h\C \arrow[d, dashed, "\exists!" description] \\
+      & \D \\
+    \end{tikzcd}
+  \end{equation*}
+
+  $\F$ is referred to as the \emph{localization functor}, and it sends weak homotopy equivalences to isomorphisms.
+\end{definition}
+
+\begin{example}
+  The category of CW complexes is a homotopical category, with weak equivalences given by weak homotopy equivalences. The category of chain complexes of $R$-modules is also a homotopical category, with weak equivalences given by quasi-isomorphisms.
+\end{example}
+
+\begin{definition}[Weak equivalence in \CG]
+  A map $X \rightarrow Y$ between topological spaces with basepoints $x \in X$ and $y \in Y$ respectively, is termed a weak equivalence if $\pi_n(X, x) \cong \pi_n(Y, y)$ for all $n$.
+\end{definition}
+
+\begin{definition}[\H\label{def:H}]
+  The homotopy category of topological spaces, denoted \H, has, as objects, topological spaces, and as morphisms
+  \begin{align}\label{eqn:HCGsim}\tag{\H, def.}
+    \H(X, Y) = \Hom_\CG(\theta(X), \theta(Y))/\sim
+  \end{align}
+
+  where $\theta : \CG \rightarrow \H$ is the functor that operates on space $X$ as $X \mapsto \sq{X}$, sending weak homotopy equivalences in $\CG$ to isomorphisms in $\H$, or the CW-approximation of the space. $\sim$ refers to the equivalence relation, $f \sim g$ if and only if $f$ is homotopic to $g$.
+\end{definition}
+
+\subsection{Model categories\label{sec:modelcat}}
+Model categories are a formalism that allow us to construct homotopy categories and functors between them that preserve weak equivalences, termed \emph{homotopical functors}. In particular, we are interested in a model structure on \SSet.
+
+\begin{definition}[Weak factorization system]
+  A weak factorization system on a category $\M$ is two distinguished classes of morphisms $(\Lcal, \Rcal)$, such that:
+
+  \begin{enumerate}
+    \item[(i)] Every morphism in $\M$ factors as a morphism in $\Lcal$ followed by a morphism in $\Rcal$.
+    \item[(ii)] $l \in \Lcal$ has left lifting property with respect to $r \in \Rcal$:
+      \begin{equation*}
+        \begin{tikzcd}
+          \bullet \arrow[r] \arrow[d, "l \in \Lcal"'] & \bullet \arrow[d, "r \in \Rcal"] \\
+          \bullet \arrow[ur, dashed] \arrow[r] & \bullet \\
+        \end{tikzcd}
+      \end{equation*}
+
+    \item[(iii)] All morphisms in both $\Lcal$ and $\Rcal$ are closed under retracts:
+      \begin{equation*}
+        \begin{tikzcd}
+          \bullet \arrow[d, "t"] \arrow[r] \arrow[rr, bend left, equals] & \bullet \arrow[d, "s"] \arrow[r] & \bullet \arrow[d, "t"] \\
+          \bullet \arrow[r] \arrow[rr, bend right, equals] & \bullet \arrow[r] & \bullet \\
+        \end{tikzcd}
+      \end{equation*}
+
+      If $s$ is in the class, so is $t$.
+  \end{enumerate}
+\end{definition}
+
+\begin{definition}[Model structure]
+  A model structure on $(\M, \Wcal)$ endows it with two additional classes of morphisms: \emph{cofibrations} $\Ccal$ and \emph{fibrations} $\Fcal$, so that $(\Wcal \cap \Ccal, \Fcal)$ and $(\Wcal \cap \Fcal, \Ccal)$ form a weak factorization system. Moreover, finite limits and colimits are guaranteed to exist. A map that is both a weak equivalence and a cofibration is termed a \emph{trivial cofibration}, and a map that is both a weak equivalence and a fibration is termed a \emph{trivial fibration}.
+\end{definition}
+
+\begin{notation}[\Wcal, \Ccal, and \Fcal]
+  The three classes of morphisms are indicated on arrows as:
+
+  \begin{equation*}
+    \begin{tikzcd}
+      \Wcal & \bullet \arrow[r, "\sim"] & \bullet \\
+      \Ccal & \bullet \arrow[r, rightarrowtail] & \bullet \\
+      \Fcal & \bullet \arrow[r, twoheadrightarrow] & \bullet \\
+    \end{tikzcd}
+  \end{equation*}
+\end{notation}
+
+\begin{definition}[Cofibrant and fibrant objects]
+  In the context of model categories, an object $X$ is cofibrant if the map $\phi \rightarrow X$, from the initial object, is a cofibration. Dually, $X$ is fibrant if the map $X \rightarrow *$, to the final object, is a fibration.
+\end{definition}
+
+\begin{remark}[Cofibrant and fibrant replacement]
+  Any object $X$ in a model category can be replaced, upto weak homotopy equivalence, by a cofibrant object, and this is known as its cofibrant replacement, denoted $QX$. Moreover, it can also be replaced, up to weak homotopy equivalence, by a fibrant object, and this is known as its fibrant replacement, $RX$.
+
+  The replacement arises as a consequence of the axioms of a model category, whence one can replace any map by a trivial cofibration followed by a fibration, or a cofibration followed by a trivial fibration.
+\end{remark}
+
+\begin{proposition}[Quillen model structure on \SSet]
+  The category of simplicial sets admits more than one model structure, and we describe the Quillen model structure here.
+
+  \begin{enumerate}
+    \item[(i)] $\Wcal$ are given by weak homotopy equivalences in the topological space obtained by taking the geometric realizations of the simplicial sets.
+    \item[(ii)] $\Ccal$ are monomorphisms.
+    \item[(iii)] $\Fcal$ are Kan fibrations, which are characterized by left lifting property with respect to horn inclusions.
+      \begin{equation*}
+        \begin{tikzcd}
+          \Horn{n}{k} \arrow[d, rightarrowtail, "\sim"] \arrow[r] & X \arrow[d, twoheadrightarrow] \\
+          \Simplex{n} \arrow[r] \arrow[ur, dashed] & Y \\
+        \end{tikzcd}
+      \end{equation*}
+  \end{enumerate}
+\end{proposition}
+
+\begin{remark}
+  In the Quillen model structure on $\SSet$, all objects are cofibrant, and the fibrant objects are exactly the Kan complexes.
+\end{remark}
+
+\subsection{Topological and simplicial categories}
+As we will shortly see, much of the machinery of \8-categories borrows from machinery in topological and simplicial categories, as both of them can be turned into \8-categories quite elegantly.
+
+\begin{definition}[Topological category]
+  A topological category is a category enriched over \CG.
+\end{definition}
+
+\begin{definition}[Simplicial category]
+  In its full generality, a simplicial category is defined to be a category enriched over \SSet. The category whose objects are given by categories enriched over Kan complexes, morphisms given by simplicial functors, and composition given by composition of simplicial functors, is denoted \CatDel. In other words, we only consider \emph{fibrant} simplicial categories.
+\end{definition}
+
+\begin{remark}
+  $\CatDel$ is symmetric closed monoidal, and Kan-complex enriched.
+\end{remark}
+
+Next, we will define the homotopy category of a topological category:
+
+\begin{proposition}[Homotopy category of a topological category]
+  The homotopy category of a topological category \C, $h\C$, may either be defined as an ordinary category, or as a \H-enriched category. We will prove that taking the underlying hom-set of the enriched definition yields the unenriched definition.
+
+  \begin{enumerate}
+    \item[(Def. I)]
+      \begin{enumerate}
+        \item[(i)] Objects of $\widetilde{h\C}$ are the same as the objects of \C.
+        \item[(ii)] $\Hom_{h\C}(X, Y) = \pi_0 \Map_\C(X, Y)$.
+        \item[(iii)] The composition law in $\widetilde{h\C}$ is obtained from the composition law in \C, by applying $\pi_0$.
+      \end{enumerate}
+    \item[(Def. II)]
+      \begin{enumerate}
+        \item[(i)] Objects of $h\C$ are the same as the objects of \C.
+        \item[(ii)] $\Map_{h\C}(X, Y) = [\Map_\C(X, Y)]$, where $[-]$ denotes CW approximation.
+        \item[(iii)] Composition law in $h\C$ is obtained from the composition law in \C, by applying $\theta: \CG \rightarrow \H$.
+      \end{enumerate}
+  \end{enumerate}
+\end{proposition}
+
+\begin{proof}
+  From the definition of $\pi_0$, and \ref{def:H}:
+
+  \begin{equation*}
+    \begin{matrix}
+      \pi_0 X & := & \Hom_\H(*, X)                       \\
+              & =  & \Hom_\CG(\theta(*), \theta(X))/\sim \\
+    \end{matrix}
+  \end{equation*}
+
+  The relationship between the mapping space of $h\C$ and that of $\C$ is given by the second definition:
+  \begin{align*}
+    \Map_{h\C}(X, Y) = [\Map_\C(X, Y)]
+  \end{align*}
+
+  Passing to path components, we get:
+  \begin{align*}
+    \pi_0 \Map_{h\C}(X, Y) = \pi_0 [\Map_\C(X, Y)]
+  \end{align*}
+
+  Now, from the first definition,
+  \begin{align*}
+    \pi_0 \Map_\C(X, Y) = \Hom_{\widetilde{h\C}}(X, Y)
+  \end{align*}
+
+  Now, notice that due to the canonical bijection between $\pi_0 \Map_\C(X, Y)$ and $\pi_0 [\Map_\C(X, Y)]$, the two terms are in bijection. Hence, the underlying hom-set of $[\Map_\C(X, Y)]$ is $\pi_0 \Map_\C(X, Y)$.
+\end{proof}
+
+\subsection{Homotopy limits\label{sec:holim}}
+Although \8-categories necessitate a homotopy-coherent replacement for limits, we present the classical theory of homotopy limits of topological spaces, defined in terms of model categories. In general, homotopy categories admit few limits, but they do admit products and coproducts. Since the definition of a stable \8-category uses pushouts and pullbacks, we will restrict our attention to studying the homotopy limits of those diagrams. The inquisitive reader may refer to \cite{Riehl19} for limits defined on more general diagrams, à la Reedy categories.
+
+\begin{remark}[Limits are not homotopy invariant]
+  To illustrate this point, consider the diagram:
+
+  \begin{equation*}
+    \begin{tikzcd}
+      D^n \arrow[d, "\sim"] \arrow[r, hookleftarrow] & S^{n - 1} \arrow[r, hookrightarrow] \arrow[d, equal] & D^n \arrow[d, "\sim"] \\
+      * & S^{n - 1} \arrow[l] \arrow[r] & * \\
+    \end{tikzcd}
+  \end{equation*}
+
+  The colimit of the top row is not equal to the colimit of the bottom row, although the rows are pointwise homotopic.
+\end{remark}
+
+A full discussion of the theory of homotopy limits requires discussing derived functors, which in turn depend on discussing Kan extensions, so we will merely present the result here:
+
+\begin{proposition}[Homotopy pushout]
+  The homotopy pushout of the diagram
+
+  \begin{equation*}
+    \begin{tikzcd}
+      Y & X \arrow[l, "f"'] \arrow[r, "g"] & Z
+    \end{tikzcd}
+  \end{equation*}
+
+  is obtained by replacing $X$ by a cofibrant replacement, and $f$ and $g$ by cofibrations. To perform the replacement, recall that any morphism can be factored as a cofibration followed by a fibration. In the end, we can compute the ordinary pushout of
+
+  \begin{equation*}
+    \begin{tikzcd}
+      QX \arrow[d, rightarrowtail] \arrow[r, rightarrowtail] \arrow[dr, phantom, "\ulcorner", very near end] & Z' \arrow[d, twoheadrightarrow] \\
+      Y' \arrow[r, twoheadrightarrow] & \bullet \\
+    \end{tikzcd}
+  \end{equation*}
+
+  and it gives us the desired homotopy pushout.
+
+  To compute a pullback of a given diagram, we use fibrant replacements and fibrations in place of cofibrant replacements and cofibrations.
+\end{proposition}
+
+\section{\texorpdfstring{\8}{∞}-categories}
+Simplicial categories are examples of $(\8, 0)$-categories are also called \8-groupoids, where morphisms of all orders are invertible. However, we can get a lot more mileage by making morphisms of order $1$ non-invertible. Emily Riehl's manuscript \cite{Riehl18} outlines a theory that is applicable to many ``kinds'' of $(\8, 1)$-categories, à la the theory of \8-cosmoi. However, with the objective of studying stable \8-categories, we will restrict our attention to one particular kind of $(\8, 1)$-category, namely quasi-categories, and simply call them \8-categories. Many of the results in quasi-categories were originally proved in \cite{Joyal08}. The inquisitive mathematician would read \emph{fibrations of simplicial sets} from \cite{Lurie09a} as a natural next step.
+
+\subsection{Motivation}
+\8-categories were built to address a specific problem in topology: when doing homotopy, we construct homotopy equivalences between topological spaces, but we do not remember \emph{why} the spaces are homotopic. In other words, it would be convenient to remember homotopies between homotopies, and perhaps homotopies between homotopies between homotopies. As it turns out, the formalism is greatly simplified if we start at $1$ (homotopies) and go on ad infinitum. Higher category theory was born out of this need, where all that matters is whether two morphisms are homotopic, not equal or even isomorphic. We recall that simplicial categories have a well-behaved homotopy category; they naturally lend themselves to generalization in the \8-categorical setting.
+
+\begin{definition}[\8-category]
+  The definition of an \8-category is a generalization over the definition of nerve and Kan complexes:
+
+  \begin{equation*}
+    \begin{tikzcd}
+      \Horn{n}{k} \arrow[d, hookrightarrow] \arrow[r] & K \\
+      \Simplex{n} \arrow[ur, dashed, "\exists" description]
+    \end{tikzcd} \forall 0 < k < n
+  \end{equation*}
+\end{definition}
+
+In other words, the fillability condition on the nerve is weakened to allow for multiple homotopic fillers.
+
+\begin{remark}
+  The definition of an \8-category is different from the definition of a Kan complex, because it requires only inner horns to be fillable, and it is different from the definition of a nerve, because it drops the uniqueness constraint on the fillability. It should be evident that the nerve of every category and every Kan complex is an \8-category.
+\end{remark}
+
+\begin{definition}[Diagram in \8-categories]
+  \ref{not:diacat} is no longer sufficient to describe a diagram in \8-categories. Let $S$ be a simplicial set, and $\C$ an \8-category. A diagram in an $\C$ is defined as a morphism of simplicial sets $\F : S \rightarrow \C$ such that the $0$-simplices of $S$ are objects of \C, the $1$-simplices, are the morphisms, and a $k$-simplex of $S$ witnesses commutativity, upto homotopy, of the its boundary, comprised of $(k - 1)$-simplices. In particular, a $2$-simplex witnesses commutativity of the three morphisms on its boundary, up to homotopy.
+\end{definition}
+
+\subsection{Nerve}
+Having digested the motivation and definition of \8-categories, we now ask what the relationship between an ordinary category and a simplicial set is. The nerve functor is an answer to this question. It can be used turn any ordinary category into a simplicial set, that can be viewed as an \8-category. We would like to highlight \cite{Cisinki19}, as an especially clear reference for this material.
+
+\begin{definition}[Nerve\label{def:nerve}]
+  Let $\C$ be a small category. The simplicial nerve $N\C$ is the simplicial set given by:
+  \begin{align*}
+    N      & : \Cat \rightarrow \SSet                                   \\
+    N\C_0  & := \obj(\C)                                                \\
+    N\C_1  & := \mor(\C)                                                \\
+    \ldots &                                                            \\
+    N\C_n  & := \{\text{strings of } n\text{ composable arrows in \C}\} \\
+  \end{align*}
+
+  The degeneracy map $s_i : N\C_n \rightarrow N\C_{n + 1}$ takes strings of $n$ composable arrows and obtains $n + 1$ composable arrows by inserting identity at the $i$th spot. The face map $d_i : N\C_n \rightarrow N\C_{n - 1}$ composes the $i$-th and $i +1$-th arrows if $0 < i < n$, and leaves out the first and last arrow for $i = 0$ and $i = n$ respectively.
+
+  To put succintly, the nerve is given by the formula,
+  \begin{align*}
+    \Hom_{\SSet}(\Simplex{n}, N\C) = \Hom_\Cat(\sq{n}, \C)
+  \end{align*}
+\end{definition}
+
+\begin{remark}[Characterization of nerve]
+  The nerve has unique filler property with respect to inner horns.
+
+  \begin{equation*}
+    \begin{tikzcd}
+      \Horn{n}{k} \arrow[d, hookrightarrow] \arrow[r] & N \\
+      \Simplex{n} \arrow[ur, dashed, "\exists!" description]
+    \end{tikzcd} \forall 0 < k < n
+  \end{equation*}
+\end{remark}
+
+To gain an intuition into what this remark says, consider the standard $2$-simplex:
+
+\begin{equation*}
+  \begin{tikzcd}
+    & 1 \arrow[ddr] & \\
+    \\
+    0 \arrow[uur] \arrow[rr] & & 2
+  \end{tikzcd}
+\end{equation*}
+
+The first horn presented below is fillable, but the other two aren't:
+
+\begin{equation*}
+  \begin{tikzcd}
+    & 1 \arrow[ddr] & \\
+    \\
+    0 \arrow[uur] \arrow[rr, dashed] & & 2
+  \end{tikzcd}
+  \begin{tikzcd}
+    & 1 \arrow[ddr, dash, dotted] & \\
+    \\
+    0 \arrow[uur] \arrow[rr] & & 2
+  \end{tikzcd}
+  \begin{tikzcd}
+    & 1 \arrow[ddr] & \\
+    \\
+    0 \arrow[uur, dash, dotted] \arrow[rr] & & 2
+  \end{tikzcd}
+\end{equation*}
+
+The unique fillability condition is asserting composition of morphisms in a category.
+
+\begin{proposition}[The nerve is full and faithful]
+  Given small categories $\C$ and $\D$,
+  \begin{align*}
+    \Hom_\Cat(\C, \D) \cong \Hom_{\SSet}(N\C, N\D)
+  \end{align*}
+\end{proposition}
+
+\begin{proof}
+  If a simplicial set arises as the nerve of a category, the objects and arrows of $\C$ are exactly the objects and arrows of $N\C$\footnote{See \ref{not:drawsset}}. Further, commutative triangles in $\C$ are commutative triangles in $N\C$ since the operation of restriction along $\Sp{n} \in \Simplex{n}$ induces a bijective map:
+  \begin{align*}
+    \Hom(\Simplex{n}, N\C) \cong \Hom(\Sp{n}, N\C)
+  \end{align*}
+
+  This bijection means that, in the nerve of a category, any two composable arrows have unique composition. This bijection expresses associativity of composition law in a category. The fact that the nerve functor is fully faithful follows from this bijection.
+\end{proof}
+
+We will now look at the left adjoint of $N$, called the fundamental category, denoted $\tau_1$.
+
+\begin{definition}[$\tau_1$]
+  The fundamental category of a simplicial set $S$ is obtained from $FS$, the freely generated category from the graph of non-degenerate arrows of $S$ modulo a congruence relation, $d_0 \sigma \circ d_1 \sigma \equiv d_2 \sigma$, where the boundary of the simplex $\sigma$ given by $(\partial_0 \sigma, \partial_1 \sigma, \partial_2 \sigma)$ satisfies:
+
+  \begin{equation*}
+    \begin{tikzcd}
+      & \sigma(1) \arrow[ddr, "\partial_0 \sigma"] & \\
+      \\
+      \sigma(0) \arrow[uur, "\partial_2 \sigma"] \arrow[rr, "\partial_1 \sigma"'] & & \sigma(2) \\
+    \end{tikzcd}
+  \end{equation*}
+\end{definition}
+
+\begin{remark}[Relationship between $\tau_1$ and $N$]
+  The fundamental category is left adjoint to the nerve:
+
+  \begin{equation*}
+    \begin{tikzcd}
+      \SSet : \tau_1 \arrow[r, bend left] \arrow[r, phantom, "\bot" description] & N : \Cat \arrow[l, bend left]
+    \end{tikzcd}
+  \end{equation*}
+\end{remark}
+
+\begin{example}[Two non-isomorphic simplicial sets with isomorphic fundamental categories]
+
+  \begin{equation*}
+    \begin{tikzcd}
+      0 \arrow[r] & 1 \arrow[r] & 2
+    \end{tikzcd}
+  \end{equation*}
+
+  In the above figure, there are no non-degenerate $2$-simplices.
+
+  \begin{equation*}
+    \begin{tikzcd}
+      & 1 \arrow[ddr] & \\
+      \\
+      0 \arrow[uur] \arrow[rr] & & 2
+    \end{tikzcd}
+  \end{equation*}
+
+  In this figure, there is one non-degenerate $2$-simplex.
+
+  The second example, the simplicial set arises as the nerve of the category $0 \rightarrow 1 \rightarrow 2$, while in the first example, while the simplicial set in the first example does not arise as the nerve of any category. $\tau_1(N(\C)) \cong \C$, and the fundamental category associated to both simplicial sets are the same $0 \rightarrow 1 \rightarrow 2$.
+\end{example}
+
+\subsection{Homotopy-coherent nerve construction}
+Since \8-categories share many features of simplicial categories, and because simplicial categories are particularly easy to work with, we will construct a homotopy-coherent nerve (i.e. a homotopical functor) that turns a simplicial category into an \8-category. The first step is to notice that the nerve is right adjoint to the fundamental category, and construct a parallel.
+
+\begin{definition}[\Cfrak]
+  Let $A$ be a small category. We define $\Cfrak A_\bullet$ by:
+  \begin{align*}
+    \obj(\Cfrak A) & = \obj(A)    \\
+    \Cfrak A_n     & = F^{n + 1}A \\
+  \end{align*}
+
+  where $F^\bullet A$ denotes the free resolution of $A$. A non-identity $n$-arrow is a string of composable arrows in $A$, with each arrow enclosed in exactly $n$ pairs of well-formed parantheses.
+
+  $\Cfrak A_\bullet$ can be drawn as:
+
+  \begin{equation*}
+    \begin{tikzcd}
+      FA \arrow[r, rightarrowtail] \arrow[r, twoheadleftarrow, shift left=2] \arrow[r, twoheadleftarrow, shift right=2] & F^2 A \arrow[r, rightarrowtail, shift left=2] \arrow[r, rightarrowtail, shift right=2] \arrow[r, twoheadleftarrow] \arrow[r, twoheadleftarrow, shift left=4] \arrow[r, twoheadleftarrow, shift right=4] & \ldots
+    \end{tikzcd}
+  \end{equation*}
+
+  The face and degeneracy maps for $j \geq 1$ are given by:
+  \begin{align*}
+    F^k \epsilon F^j & : F^{k + j + 1} \rightarrow F^{k +j}     \\
+    F^k \epsilon F^j & : F^{k + j + 1} \rightarrow F^{k +j + 2}
+  \end{align*}
+
+  The face maps remove parantheses contained in exactly $k$ others, while the degeneracy maps double up the parantheses contained in exactly $k$ others.
+\end{definition}
+
+\begin{definition}[Homotopy-coherent nerve]
+  We can specialize the above construction to $\Simplex{}$, yielding $\Cfrak : \Simplex{} \rightarrow \CatDel$. Then, via a construction, the homotopy-coherent nerve $\Nfrak$ is defined in terms of the adjunction:
+
+  \begin{equation*}\label{eqn:hoconerve}\tag{Nerve, adj.}
+    \begin{tikzcd}
+      \SSet \arrow[r, bend left, "\Cfrak"] \arrow[r, phantom, "\bot" description] & \CatDel \arrow[l, bend left, "\Nfrak"]
+    \end{tikzcd}
+  \end{equation*}
+
+  To obtain a formula for $\Nfrak$, one replaces the category $\sq{n}$ with $\Cfrak\sq{n}$:
+  \begin{align*}
+    \Nfrak : \CatDel \rightarrow \SSet \\
+    \Hom_{\SSet}(\Simplex{n}, \Nfrak\C) = \Hom_{\CatDel}(\Cfrak\sq{n}, \C)
+  \end{align*}
+\end{definition}
+
+\begin{remark}
+  $\Cfrak\sq{n} = \Cfrak\Simplex{n}$, and it is referred to as the \emph{homotopy coherent $n$-simplex}, and due to the above adjunction, we refer to $\Cfrak$ as the \emph{homotopy-coherent realization}. Moreover, $\Cfrak$ is homotopy inverse to $\Nfrak$. We can conclude this section by putting topological categories and simplicial categories on the same footing.
+\end{remark}
+
+\subsection{The homotopy category}
+Perhaps the strongest motivation for defining \8-categories the way they are defined is that every \8-category has an associated homotopy category. It is one of the reasons \8-categories are an excellent foundation for doing modern homotopy theory. None of the subtleties of model categories is present. The homotopy category is first-class, as it is necessary to even define a morphism between objects in an \8-category.
+
+\begin{definition}[Homotopy category of an \8-category]
+  The homotopy category of \8-category $\C$, $h\C$ has the $0$-simplices of $\C$ as objects, homotopy classes of $1$-simplices as morphisms. The degenerate $1$-simplices serve as identities in $h\C$, and a pair of $1$-simplices with a common boundary are homotopic, if there exists a $2$-simplex of one of the following forms:
+
+  \begin{equation*}
+    \begin{tikzcd}
+      & \bullet & \\
+      \\
+      \bullet \arrow[uur] \arrow[rr, equals] & & \bullet \arrow[uul] \\
+    \end{tikzcd}
+    \begin{tikzcd}
+      & \bullet \arrow[ddl] \arrow[ddr] & \\
+      \\
+      \bullet \arrow[rr, equals] & & \bullet \\
+    \end{tikzcd}
+    \begin{tikzcd}
+      & \bullet \arrow[ddr] & \\
+      \\
+      \bullet \arrow[uur, equals] \arrow[rr] & & \bullet \\
+    \end{tikzcd}
+    \begin{tikzcd}
+      & \bullet & \\
+      \\
+      \bullet \arrow[uur, equals] & & \bullet \arrow[uul] \arrow[ll] \\
+    \end{tikzcd}
+  \end{equation*}
+
+  If any of these $2$-simplices exist in $h\C$, then there exists a $2$-simplex of each type in $\C$.
+
+  A generic $2$-simplex witnesses a composition relation:
+
+  \begin{equation*}
+    \begin{tikzcd}
+      & \bullet \arrow[ddr, "g"] & \\
+      \\
+      \bullet \arrow[uur, "f"] \arrow[rr, "h"'] & & \bullet
+    \end{tikzcd}
+  \end{equation*}
+
+  $h \cong g \circ f$ in $h\C$, and $h \simeq g \circ f$ in $\C$.
+\end{definition}
+
+\begin{discussion}[Morphism in an \8-category]
+  In the world of simplicial sets, it is prudent to define the mapping space between vertices of a simplicial set in the homotopy category. Given simplicial set $S$ with vertices $x$ and $y$, we can set:
+  \begin{align*}
+    \Map_S(x, y) := \Map_{hS}(x, y)
+  \end{align*}
+
+  There arises a difficulty when we try to replace $S$ by $\Cfrak[S]$, namely that $\Map_{\Cfrak[S]}(x, y)$, as it turns out, is usually not a Kan complex. To address this shortcoming, we define another simplicial set $\Hom^R_\C(x, y)$ to be the space of ``right morphisms'' from $x$ to $y$ in \8-category \C, which we will shortly define as a Kan complex.
+
+  A further complication arises, because $\Hom^R_\C(x, y)$ is not self-dual, and we define another Kan complex $\Hom^L_\C(x, y) := \Hom^R_{\C^\op}(x, y)$ to be the space of left morphisms from $x$ to $y$.
+
+  Fortunately, it can be shown that both $\Hom^R_\C(x, y)$ and $\Hom^L_\C(x, y)$ are included in, and are homotopic to, what we will henceforth just call $\Map_\C(x, y)$, the mapping space in an \8-category.
+\end{discussion}
+
+\begin{definition}
+  We define $\Hom^R_S(x, y)$ by letting $\Hom_{\SSet}(\Simplex{n}, \Hom^R_S(x, y))$ denote all $z: \Simplex{n + 1} \rightarrow S$ such that $z|\Simplex{n + 1} = y$ and $z|\Simplex{\{0 \ldots n\}}$ is the constant simplex at $x$. Face and degeneracy operations on $\Hom^R_S(x, y)_n$ coincide with those on $S_{n + 1}$.
+\end{definition}
+
+\subsection{Generalizations of constructs in simplicial categories}
+Various specialized constructions on simplicial categories extend naturally to \8-categories. We extend joins, and overcategories, and conclude with the generalization of initial and final objects, laying the groundwork for defining limits in \8-categories.
+
+\begin{remark}[Joins of \8-categories]
+  Joins naturally extend from topological categories and simplicial categories, as there is a natural isomorphism:
+  \begin{align*}
+    \Nfrak(\C \star \D) \cong \Nfrak(\C) \star \Nfrak(\D)
+  \end{align*}
+  and a categorical equivalence:
+  \begin{align*}
+    \Cfrak[S \star T] \rightarrow \Cfrak[S] \star \Cfrak[T]
+  \end{align*}
+  which leads us to conclude that we can simply reuse the definition \ref{def:ssetjoin}, when working with simplicial categories.
+\end{remark}
+
+\begin{definition}[Overcategory]
+  In ordinary category \C, the objects of overcategory $\C_{/X}$ are morphisms in $\C$ having target $X$, and morphisms are given by commutative triangles:
+
+  \begin{equation*}
+    \begin{tikzcd}
+      \bullet \arrow[rr] \arrow[dr] & & \bullet \arrow[dl] \\
+      & X & \\
+    \end{tikzcd}
+  \end{equation*}
+
+  Composition is strict in the usual sense.
+
+  In an \8-categorical setting, this definition needs some work. When $S$ is a simplicial set or \8-category, we define $S_{/p}$ by the following formula:
+  \begin{align*}
+    \Hom_{\SSet}(Y, S_{/p}) = \Hom_p(Y \star K, S)
+  \end{align*}
+  where $p : K \rightarrow S$ is a map of simplicial sets, and the subscript on the right means that we only consider those $f : Y \star K \rightarrow S$ maps that satisfy $f|K = p$.
+
+  In the special case when $K = \Simplex{0}$, the category with one object and identity morphism, the expression reduces to:
+  \begin{align*}
+    \Hom_{\SSet}(Y, S_{/p}) = \Hom_p(Y^\triangleright, S)
+  \end{align*}
+  where $p : \Simplex{0} \rightarrow S$. If the image of $p$ is the object $X$, we may write $S_{/X}$ instead:
+  \begin{align*}
+    \Hom_{\SSet}(Y, S_{/X}) = \Hom_x(Y^\triangleright, S)
+  \end{align*}
+  where $x : \Simplex{0} \rightarrow S$.
+
+  In the special case when $K = \Simplex{n}$, its image classifies an $n$-simplex, and we may write $S_{/\sigma}$ in this case.
+
+  Undercategories are dual.
+\end{definition}
+
+\begin{remark}
+  The nerve of the overcategory of an ordinary category, $\C_{/X}$, is equal to the overcategory of the \8-category obtained by taking the nerve of $\C$.
+  \begin{align*}
+    N(\C_{/X}) = N(\C)_{/X}
+  \end{align*}
+\end{remark}
+
+\begin{definition}[Final object]
+  In topological categories, we can use a relatively straightforward definition: object $Y \in \C$ is final if and only if it is final in the usual sense in the \H-enriched category, i.e. the topological space $\Map_{h\C}(-, Y)$ is contractible.
+
+  For \8-categories, we require a more sophisticated definition. Object $Y \in \C$ is strongly final if and only if the Kan complex $\Hom^R_\C(-, Y)$ is contractible.
+
+  Initial objects are defined dually.
+\end{definition}
+
+\begin{remark}
+  Unlike in ordinary categories, where initial and final objects are defined upto isomorphism, initial and final objects in \8-categories, the full subcategory spanned by final objects, if non-empty, is a contractible Kan complex.
+\end{remark}
+
+\begin{lemma}
+  The finality condition on \8-categories is weaker than that for ordinary categories.
+\end{lemma}
+
+\begin{proof}
+  Consider the hom-set contained in $\Map_\C(X, Y)$; instead of being a Kan complex, it is now a map from homotopy equivalent $X$s (since all contractible Kan complexes are homotopy equivalent) to the final object. The case of the $X$s being isomorphic is contained within the homotopy equivalent case.
+\end{proof}
+
+\subsection{Limits}
+Limits in \8-categories are easy to define, and they agree with the classical homotopy limits of the nerve of the corresponding topological category, as in \ref{sec:holim}. As a result, this section is rather terse.
+
+\begin{definition}
+  Let $\C$ be a \8-category, and $p: K \rightarrow \C$ be a map of simplicial sets. Then, the colimit of $p$ is given by the initial object of $\C_{p/}$, and the limit of $p$ is given by the final object of $\C_{/p}$. We may identify an object of $\C_{p/}$ with $\tilde{p}: K^\triangleright \rightarrow \C$ extending $p$.
+\end{definition}
+
+\begin{remark}
+  Just as with the case with initial and final objects, the candidates for a limit or colimit in an \8-category, if non-empty, are characterized by a contractible Kan complex.
+\end{remark}
+
+\section{Stable \texorpdfstring{\8}{∞}-categories}
+Having made it to this point in the memoir, the reader can understand many of the definitions in \cite{Lurie09b} and \cite{Lurie12} as they are presented, but as mentioned in the overture, the purpose of this memoir is to provide deep insight into motivations. In this section, we take a cursory look at stable homotopy theory, and tracing the origins of stable \8-categories, and supply ample commentary on the various definitions seen in Lurie's work. The immediate next steps for the reader are to research the construction of \emph{derived categories of abelian categories}, how they can be viewed as stable \8-categories, and digest the \emph{Dold-Kan correspondence}.
+
+\subsection{Motivation}
+Since stable \8-categories are an axiomatization of the essential features of stable homotopy theory, we will do a cursory review on the subject, using Strickland's recent manuscript \cite{Strickland20} as a reference.
+
+The study of stable homotopy theory arose from multiple pain points, but we will place emphasis on one, in particular: the parallel between homology and homotopy is incomplete in the following sense. In homology, the suspension functor induces the following isomorphism:
+\begin{align*}
+  \tilde{H}_{n + k} \Sigma^k X \cong \tilde{H}_n X
+\end{align*}
+
+Now, the Freudenthal suspension theorem says that
+\begin{align*}
+  \pi_{n + k} \Sigma^k X \cong \pi_{n + k + 1} \Sigma^{k + 1} X
+\end{align*}
+given a large enough, finite, $n$. We would achieve the parallel that we wanted if we could smash everything with $S^{-k}$, a ``negative sphere''. For this to work, we need to define $\Sigma^\infty$. Let us start with the following observation. Let $A$ and $B$ be finite CW-complexes with basepoints.
+\begin{align*}
+  \sq{A, B} \xrightarrow{\Sigma} \sq{\Sigma A, \Sigma B} \xrightarrow{\Sigma} \sq{\Sigma^2 A, \Sigma^2 B} \xrightarrow{\Sigma} \ldots
+\end{align*}
+
+Except for the first two terms, this is a sequence of homomorphisms between abelian groups. By Freudenthal's suspension theorem, after a finite number of terms, the sequence turns into a sequence of isomorphisms. We define
+\begin{align*}
+  \sq{\Sigma^\infty A, \Sigma^\infty B} := \lim_N \sq{\Sigma^N A, \Sigma^N B}
+\end{align*}
+to capture this convenient term, and define the category of spectra\footnote{To be precise, the Spanier-Whitehead category of finite spectra} to have objects $\Sigma^{\infty + n} A$ and morphisms
+\begin{align*}
+  \sq{\Sigma^{\infty + n} A, \Sigma^{\infty + m} B} := \lim_N \sq{\Sigma^{N + n} A, \Sigma^{N + m} B}
+\end{align*}
+
+Here, $m$ and $n$ are integers. In this category, $\Sigma$ induces a self-equivalence. The category of spectra is additive, but not abelian; instead, it has a \emph{triangulated structure}. Stable \8-categories are defined in a way such that the homotopy category of a stable \8-category also has a triangulated structure.
+
+We make the observation that the derived category of an abelian category has a triangulated structure, but it suffers from a defect: it retains information about homotopies, without retaining information about why they are homotopic. For much the same reasons for the machinery of \8-categories to exist, the defect can be corrected by viewing the derived category of an abelian category as the homotopy category of a sort of \8-category, and this is precisely what we axiomatize: the ``stable'' nature of the \8-category.
+
+We will shortly study $\Sigma$ in the setting of stable \8-categories.
+
+\subsection{Commentary on definition}
+As is clear from the motivation, stable \8-categories need to be defined in such a way that they abstract properties of abelian categories, so that their homotopy category has a triangulated structure.
+
+\begin{terminology}[Pointed \8-category]
+  A \8-category $\C$ is termed pointed if it contains a zero object.
+\end{terminology}
+
+\begin{definition}[Triangle]
+  Let $\C$ be a pointed \8-category. A triangle in $\C$ is a diagram in $\Simplex{1} \times \Simplex{1} \rightarrow \C$ depicted as:
+
+  \begin{equation*}
+    \begin{tikzcd}
+      X \arrow[r, "f"] \arrow[d] & Y \arrow[d, "g"] \\
+      0 \arrow[r] & Z
+    \end{tikzcd}
+  \end{equation*}
+\end{definition}
+
+\begin{definition}[Kernel]
+  We will say that the triangle is exact if it is a pullback square, and that it is coexact if it is a pushout square. We define kernels (also termed \emph{fibers}) and cokernels (also termed \emph{cofibers}), in a stable \8-category as $\ker(g) = X$ in a triangle that is exact, and $\coker(f) = Z$ in a triangle that is coexact.
+\end{definition}
+
+\begin{definition}[Fiber sequence]
+  We will say that the triangle is a fiber sequence if it is exact, and that it is a cofiber sequence if it is coexact.
+\end{definition}
+
+\begin{remark}[The data encoded by a triangle]
+  A triangle in pointed \8-category $\C$ encodes the following pieces of data:
+
+  \begin{enumerate}
+    \item[(a)] A pair of morphisms $f : X \rightarrow Y$ and $g: Y \rightarrow Z$.
+    \item[(b)] A 2-simplex,
+
+      \begin{equation*}
+        \begin{tikzcd}
+          & Y \arrow[ddr, "g"] & \\
+          \\
+          X \arrow[uur, "f"] \arrow[rr, "h"] & & Z \\
+        \end{tikzcd}
+      \end{equation*}
+
+      that identifies $h$ with  $g \circ f$.
+
+    \item[(c)] Another 2-simplex,
+
+      \begin{equation*}
+        \begin{tikzcd}
+          & 0 \arrow[ddr] & \\
+          \\
+          X \arrow[uur] \arrow[rr, "h"] & & Z \\
+        \end{tikzcd}
+      \end{equation*}
+
+      the nullhomotopy of $h$.
+  \end{enumerate}
+\end{remark}
+
+\begin{definition}[Stable \8-category]
+  An \8-category $\C$ is stable if it satisfies the following conditions:
+
+  \begin{enumerate}
+    \item[(a)] There exists a zero object $0 \in \C$.
+    \item[(b)] Every morphism in $\C$ admits a kernel and cokernel.
+    \item[(c)] Every triangle in $\C$ is exact if and only if it is coexact.
+  \end{enumerate}
+\end{definition}
+
+\begin{remark}[Stable \8-categories abstract properties of abelian categories]
+  That the first two axioms correspond exactly to axioms in abelian categories. The third axiom corresponds to $\ker(g) = \coker(f)$.
+\end{remark}
+
+\begin{remark}[Stable \8-categories also abstract properties of spectra]
+  In stable \8-categories, fiber and cofiber sequences are the same by axiom (c), which is a defining feature of the category of spectra.
+\end{remark}
+
+\begin{discussion}[Rationalization of the definition]
+  In the world of simplicial sets, $\Simplex{1} \times \Simplex{1}$ is two copies of $\Simplex{1}$ glued along an edge, as discussed in \ref{def:prodsset}:
+
+  \begin{equation*}
+    \begin{tikzcd}
+      & \bullet \arrow[dr, dash] \arrow[dd, dash] & \\
+      \bullet \arrow[ur, dash] \arrow[dr, dash] & & \bullet \\
+      & \bullet \arrow[ur, dash] & \\
+    \end{tikzcd}
+  \end{equation*}
+
+  A functor $\Simplex{1} \times \Simplex{1} \rightarrow \C$ must associate to each of the four $0$-simplices, an object, each of the five $1$-simplices, a morphism, and to each of the $2$-simplices, a commutative triangle. The net effect is a commutative diagram of the shape:
+
+  \begin{equation*}
+    \begin{tikzcd}
+      \bullet \arrow[r] \arrow[d] & \bullet \arrow[d] \\
+      \bullet \arrow[r] & \bullet \\
+    \end{tikzcd}
+  \end{equation*}
+
+  in stable \8-category \C.
+
+  We will now rationalize the definition as follows. Let $f: X \rightarrow Y$ be the first \Simplex{1}, and $g: Y \rightarrow Z$ be the second \Simplex{1}, so that they can be composed into a $g \circ f$. Now, there is no canonical choice for $h: X \rightarrow Z$: it is merely required to be homotopic to $g \circ f$, and this poses a problem for defining $h$. The second problem is that every stable \8-category must be endowed with a $0$-object. If we try to endow $\Simplex{1}$ with one naively like:
+
+  \begin{equation*}
+    \begin{tikzcd}
+      & 0 \arrow[ddr] & \\
+      \\
+      X \arrow[uur] \arrow[rr, "f"] & & Y \\
+    \end{tikzcd}
+  \end{equation*}
+
+  Then, it is no longer a $1$-simplex. Informally, we will argue that $\Simplex{1} \times \Simplex{1}$ is the ``minimum'' stable \8-category definable. Back to our problem of:
+
+  \begin{equation*}
+    \begin{tikzcd}
+      & Y \arrow[ddr, "g"] & \\
+      \\
+      X \arrow[uur, "f"] \arrow[rr, "h"] & & Z \\
+    \end{tikzcd}
+  \end{equation*}
+
+  \begin{enumerate}
+    \item[(i)] What is $h$?
+    \item[(ii)] Where is the zero object?
+  \end{enumerate}
+
+  Both these questions can be resolved by making $h$ a zero morphism, so that the stable \8-category $\Simplex{1} \times \Simplex{1}$ has one piece of additional data:
+
+  \begin{equation*}
+    \begin{tikzcd}
+      & 0 \arrow[ddr] & \\
+      \\
+      X \arrow[uur] \arrow[rr, "0"] & & Z \\
+    \end{tikzcd}
+  \end{equation*}
+
+  So, $\Simplex{1} \times \Simplex{1}$ must encode the data of two $2$-simplices, and they can be joined to form a commutative square as follows:
+
+  \begin{equation*}
+    \begin{tikzcd}
+      X \arrow[r, "f"] \arrow[d] & Y \arrow[d, "g"] \\
+      0 \arrow[r] & Z \\
+    \end{tikzcd}
+  \end{equation*}
+
+  From here, the definition of stable \8-category follows naturally.
+\end{discussion}
+
+\subsection{Commentary on the suspension functor}
+We dedicate this section to discussing $\Sigma$, and its relationship to the $\Omega$, or the loop space functor, to understand how they behave in this setting.
+
+\begin{definition}[The $\Sigma$ functor]
+  In pointed \8-category \C, the suspension is defined as follows. $M^\Sigma$ is defined as the full subcategory of $\Fun(\Simplex{1} \times \Simplex{1}, \C)$ spanned by:
+
+  \begin{equation*}
+    \begin{tikzcd}
+      X \arrow[r] \arrow[d] \arrow[dr, phantom, "\ulcorner", very near end] & 0 \arrow[d] \\
+      0 \arrow[r] & Y \\
+    \end{tikzcd}
+  \end{equation*}
+
+  Evaluation of $M^\Sigma \rightarrow \C$ at initial vertex yields a trivial fibration. Assuming $\C$ admits cokernels, let $s : \C \rightarrow M^\Sigma$ be a section, and $e : M^\Sigma \rightarrow \C$ be given by evaluation at the final vertex. Then, $e \circ s : \C \rightarrow \C$ is defined as the $\Sigma$ functor.
+\end{definition}
+
+\begin{discussion}[Rationalization of definition of $\Sigma$]
+  In \CG, $\Sigma$ is defined by the pushout:
+
+  \begin{equation*}\label{dia:cgsigma}\tag{$\Sigma$ in \CG, def.}
+    \begin{tikzcd}
+      X \arrow[r] \arrow[d] \arrow[dr, phantom, "\ulcorner", very near end] & \Cone(X) \arrow[d] \\
+      \Cone(X) \arrow[r] & \Sigma X \\
+    \end{tikzcd}
+  \end{equation*}
+
+  Now, $\Cone(X)$ is a contractible space, and can be thought of as a zero-object in stable \8-categories. Since all limits are homotopy limits in \8-categories, $\Cone(X)$ can be replaced by a zero-object in this setting, and because $X$ is fibrant-cofibrant, this replacement yields the diagram $M^\Sigma$. The rest of the definition follows naturally.
+\end{discussion}
+
+\begin{discussion}[$\Sigma X$ is interpreted as $X\sq{1}$]
+  In order to understand how the above definition of $\Sigma$, which we have rationalized in a topological setting, causes a shift of $1$ in the homology chain, let us construct the Meyer-Vietoris sequence for \ref{dia:cgsigma}:
+
+  \begin{equation*}
+    \begin{tikzcd}
+      \ldots \arrow[r] & H_{n + 1}(*) \oplus H_{n + 1}(*) \arrow[r] & H_{n + 1}(\Sigma X) \arrow[r] & H_n(X) \arrow[r] & H_n(*) \oplus H_n(*) \arrow[r] & \ldots
+    \end{tikzcd}
+  \end{equation*}
+
+  Since $H_n$ vanishes for contractible spaces for all $n$, this yields the required interpretation.
+\end{discussion}
+
+\begin{remark}[Relationship between $\Sigma$ and $\Omega$]
+  In a pointed \8-category, not necessarily stable, $\Sigma$ and $\Omega$ are adjoint, just as in the classical setting of \CG, but in stable \8-categories, they are homotopy inverses.
+
+  Let $X$ and $Y$ be objects of pointed \8-category $\C$ that admits cofibers. $\Sigma : \C \rightarrow \C$ is characterized by the homotopy equivalence:
+  \begin{align*}
+    \Map_\C(\Sigma X, Y) \simeq \Omega \Map_\C(X, Y)
+  \end{align*}
+  from which, we conclude that:
+  \begin{align*}
+    \pi_0 \Map_\C(\Sigma X, Y)   & \simeq \pi_1 \Map_\C(X, Y) \\
+    \pi_0 \Map_\C(\Sigma^2 X, Y) & \simeq \pi_2 \Map_\C(X, Y) \\
+  \end{align*}
+
+  The first line has the structure of a group, while the second line has the structure of an abelian group. If we make $\Sigma X \mapsto X$ is an equivalence of categories, then we can always write any $W$ as $\Sigma^2 Z$, and endow $\Map_\C(W, Y)$ with the structure of an abelian group.
+\end{remark}
+
+\begin{proposition}
+  Let $\C$ be a pointed \8-category, that admits cofibers, such that $\Sigma$ is an equivalence. Then, $\C$ is stable.
+\end{proposition}
+
+\newpage
+
+\begin{thebibliography}{99}
+  \bibitem[HTT]{Lurie09a}
+  Lurie, J. (2006). Higher topos theory. \textit{arXiv preprint math/0608040}.
+
+  \bibitem[DAG-I]{Lurie09b}
+  Lurie, J. (2009). Derived algebraic geometry I: stable $\infty$-categories. \textit{arXiv preprint math/0608228}.
+
+  \bibitem[HA]{Lurie12}
+  Lurie, J. (2012). Higher algebra. \textit{Unpublished book available online from the author's web page}.
+
+  \bibitem[SAG]{Lurie18}
+  Lurie, J. (2018). Spectral algebraic geometry. \textit{Unpublished book available online from the author's web page}.
+
+  \bibitem[CGWH]{Strickland09}
+  Strickland, N. P. (2009). The category of CGWH spaces. \textit{Unpublished expository article available online from the author's web page}.
+
+  \bibitem[CatWrk]{MacLane13}
+  Mac Lane, S. (2013). \textit{Categories for the working mathematician} (Vol. 5). Springer Science \& Business Media.
+
+  \bibitem[CatCtx]{Riehl17}
+  Riehl, E. (2017). \textit{Category theory in context}. Courier Dover Publications.
+
+  \bibitem[Sch]{Schapira03}
+  Schapira, P. (2003). Categories and homological algebra. \textit{Course notes available online from the author's web page}.
+
+  \bibitem[Fri]{Friedman08}
+  Friedman, G. (2008). An elementary illustrated introduction to simplicial sets. \textit{arXiv preprint arXiv:0809.4221}.
+
+  \bibitem[RieSS]{Riehl11}
+  Riehl, E. (2011). A leisurely introduction to simplicial sets. \textit{Unpublished expository article available online from the author's web page}.
+
+  \bibitem[DwySpa]{DwyerSpalinski}
+  Dwyer, W. G., \& Spalinski, J. (1995). Homotopy theories and model categories. \textit{Handbook of algebraic topology, 73}, 126.
+
+  \bibitem[Cis]{Cisinki19}
+  Cisinski, D. C. (2019). \textit{Higher categories and homotopical algebra} (Vol. 180). Cambridge University Press.
+
+  \bibitem[Joyal]{Joyal08}
+  Joyal, A. (2008). The theory of quasi-categories and its applications.
+
+  \bibitem[Cosmos]{Riehl18}
+  Riehl, E., \& Verity, D. (2018). Elements of \8-category theory. \textit{Preprint available online from the author's web page}.
+
+  \bibitem[RieMod]{Riehl19}
+  Riehl, E. (2019). Homotopical categories: from model categories to $(\infty, 1)$-categories. \textit{arXiv preprint available online arXiv:1904.00886}.
+
+  \bibitem[Spectra]{Strickland20}
+  Strickland, N. (2020). An introduction to the category of spectra. \textit{arXiv preprint arXiv:2001.08196}.
+\end{thebibliography}
+\end{document}
