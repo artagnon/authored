@@ -10,3 +10,6 @@
 *.toc
 *.aux
 *.pdf
+*.fls
+*.fdb_latexmk
+_minted*/
