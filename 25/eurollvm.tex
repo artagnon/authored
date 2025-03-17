@@ -1,0 +1,27 @@
+\documentclass{beamer}
+\usetheme{Warsaw}
+\usecolortheme{wolverine}
+
+\usepackage{minted}
+
+\title{Making LoopAccessAnalysis more precise}
+\author{Ramkumar Ramachandra}
+\titlegraphic{\includegraphics[scale=0.20]{llvm-logo}}
+\institute{Codasip}
+\date{April 16, 2025}
+
+\begin{document}
+\begin{frame}
+  \titlepage
+\end{frame}
+\begin{frame}
+  LoopAccessAnalysis is a dependency analysis built on ScalarEvolution that is used by:
+  \begin{enumerate}
+    \item LoopVectorize
+    \item SLPVectorize
+    \item LoopVersioning
+    \item LoopDistribute
+    \item LoopLoadElimination
+  \end{enumerate}
+\end{frame}
+\end{document}
