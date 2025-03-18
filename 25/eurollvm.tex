@@ -2,7 +2,7 @@
 \usetheme{Warsaw}
 \usecolortheme{wolverine}
 
-\usepackage{minted}
+\usepackage{minted, changepage}
 
 \title{Making LoopAccessAnalysis more precise}
 \author{Ramkumar Ramachandra}
@@ -23,5 +23,85 @@
     \item LoopDistribute
     \item LoopLoadElimination
   \end{enumerate}
+\end{frame}
+
+\begin{frame}[containsverbatim]
+  \begin{minted}[fontsize=\footnotesize]{cpp}
+enum DepType {
+  NoDep,
+  Unknown,
+  IndirectUnsafe,
+  Forward,
+  ForwardButPreventsForwarding,
+  Backward,
+  BackwardVectorizable,
+  BackwardVectorizableButPreventsForwarding
+};
+
+struct DepDistanceStrideAndSizeInfo {
+    const SCEV *Dist;
+    uint64_t MaxStride;
+    std::optional<uint64_t> CommonStride;
+    bool ShouldRetryWithRuntimeCheck;
+    uint64_t TypeByteSize;
+    bool AIsWrite;
+    bool BIsWrite;
+};
+  \end{minted}
+\end{frame}
+
+\begin{frame}[containsverbatim]
+  \begin{adjustwidth}{-1em}{-1em}
+    \begin{minted}[fontsize=\scriptsize]{text}
+Backward loop carried data dependence.
+Dependences:
+  Backward:
+      %load = load [2 x i32], ptr %gep.A, align 4 ->
+      store [2 x i32] %ins, ptr %gep.A.next, align 4
+
+Run-time memory checks:
+Grouped accesses:
+
+Non vectorizable stores to invariant address were not found in loop.
+SCEV assumptions:
+  Equal predicate: %stride == 1
+
+Expressions re-written:
+  [PSE] %gep.A = getelementptr inbounds [2 x i32], ptr %A, i64 %mul, i64 1:
+    {(4 + %A),+,(8 * %stride)}<%loop>
+    --> {(4 + %A),+,8}<%loop>
+    \end{minted}
+  \end{adjustwidth}
+\end{frame}
+
+\begin{frame}[containsverbatim]
+  \begin{adjustwidth}{-1em}{-1em}
+    \begin{minted}[fontsize=\scriptsize]{text}
+Memory dependences are safe with run-time checks
+Dependences:
+Run-time memory checks:
+Check 0:
+  Comparing group ([[GRP1:0x[0-9a-f]+]]):
+    %gep.dst = getelementptr i32, ptr %dst, i64 %iv.2
+  Against group ([[GRP2:0x[0-9a-f]+]]):
+    %gep.src = getelementptr inbounds i32, ptr %src, i32 %iv.3
+  Grouped accesses:
+    Group [[GRP1]]:
+      (Low: ((4 * %iv.1) + %dst) High: (804 + (4 * %iv.1) + %dst))
+        Member: {((4 * %iv.1) + %dst),+,4}<%inner.loop>
+      Group [[GRP2]]:
+      (Low: %src High: (804 + %src))
+        Member: {%src,+,4}<nuw><%inner.loop>
+
+Non vectorizable stores to invariant address were not found in loop.
+SCEV assumptions:
+  Equal predicate: %offset == 1
+
+Expressions re-written:
+  [PSE] %gep.dst = getelementptr i32, ptr %dst, i64 %iv.2:
+    {((4 * %iv.1) + %dst),+,(4 * (sext i32 %offset to i64))<nsw>}<%inner.loop>
+    --> {((4 * %iv.1) + %dst),+,4}<%inner.loop>
+    \end{minted}
+  \end{adjustwidth}
 \end{frame}
 \end{document}
