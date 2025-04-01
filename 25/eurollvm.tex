@@ -2,7 +2,8 @@
 \usetheme{Warsaw}
 \usecolortheme{wolverine}
 
-\usepackage{minted, changepage}
+\usepackage{minted, changepage, fontspec}
+\setmainfont{Avenir Next}
 
 \title{Making LoopAccessAnalysis more precise}
 \author{Ramkumar Ramachandra}
@@ -16,13 +17,13 @@
 \end{frame}
 \begin{frame}
   LoopAccessAnalysis is a dependency analysis built on ScalarEvolution that is used by:
-  \begin{enumerate}
+  \begin{itemize}
     \item LoopVectorize
     \item SLPVectorize
     \item LoopVersioning
     \item LoopDistribute
     \item LoopLoadElimination
-  \end{enumerate}
+  \end{itemize}
 \end{frame}
 
 \begin{frame}[containsverbatim]
@@ -48,6 +49,48 @@ struct DepDistanceStrideAndSizeInfo {
     bool BIsWrite;
 };
   \end{minted}
+\end{frame}
+
+\begin{frame}[containsverbatim]
+  Dependence distance is an SCEV minus:
+  \begin{minted}[fontsize=\scriptsize]{cpp}
+const SCEV *Dist = SE.getMinusSCEV(Sink, Src);
+  \end{minted}
+  \vspace{2em}
+  Strides of Src and Sink from AddRecs:
+  \begin{minted}[fontsize=\scriptsize]{cpp}
+std::optional<int64_t>
+getStrideFromAddRec(const SCEVAddRecExpr *AR, const Loop *Lp, Type *AccessTy,
+                    Value *Ptr, PredicatedScalarEvolution &PSE);
+  \end{minted}
+  \vspace{2em}
+  Stride versioning in case of non-constant stride:
+  \begin{minted}[fontsize=\scriptsize]{cpp}
+// Stride >= TripCount
+if (SE->isKnownPositive(StrideMinusBETaken)) {
+  LLVM_DEBUG(
+      dbgs() << "LAA: Stride>=TripCount; No point in versioning as the "
+                "Stride==1 predicate will imply that the loop executes "
+                "at most once.\n");
+  return;
+}
+  \end{minted}
+\end{frame}
+
+\begin{frame}[containsverbatim]
+  \begin{minted}[fontsize=\scriptsize]{cpp}
+// We can only analyze innermost loops.
+if (!TheLoop->isInnermost()) {
+LLVM_DEBUG(dbgs() << "LAA: loop is not the innermost loop\n");
+recordAnalysis("NotInnerMostLoop") << "loop is not the innermost loop";
+return false;
+}
+\end{minted}
+  \vspace{3em}
+  \begin{itemize}
+    \item LoopInterchange and LoopUnrollAndJam use DependenceAnalysis
+    \item Outer-loop vectorization without legality?
+  \end{itemize}
 \end{frame}
 
 \begin{frame}[containsverbatim]
