@@ -27,18 +27,59 @@
 \end{frame}
 
 \begin{frame}[containsverbatim]
-  \begin{minted}[fontsize=\footnotesize]{cpp}
-enum DepType {
-  NoDep,
-  Unknown,
-  IndirectUnsafe,
-  Forward,
-  ForwardButPreventsForwarding,
-  Backward,
-  BackwardVectorizable,
-  BackwardVectorizableButPreventsForwarding
-};
+  Runtime checks are the raison d'être of LAA:
+  \begin{minted}[fontsize=\footnotesize]{c}
+  void saxpy_golden(size_t n, const float a,
+    const float *x, float *y) {
+  for (size_t iv = 0; iv < n; ++iv)
+    y[iv] += a * x[iv];
+  }
+  \end{minted}
 
+  \vspace{1em}
+
+  Trivally safe to vectorize with \mintinline{c}{float *} replaced with \mintinline{c}{float *restrict}.
+
+  \vspace{1em}
+
+  Non-trivial analysis (determined safe):
+  \begin{minted}[fontsize=\footnotesize]{c}
+for (size_t iv = 0; iv < n / 2; ++iv)
+  x[2 * iv] = x[2 * iv - 1];
+  \end{minted}
+\end{frame}
+
+\begin{frame}[containsverbatim]
+  Trivial variations where LAA falls over:
+
+  \vspace{1em}
+
+  \begin{minted}[fontsize=\footnotesize]{c}
+for (size_t iv = 0; iv < n / 2; ++iv)
+  x[iv][2 * iv] = x[iv][2 * iv - 1];
+  \end{minted}
+
+  \vspace{1em}
+
+  \begin{minted}[fontsize=\footnotesize]{c}
+for (size_t iv = 0; iv < n / 2; ++iv)
+  x[2 * iv] = x[2 * iv + 1];
+  \end{minted}
+
+  \vspace{1em}
+
+  \begin{minted}[fontsize=\footnotesize]{c}
+for (size_t iv = 0; iv < n / 7; ++iv)
+  x[3 * iv] = x[7 * iv];
+  \end{minted}
+
+  \vspace{1em}
+
+  LAA relies on finding array bounds, and reasoning based on simple SCEV expressions. It is not theory-based, and is something that works in practice.
+\end{frame}
+
+\begin{frame}[containsverbatim]
+  \begin{minted}[fontsize=\footnotesize]{cpp}
 struct DepDistanceStrideAndSizeInfo {
     const SCEV *Dist;
     uint64_t MaxStride;
@@ -49,6 +90,10 @@ struct DepDistanceStrideAndSizeInfo {
     bool BIsWrite;
 };
   \end{minted}
+
+  \vspace{1em}
+
+  Emphasis: LAA is simple and a lot of the reasoning is quite ad-hoc.
 \end{frame}
 
 \begin{frame}[containsverbatim]
@@ -86,11 +131,10 @@ recordAnalysis("NotInnerMostLoop") << "loop is not the innermost loop";
 return false;
 }
 \end{minted}
-  \vspace{3em}
-  \begin{itemize}
-    \item LoopInterchange and LoopUnrollAndJam use DependenceAnalysis
-    \item Outer-loop vectorization without legality?
-  \end{itemize}
+
+  \vspace{1em}
+
+  In contrast, DependenceAnalysis is a complex beast that is theory-based, but has fallen out of maintanence: users are LoopUnrollAndJam and LoopInterchange, which fundamentally need outer-loop analysis.
 \end{frame}
 
 \begin{frame}[containsverbatim]
