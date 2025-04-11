@@ -98,7 +98,7 @@ for (size_t iv = 0; iv < n; ++iv)
 
   \vspace{1em}
 
-  LAA relies on finding array bounds, and reasoning based on simple SCEV expressions. It is not theory-based, and is something that works in practice.
+  LAA reasons based on simple SCEV expressions. It is not theory-based, and is something that works in practice.
 \end{frame}
 
 \begin{frame}[containsverbatim]
@@ -161,6 +161,22 @@ if (!TheLoop->isInnermost()) {
 \end{frame}
 
 \begin{frame}[containsverbatim]
+  The kind of indexing and loop-nests that LAA can analyze, and where it really shines:
+
+  \vspace{1em}
+
+  \begin{minted}[fontsize=\footnotesize]{c}
+for (size_t oiv = 32; oiv < n; ++oiv)
+  for (size_t iv = 0; iv < 256; ++iv)
+    x[oiv + iv] = x[iv];
+  \end{minted}
+
+  \vspace{1em}
+
+  Here, LAA could deem it safe for a certain maximum vector-width, or generate RT-checks.
+\end{frame}
+
+\begin{frame}[containsverbatim]
   \begin{adjustwidth}{-1em}{-1em}
     \begin{minted}[fontsize=\scriptsize]{text}
 Backward loop carried data dependence.
@@ -218,9 +234,9 @@ Expressions re-written:
 \begin{frame}
   Issues with LAA:
   \begin{enumerate}
-    \item Inability to reason about loop-nests
+    \item Inability to reason about outer-loops
     \item Inability to reason about multiple array indices
-    \item Relies on finding "array bounds"
+    \item Relies on finding "array bounds" to insert RT-checks
     \item Always-false runtime checks
     \item Spurious false dependencies
     \item Few contributions from a small contributor-pool
