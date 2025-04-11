@@ -79,7 +79,7 @@ for (size_t iv = 0; iv < n - 1; ++iv)
 
   \begin{minted}[fontsize=\footnotesize]{c}
 for (size_t iv = 1; iv < n; ++iv)
-  x[iv][2 * iv] = x[iv][2 * iv - 1];
+  x[iv][iv] = x[iv][iv - 1];
   \end{minted}
 
   \vspace{1em}
@@ -149,9 +149,9 @@ if (SE->isKnownPositive(StrideMinusBETaken)) {
   \begin{minted}[fontsize=\scriptsize]{cpp}
 // We can only analyze innermost loops.
 if (!TheLoop->isInnermost()) {
-LLVM_DEBUG(dbgs() << "LAA: loop is not the innermost loop\n");
-recordAnalysis("NotInnerMostLoop") << "loop is not the innermost loop";
-return false;
+  LLVM_DEBUG(dbgs() << "LAA: loop is not the innermost loop\n");
+  recordAnalysis("NotInnerMostLoop") << "loop is not the innermost loop";
+  return false;
 }
 \end{minted}
 
