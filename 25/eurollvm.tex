@@ -49,7 +49,11 @@ for (size_t iv = 1; iv < n; ++iv)
 \end{frame}
 
 \begin{frame}[containsverbatim]
-  Lexically forward dependence:
+  Dependence is either between a load and a store, or a store and another store.
+
+  \vspace{1em}
+
+  Forward dependence:
   \begin{minted}[fontsize=\footnotesize]{c}
 for (size_t iv = 1; iv < n; ++iv)
   x[iv - 1] += x[iv];
@@ -57,11 +61,7 @@ for (size_t iv = 1; iv < n; ++iv)
 
   \vspace{1em}
 
-  Dependence is either between a load and a store, or a store and another store.
-
-  \vspace{1em}
-
-  Lexically backward (loop-carried) dependence:
+  Backward (loop-carried) dependence:
   \begin{minted}[fontsize=\footnotesize]{c}
 for (size_t iv = 0; iv < n - 1; ++iv)
   x[iv + 1] = x[stride * iv];
@@ -179,23 +179,19 @@ for (size_t oiv = 32; oiv < n; ++oiv)
 \begin{frame}[containsverbatim]
   \begin{adjustwidth}{-1em}{-1em}
     \begin{minted}[fontsize=\scriptsize]{text}
-Backward loop carried data dependence.
+Memory dependences are safe
 Dependences:
-  Backward:
-      %load = load [2 x i32], ptr %gep.A, align 4 ->
-      store [2 x i32] %ins, ptr %gep.A.next, align 4
+  Forward:
+      %l = load i32, ptr %gep.mul.2, align 4 ->
+      store i32 %add, ptr %gep, align 4
 
 Run-time memory checks:
 Grouped accesses:
 
 Non vectorizable stores to invariant address were not found in loop.
 SCEV assumptions:
-  Equal predicate: %stride == 1
 
 Expressions re-written:
-  [PSE] %gep.A = getelementptr inbounds [2 x i32], ptr %A, i64 %mul, i64 1:
-    {(4 + %A),+,(8 * %stride)}<%loop>
-    --> {(4 + %A),+,8}<%loop>
     \end{minted}
   \end{adjustwidth}
 \end{frame}
