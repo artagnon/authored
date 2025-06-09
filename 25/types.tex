@@ -317,7 +317,7 @@
 }
 
 \begin{document}
-\begin{Large}
+\begin{LARGE}
 \begin{sf}
 
 \mbox{}
@@ -326,14 +326,12 @@
 \begin{center}
 
 \textcolor{red}{\Huge About the construction of simplicial and cubical
-  sets in indexed form: the case of degeneracies}
+  sets in indexed form:\\ the case of degeneracies}
 
 \medskip
 \bigskip
 \bigskip
-{\Large Hugo Herbelin} \\
-\bigskip
-{\Large Ramkumar Ramachandra}
+{\Large Hugo Herbelin and Ramkumar Ramachandra}
 
 \bigskip
 \bigskip
@@ -356,26 +354,170 @@ Glasgow
 
 \end{center}
 
+\newcommand{\mysem}[1]{\llbracket #1 \rrbracket}
+\newcommand{\deppsh}[2]{\mathsf{DepPresheaf}(#1,#2)}
+\newcommand{\HSet}{\mathsf{HSet}}
+\newcommand{\imp}{\rightarrow}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newpage
 
 \begin{center}
-\textcolor{red}{\huge Outline}
+\textcolor{red}{\huge The old problem of \emph{semi-simplicial types}}
 \end{center}
 
 \bigskip
-\noindent - Reedy presheaves in (usual) fibered form vs indexed form, why?
+\bigskip
+Construct the following family of family types in homotopy type theory:
+
+$$
+\begin{array}{cllccllll}
+X_0 & : & \Type & \mbox{(points)}\\
+\\
+X_1 & : & X_0 \times X_0 \rightarrow \Type & \mbox{(segments)}\\
+\\
+X_2 & : & \Pi x_1x_2x_3.\, X_1 (x_1,x_2) \imp X_1 (x_1,x_3) \imp X_1 (x_2,x_3)\rightarrow \Type \qquad & \mbox{(triangles)}\\
+\\
+\vdots\\
+\end{array}
+$$
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage
+
+\begin{center}
+\textcolor{red}{\huge The problem of \emph{semi-simplicial types}}
+\end{center}
+
+\bigskip
+\bigskip
+Construct the following family of family types in homotopy type theory:
+
+$$
+\begin{array}{cllccllll}
+X_0 & : & \Type & \mbox{(points)}\\
+\\
+X_1 & : & X_0 \times X_0 \rightarrow \Type & \mbox{(segments)}\\
+\\
+X_2 & : & \Pi x_1x_2x_3.\, X_1 (x_1,x_2) \imp X_1 (x_1,x_3) \imp X_1 (x_2,x_3)\rightarrow \Type \qquad & \mbox{(triangles)}\\
+%X_2 & : & \Pi (x_{LL},x_{LR}).\, X_1 (x_{LL},x_{LR}) \imp\\
+%& & \Pi (x_{RL},x_{RR}).\, X_1 (x_{RL},x_{RR}) \imp\\
+%& & X_1 (x_{LL},x_{RL}) \times X_1 (x_{LR},x_{RR}) \rightarrow \Type \qquad & \mbox{(squares)}\\
+\\
+\vdots\\
+\end{array}
+$$
 \bigskip
 
-\noindent - unary and binary parametricity as a language to uniformly talk about respectively augmented simplicial and cubical sets
+$\!\!\!\!\!\!\!\!\!\!\!\!\!\!\!$\begin{tikzcd}
+      & \mbox{$\!\!\!\!\!\!\!\!\!\!\!\!$that were two problems into one$\!\!\!\!\!\!\!\!\!\!\!\!$} \arrow[ld] \arrow[rd]\\
+\begin{tabular}{c}\mbox{semi-simplicial \emph{types}}\\\\\\\end{tabular}& & \begin{tabular}{c}semi-simplicial in \emph{indexed} form\\
+$\left(\begin{tabular}{c}this talk, with $\HSet$\\see also Voevodsky, Part-Luo,\\
+ Altenkirch-Capriotti-Kraus) \end{tabular}\right)$
+\end{tabular}\qquad\qquad\\
+\end{tikzcd}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage
+
+\begin{center}
+\textcolor{red}{\huge The fibred/indexed correspondence for $\HSet$}
+\end{center}
+
+\bigskip
+\bigskip
+\bigskip
+For $B:\HSet_l$
+
+$$\Sigma E:\HSet_l.\, (E \rightarrow B) ~~~\simeq~~~ B \rightarrow \HSet_l$$
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage
+
+\begin{center}
+\textcolor{red}{\huge Iterating the fibred/indexed correspondence for $\HSet$}
+\end{center}
+
+\bigskip
 \bigskip
 
-\noindent - simplicial degeneracies are actually not a unary form of cubical
-degeneracies but of connections
+Application to the definition of Reedy presheaves in \emph{indexed form}, here for cubical sets:
+
+$$
+\begin{array}{cllccllll}
+\multicolumn{3}{c}{\mbox{\emph{fibred form}}} & \qquad\mathit{vs}\qquad & \multicolumn{3}{l}{\mbox{\emph{indexed form}}} \\
+\\
+Y_0 &:& \HSet_l & & X_0 & : & \HSet_l & \mbox{(points)}\\
+\uparrow\uparrow \\
+Y_1 &:& \HSet_l & & X_1 & : & X_0 \times X_0 \rightarrow \HSet_l & \mbox{(segments)}\\
+\uparrow\uparrow\uparrow\uparrow \\
+Y_2 &:& \HSet_l & & X_2 & : & \Pi (x_{LL},x_{LR}).\, \Pi x_{L*}:X_1 (x_{LL},x_{LR}).\\
+& & & & & & \Pi (x_{RL},x_{RR}).\, \Pi x_{R*}:X_1 (x_{RL},x_{RR}).\, \\
+\multicolumn{3}{c}{\mbox{~+ coherences}} & & & & X_1 (x_{LL},x_{RL}) \times X_1 (x_{LR},x_{RR}) \rightarrow \HSet_l \qquad & \mbox{(squares)}\\
+\\
+\vdots & & & & \vdots\\
+\end{array}
+$$
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage
+
+\begin{center}
+\textcolor{red}{\huge Iterating the fibred/indexed correspondence for $\HSet$}
+\end{center}
+
+\bigskip
 \bigskip
 
-\noindent - an effective uniform indexed construction of augmented simplicial and cubical sets with one degeneracy (machine-checked in Rocq)
+Application to the definition of Reedy presheaves in \emph{indexed form}, here for cubical sets:
+
+$$
+\begin{array}{cllccllll}
+\multicolumn{3}{c}{\mbox{\emph{fibred form}}} & \qquad\mathit{vs}\qquad & \multicolumn{3}{l}{\mbox{\emph{indexed form}}} \\
+\\
+Y_0 &:& \HSet_l & & X_0 & : & \HSet_l & \mbox{(points)}\\
+\uparrow\uparrow \\
+Y_1 &:& \HSet_l & & X_1 & : & X_0 \times X_0 \rightarrow \HSet_l & \mbox{(segments)}\\
+\uparrow\uparrow\uparrow\uparrow \\
+Y_2 &:& \HSet_l & & X_2 & : & \Pi (x_{LL},x_{LR}).\, \Pi x_{L*}:X_1 (x_{LL},x_{LR}).\\
+& & & & & & \Pi (x_{RL},x_{RR}).\, \Pi x_{R*}:X_1 (x_{RL},x_{RR}).\, \\
+\multicolumn{3}{c}{\mbox{~+ coherences}} & & & & X_1 (x_{LL},x_{RL}) \times X_1 (x_{LR},x_{RR}) \rightarrow \HSet_l \qquad & \mbox{(squares)}\\
+\\
+\vdots & & & & \vdots\\
+\end{array}
+$$
+
+Motivations:
+
+1. The iterated fibred/indexed correspondence seems interesting in itself
+
+2. Suggests models of type theory closer to the syntax: e.g. equality
+interpreted as a (relevant) relation rather than as a span
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage
+
+\begin{center}
+\textcolor{red}{\huge Rest of the talk}
+\end{center}
+
+\bigskip
+\noindent Presheaves in ``indexed'' form
+\bigskip
+
+\quad - following a $n$-ary ``parametricity'' recipe
+\bigskip
+
+\qquad - s.t. unary parametricity gives augmented semi-simplicial types
+\bigskip
+
+\qquad - and binary parametricity gives semi-cubical types
+\bigskip
+
+\quad - equipped with a reflexivity/degeneracy
+\bigskip
+
+\quad - machine-checked in Rocq
 
 %% \mbox{}
 
@@ -385,10 +527,6 @@ degeneracies but of connections
 %% \textcolor{red}{\huge Investigations into syntactic iterated parametricity and cubical type theory
 %% Towards syntactic ``indexed'' models of various cubical/parametric type theories}
 %% \end{center}
-
-\newcommand{\mysem}[1]{\llbracket #1 \rrbracket}
-\newcommand{\deppsh}[2]{\mathsf{DepPresheaf}(#1,#2)}
-\newcommand{\HSet}{\mathsf{HSet}}
 
 \iffalse
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -436,94 +574,16 @@ Interesting in itself
 \newpage
 
 \begin{center}
-\textcolor{red}{\huge The fibred/indexed correspondence for h-sets}
-\end{center}
-
-\bigskip
-For $B:\HSet_l$
-
-$$\Sigma E:\HSet_l.\, (E \rightarrow B) ~\simeq~ B \rightarrow \HSet_l$$
-
-\bigskip
-
-Application to the definition of Reedy presheaves in \emph{indexed form}, here for cubical sets:
-
-$$
-\begin{array}{cllccllll}
-\multicolumn{3}{c}{\mbox{\emph{fibred form}}} & \qquad\mathit{vs}\qquad & \multicolumn{3}{l}{\mbox{\emph{indexed form}}} \\
-\\
-Y_0 &:& \HSet_l & & X_0 & : & \HSet_l & \mbox{(points)}\\
-\uparrow\uparrow \\
-Y_1 &:& \HSet_l & & X_1 & : & X_0 \times X_0 \rightarrow \HSet_l & \mbox{(segments)}\\
-\uparrow\uparrow\uparrow\uparrow \\
-Y_2 &:& \HSet_l & & X_2 & : & \Pi (x_{LL},x_{LR}):(X_0 \times X_0).\, \Pi x_{L*}:X_1 (x_{LL},x_{LR}).\\
-& & & & & & \Pi (x_{RL},x_{RR}):(X_0 \times X_0).\, \Pi x_{R*}:X_1 (x_{RL},x_{RR}).\, \\
-\multicolumn{3}{c}{\mbox{~+ coherences}} & & & & X_1 (x_{LL},x_{RL}) \times X_1 (x_{LR},x_{RR}) \rightarrow \HSet_l \qquad & \mbox{(squares)}\\
-\\
-\vdots & & & & \vdots\\
-\end{array}
-$$
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\newpage
-
-\begin{center}
-\textcolor{red}{\huge Building presheaves in indexed form directly}
-\end{center}
-
-\bigskip
-
-Alternatively, we can define ``matching objects''
-$M_n(X_0,...,X_{n-1})$ directly on the indexed side without referring
-first to the fibred side. This was done, e.g., for semi-simplicial sets:
-
-\begin{itemize}
-\item By defining matching object as the collection of
-  all faces, quotiented with $M_{f \circ g} = M_f \circ M_g$, as
-  in Voevodsky 2012, Part and Luo 2015, Altenkirch, Capriotti and Kraus 2016, ...
-\item By relying on specific presentations of a category:
-\begin{itemize}
-\item The $d^n_i$ generators and $d_id_j = d_{j-1}d_i$ coherences in H. 2013
-\item By following parametricity rules in H. and Ramachandra 2025
-\end{itemize}
-\end{itemize}
-
-\vspace{5cm}
-
-Eventually expecting interpretations, e.g. of the universe, that more closely follow the syntax...
-
-\iffalse
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\newpage
-
-\begin{center}
-\textcolor{red}{\huge Building presheaves in indexed form directly}
-\end{center}
-
-The indexed definitions may look more complicated (the indexed
-definition is in charge of ensuring the coherence laws while in the
-fibred case, only concrete instances of presheaf are in charge to do so)
-
-The indexed definition is expected to have specific definitional
-property. For instance, a (cubical) line between presheaves $A$ and
-$B$ in the universe presheaf is not any more a presheaf over $A$ and
-$B$ but a presheaf dependent over $A$ and $B$, the same way as $A
-\times B \rightarrow \sort{}$ would be (intuitively) interpreted.
-\fi
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\newpage
-
-\begin{center}
 \textcolor{red}{\huge Iterated parametricity as a uniform approach to both augmented simplicial sets and cubical sets}
 \end{center}
 
-It seems now established that the augmented simplicial and cubical
+It seems today ``folklore'' that the augmented simplicial and cubical
 categories only differ in the ``arity'' of a finite set $\nu$:
 
 \newcommand{\Obj}{\ensuremath{\mathsf{Obj}}}
 \newcommand{\Hom}{\ensuremath{\mathsf{Hom}}}
 \newcommand{\id}{\ensuremath{\mathsf{id}}}
+\begin{large}
 $$
   \begin{array}{ll}
     \Obj       & := \mathbb{N}\\
@@ -537,8 +597,10 @@ $$
     \id                   & := \star \ldots \star \text{ $n$ times for $\id \in \Hom(n, n)$}
   \end{array}
 $$
+\end{large}
 
 That is, we obtain:
+\begin{Large}
 \begin{center}
 \begin{tabular}{ccc}
 augmented semi-simplicial sets with $\nu = \{0\}$ & &
@@ -557,6 +619,7 @@ semi-cubical sets with $\nu = \{L,R\}$\\
     \end{tikzcd}
 \end{tabular}
 \end{center}
+\end{Large}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newpage
@@ -570,14 +633,14 @@ semi-cubical sets with $\nu = \{L,R\}$\\
 
 $$
 \begin{array}{cllccllll}
-\multicolumn{3}{c}{\mbox{\emph{fibred form}}} & \qquad\mathit{vs}\qquad & \multicolumn{3}{l}{\mbox{\emph{indexed form}}} \\
+\multicolumn{3}{c}{\mbox{\emph{fibred form}}} & \quad\mathit{vs}\quad & \multicolumn{3}{l}{\mbox{\emph{indexed form}}} \\
 \\
 Y_0 &:& \HSet_l & & X_0 & : & \HSet_l & \mbox{(points)}\\
 \uparrow\uparrow\!\rouge{\downarrow} \\
 Y_1 &:& \HSet_l & & X_1 & : & X_0 \times X_0 \rightarrow \HSet_l & \mbox{(segments)}\\
 \uparrow\uparrow\uparrow\uparrow\!\rouge{\downarrow} &&&& \rouge{r_1} & : & \rouge{\Pi x_0:X_0.\,X_1(x_0,x_0)}\\
-Y_2 &:& \HSet_l & & X_2 & : & \Pi (x^0_{LL},x^0_{LR}):(X_0 \times X_0).\, \Pi x^1_{L*}:X_1 (x^0_{LL},x^0_{LR}).\\
-& & & & & & \Pi (x^0_{RL},x^0_{RR}):(X_0 \times X_0).\, \Pi x^1_{R*}:X_1 (x^0_{RL},x^0_{RR}).\, \\
+Y_2 &:& \HSet_l & & X_2 & : & \Pi (x^0_{LL},x^0_{LR}).\, \Pi x^1_{L*}:X_1 (x^0_{LL},x^0_{LR}).\\
+& & & & & & \Pi (x^0_{RL},x^0_{RR}).\, \Pi x^1_{R*}:X_1 (x^0_{RL},x^0_{RR}).\, \\
 \multicolumn{3}{c}{\mbox{~+ coherences}} & & & & X_1 (x^0_{LL},x^0_{RL}) \times X_1 (x^0_{LR},x^0_{RR}) \rightarrow \HSet_l \qquad & \mbox{(squares)}\\
 &&&& \rouge{r_2} & : & \rouge{\Pi (x^0_{L},x^0_{R}):(X_0 \times X_0).\,\Pi x^1:X_1(x^0_L,x^0_R).}\,\\
 & & & & & & \rouge{X_2((x^0_{L},x^0_{L}),r_1(x^0_{L}),(x^0_{R},x^0_{R}),r_1(x^0_{R}),(x^1,x^1))}\\
@@ -585,7 +648,7 @@ Y_2 &:& \HSet_l & & X_2 & : & \Pi (x^0_{LL},x^0_{LR}):(X_0 \times X_0).\, \Pi x^
 \end{array}
 $$
 
-(other reflexivities can be obtained if we add also, e.g., permutations)
+(other reflexivities can presumably be obtained by functoriality, or using permutations)
 
 \bigskip
 
@@ -763,6 +826,9 @@ $$
 \end{array}
 $$
 \end{large}
+
+\bigskip
+
 \noindent which corresponds, when $\nu=2$, to
 the following organisation of the $3^n$ components of a $n$-cube (shown for $n=2$), with
 $\mybox{l}$ associating layers on the left and $\mycube{l}$ associating them
@@ -953,5 +1019,5 @@ $$\mathsf{reflframe}^{n,p}(r_{-1},...,r_{n-1}):\mathsf{frame}^{n,p}(X_{-1},...,X
 
 \end{itemize}
 \end{sf}
-\end{Large}
+\end{LARGE}
 \end{document}
