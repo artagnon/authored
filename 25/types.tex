@@ -8,7 +8,6 @@
 \usepackage{stmaryrd}
 \usepackage{textcomp}
 \usepackage[cm]{fullpage}
-\usepackage{color}
 \usepackage{t1enc}
 \usepackage{amsmath}
 \usepackage{url}
@@ -24,7 +23,8 @@
 
 
 % Color palette
-\RequirePackage{xcolor}
+\usepackage{xcolor}
+\usepackage{yfonts}
 
 \definecolor{white}{HTML}{FFFFFF}
 \definecolor{gray80}{rgb}{0.2, 0.2, 0.2}
@@ -288,7 +288,7 @@
 \newcommand{\funextdeppure}[1]{\mathsf{liftdepdim}(#1)}
 
 \newcommand{\partialcubset}[2]{\mathsf{\nu set}_{#1}^{<#2}}
-\newcommand{\mycubset}[1]{\mathsf{\nu set}_{#1}}
+\newcommand{\mycubset}[1]{\mathsf{\nu Set}_{#1}}
 \newcommand{\mycubsetfrom}[2]{\mathsf{\nu set}_{#1}^{\geq#2}}
 \newcommand{\mycubsetcomp}[2]{\mathsf{\nu set}_{#1}^{=#2}}
 \newcommand{\mybox}[1]{\mathsf{frame}_{#1}}
@@ -356,14 +356,14 @@ Glasgow
 
 \newcommand{\mysem}[1]{\llbracket #1 \rrbracket}
 \newcommand{\deppsh}[2]{\mathsf{DepPresheaf}(#1,#2)}
-\newcommand{\HSet}{\mathsf{HSet}}
+\newcommand{\HSet}[1]{\mathsf{HSet}}
 \newcommand{\imp}{\rightarrow}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newpage
 
 \begin{center}
-\textcolor{red}{\huge The old problem of \emph{semi-simplicial types}}
+\textcolor{red}{\huge The problem of \emph{semi-simplicial types}}
 \end{center}
 
 \bigskip
@@ -391,7 +391,7 @@ $$
 
 \bigskip
 \bigskip
-Construct the following family of family types in homotopy type theory:
+Construct the following family of family types in pure type theory:
 
 $$
 \begin{array}{cllccllll}
@@ -410,10 +410,10 @@ $$
 \bigskip
 
 $\!\!\!\!\!\!\!\!\!\!\!\!\!\!\!$\begin{tikzcd}
-      & \mbox{$\!\!\!\!\!\!\!\!\!\!\!\!$that were two problems into one$\!\!\!\!\!\!\!\!\!\!\!\!$} \arrow[ld] \arrow[rd]\\
-\begin{tabular}{c}\mbox{semi-simplicial \emph{types}}\\\\\\\end{tabular}& & \begin{tabular}{c}semi-simplicial in \emph{indexed} form\\
-$\left(\begin{tabular}{c}this talk, with $\HSet$\\see also Voevodsky, Part-Luo,\\
- Altenkirch-Capriotti-Kraus) \end{tabular}\right)$
+      & \mbox{$\!\!\!\!\!\!\!\!\!\!\!\!$two problems into one$\!\!\!\!\!\!\!\!\!\!\!\!$} \arrow[ld] \arrow[rd]\\
+\begin{tabular}{c}\mbox{semi-simplicial \emph{types}}\\$\left(\begin{tabular}{c}needs -- at least -- a \\description of higher-\\dimensional coherences\end{tabular}\right)$\end{tabular}\!\!\!\!\!\!\!\!& & \begin{tabular}{c}recipe for \emph{indexed} semi-simplicial\\
+$\left(\begin{tabular}{c}this talk, for $\HSet{}$,\\see also Voevodsky, Part-Luo,\\
+ Altenkirch-Capriotti-Kraus \end{tabular}\right)$
 \end{tabular}\qquad\qquad\\
 \end{tikzcd}
 
@@ -421,41 +421,44 @@ $\left(\begin{tabular}{c}this talk, with $\HSet$\\see also Voevodsky, Part-Luo,\
 \newpage
 
 \begin{center}
-\textcolor{red}{\huge The fibred/indexed correspondence for $\HSet$}
+\textcolor{red}{\huge The fibred/indexed correspondence for $\HSet{}$}
 \end{center}
 
 \bigskip
 \bigskip
 \bigskip
-For $B:\HSet_l$
+\bigskip
+\bigskip
+For $B:\HSet{l}$
 
-$$\Sigma E:\HSet_l.\, (E \rightarrow B) ~~~\simeq~~~ B \rightarrow \HSet_l$$
+$$\begin{array}{c}E:\HSet{l}\\[5mm]\bigg\downarrow\\[1cm] B
+\end{array}
+~~~\simeq~~~ B \rightarrow \HSet{l}$$
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newpage
 
 \begin{center}
-\textcolor{red}{\huge Iterating the fibred/indexed correspondence for $\HSet$}
+\textcolor{red}{\huge Iterating the fibred/indexed correspondence for $\HSet{}$}
 \end{center}
 
 \bigskip
 \bigskip
 
-Application to the definition of Reedy presheaves in \emph{indexed form}, here for cubical sets:
+\noindent Application to definition of Reedy presheaves in \emph{indexed form}, here for semi-cubical sets:
 
 $$
 \begin{array}{cllccllll}
 \multicolumn{3}{c}{\mbox{\emph{fibred form}}} & \qquad\mathit{vs}\qquad & \multicolumn{3}{l}{\mbox{\emph{indexed form}}} \\
-\\
-Y_0 &:& \HSet_l & & X_0 & : & \HSet_l & \mbox{(points)}\\
-\uparrow\uparrow \\
-Y_1 &:& \HSet_l & & X_1 & : & X_0 \times X_0 \rightarrow \HSet_l & \mbox{(segments)}\\
-\uparrow\uparrow\uparrow\uparrow \\
-Y_2 &:& \HSet_l & & X_2 & : & \Pi (x_{LL},x_{LR}).\, \Pi x_{L*}:X_1 (x_{LL},x_{LR}).\\
+Y_0 &:& \HSet{l} & & X_0 & : & \HSet{l} & \mbox{(points)}\\[5mm]
+\bigg\uparrow {\mbox{\Large $d^L$}}\bigg\uparrow{\mbox{\Large $d^R$}}\\[8mm]
+Y_1 &:& \HSet{l} & & X_1 & : & X_0 \times X_0 \rightarrow \HSet{l} & \mbox{(segments)}\\[5mm]
+\bigg\uparrow{\mbox{\Large $d^{L\star}$}}\bigg\uparrow{\mbox{\Large $d^{R\star}$}}\bigg\uparrow{\mbox{\Large $d^{\star L}$}}\bigg\uparrow{\mbox{\Large $d^{\star R}$}} \\[8mm]
+Y_2 &:& \HSet{l} & & X_2 & : & \Pi (x_{LL},x_{LR}).\, \Pi x_{L*}:X_1 (x_{LL},x_{LR}).\\
 & & & & & & \Pi (x_{RL},x_{RR}).\, \Pi x_{R*}:X_1 (x_{RL},x_{RR}).\, \\
-\multicolumn{3}{c}{\mbox{~+ coherences}} & & & & X_1 (x_{LL},x_{RL}) \times X_1 (x_{LR},x_{RR}) \rightarrow \HSet_l \qquad & \mbox{(squares)}\\
-\\
-\vdots & & & & \vdots\\
+\multicolumn{3}{c}{\mbox{~+ coherences}} & & & & X_1 (x_{LL},x_{RL}) \times X_1 (x_{LR},x_{RR}) \rightarrow \HSet{l} \qquad & \mbox{(squares)}\\
+%\\
+%\vdots & & & & \vdots\\
 \end{array}
 $$
 
@@ -463,33 +466,32 @@ $$
 \newpage
 
 \begin{center}
-\textcolor{red}{\huge Iterating the fibred/indexed correspondence for $\HSet$}
+\textcolor{red}{\huge Iterating the fibred/indexed correspondence for $\HSet{}$}
 \end{center}
 
 \bigskip
 \bigskip
 
-Application to the definition of Reedy presheaves in \emph{indexed form}, here for cubical sets:
+\noindent Application to the definition of Reedy presheaves in \emph{indexed form}, here for cubical sets:
 
 $$
 \begin{array}{cllccllll}
 \multicolumn{3}{c}{\mbox{\emph{fibred form}}} & \qquad\mathit{vs}\qquad & \multicolumn{3}{l}{\mbox{\emph{indexed form}}} \\
-\\
-Y_0 &:& \HSet_l & & X_0 & : & \HSet_l & \mbox{(points)}\\
-\uparrow\uparrow \\
-Y_1 &:& \HSet_l & & X_1 & : & X_0 \times X_0 \rightarrow \HSet_l & \mbox{(segments)}\\
-\uparrow\uparrow\uparrow\uparrow \\
-Y_2 &:& \HSet_l & & X_2 & : & \Pi (x_{LL},x_{LR}).\, \Pi x_{L*}:X_1 (x_{LL},x_{LR}).\\
+Y_0 &:& \HSet{l} & & X_0 & : & \HSet{l} & \mbox{(points)}\\[5mm]
+\bigg\uparrow {\mbox{\Large $d^L$}}\bigg\uparrow{\mbox{\Large $d^R$}}\\[8mm]
+Y_1 &:& \HSet{l} & & X_1 & : & X_0 \times X_0 \rightarrow \HSet{l} & \mbox{(segments)}\\[5mm]
+\bigg\uparrow{\mbox{\Large $d^{L\star}$}}\bigg\uparrow{\mbox{\Large $d^{R\star}$}}\bigg\uparrow{\mbox{\Large $d^{\star L}$}}\bigg\uparrow{\mbox{\Large $d^{\star R}$}} \\[8mm]
+Y_2 &:& \HSet{l} & & X_2 & : & \Pi (x_{LL},x_{LR}).\, \Pi x_{L*}:X_1 (x_{LL},x_{LR}).\\
 & & & & & & \Pi (x_{RL},x_{RR}).\, \Pi x_{R*}:X_1 (x_{RL},x_{RR}).\, \\
-\multicolumn{3}{c}{\mbox{~+ coherences}} & & & & X_1 (x_{LL},x_{RL}) \times X_1 (x_{LR},x_{RR}) \rightarrow \HSet_l \qquad & \mbox{(squares)}\\
-\\
-\vdots & & & & \vdots\\
+\multicolumn{3}{c}{\mbox{~+ coherences}} & & & & X_1 (x_{LL},x_{RL}) \times X_1 (x_{LR},x_{RR}) \rightarrow \HSet{l} \qquad & \mbox{(squares)}\\
+%\\
+%\vdots & & & & \vdots\\
 \end{array}
 $$
 
 Motivations:
 
-1. The iterated fibred/indexed correspondence seems interesting in itself
+1. The iterated fibred/indexed correspondence is interesting in itself
 
 2. Suggests models of type theory closer to the syntax: e.g. equality
 interpreted as a (relevant) relation rather than as a span
@@ -505,19 +507,19 @@ interpreted as a (relevant) relation rather than as a span
 \noindent Presheaves in ``indexed'' form
 \bigskip
 
-\quad - following a $n$-ary ``parametricity'' recipe
+\noindent - following a $n$-ary ``parametricity'' recipe
 \bigskip
 
-\qquad - s.t. unary parametricity gives augmented semi-simplicial types
+ - s.t. \emph{unary} parametricity gives augmented semi-simplicial sets
 \bigskip
 
-\qquad - and binary parametricity gives semi-cubical types
+ - and \emph{binary} parametricity gives semi-cubical sets
 \bigskip
 
-\quad - equipped with a reflexivity/degeneracy
+\noindent - equipped with a \emph{degeneracy}
 \bigskip
 
-\quad - machine-checked in Rocq
+\noindent - machine-checked in Rocq
 
 %% \mbox{}
 
@@ -570,20 +572,25 @@ Closer to the syntax, liable to better preserve definitional equalities
 Interesting in itself
 \fi
 
+\newcommand{\Obj}{\ensuremath{\mathsf{Obj}}}
+\newcommand{\Hom}{\ensuremath{\mathsf{Hom}}}
+\newcommand{\id}{\ensuremath{\mathsf{id}}}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newpage
 
 \begin{center}
-\textcolor{red}{\huge Iterated parametricity as a uniform approach to both augmented simplicial sets and cubical sets}
+\textcolor{red}{\huge A uniform approach to augmented simplicial sets and cubical sets}
 \end{center}
 
-It seems today ``folklore'' that the augmented simplicial and cubical
-categories only differ in the ``arity'' of a finite set $\nu$:
+%It seems today ``folklore'' that the augmented simplicial and cubical
+%categories only differ in the ``arity'' of a finite set $\nu$:
 
-\newcommand{\Obj}{\ensuremath{\mathsf{Obj}}}
-\newcommand{\Hom}{\ensuremath{\mathsf{Hom}}}
-\newcommand{\id}{\ensuremath{\mathsf{id}}}
-\begin{large}
+\medskip
+
+Augmented simplicial and cubical categories only differ in the
+``arity'' of a finite set $\nu$:
+
 $$
   \begin{array}{ll}
     \Obj       & := \mathbb{N}\\
@@ -597,138 +604,74 @@ $$
     \id                   & := \star \ldots \star \text{ $n$ times for $\id \in \Hom(n, n)$}
   \end{array}
 $$
-\end{large}
 
-That is, we obtain:
-\begin{Large}
+\medskip
+\begin{center}
+\begin{tabular}{ccc}
+\textcolor{white}{augmented semi-simplicial sets with $\nu = \{0\}$} & &
+\textcolor{white}{semi-cubical sets with $\nu = \{L,R\}$}\\
+\textcolor{white}{(counting from -1)} & &\textcolor{white}{(counting from 0)}\\[-5mm]
+\\
+\\
+\\
+\\
+\\
+\\
+\\
+\\
+\end{tabular}
+\end{center}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage
+
+\begin{center}
+\textcolor{red}{\huge A uniform approach to augmented simplicial sets and cubical sets}
+\end{center}
+
+%It seems today ``folklore'' that the augmented simplicial and cubical
+%categories only differ in the ``arity'' of a finite set $\nu$:
+
+\medskip
+
+Augmented simplicial and cubical categories only differ in the
+``arity'' of a finite set $\nu$:
+
+$$
+  \begin{array}{ll}
+    \Obj       & := \mathbb{N}\\
+    \Hom(p, n) & := \{l \in (\nu \sqcup \{\star\})^n \mid \text{number of $\star$ in $l = p$}\} \\
+    g \circ f             & :=
+    \begin{cases}
+      f                & \text{if $g = \epsilon$}                                                   \\
+      a\,(g' \circ f)  & \text{if $g = a\,g'$}, \text{where $a \in \nu$}                            \\
+      a\,(g' \circ f') & \text{if $g = \star\,g'$, $f = a\,f'$, where $a \in \nu$ or $a = \star$} \\
+    \end{cases}            \\
+    \id                   & := \star \ldots \star \text{ $n$ times for $\id \in \Hom(n, n)$}
+  \end{array}
+$$
+
+\medskip
 \begin{center}
 \begin{tabular}{ccc}
 augmented semi-simplicial sets with $\nu = \{0\}$ & &
 semi-cubical sets with $\nu = \{L,R\}$\\
+\textcolor{black}{(counting from -1)} & &\textcolor{black}{(counting from 0)}\\[-5mm]
 \\
-    e.g.: \begin{tikzcd}
+    \begin{tikzcd}
       & |[alias=F]|00\star \arrow[ddr, dash, "0\star\star"] & \\\\
       \star00 \arrow[rr, dash, "\star\star0"{name=T, below}]\arrow[uur, dash, "\star0\star"] && 0\star0 \\
       \arrow[rightarrow, from=F, to=T, phantom, "\star\star\star" description]
     \end{tikzcd}
 &\qquad\qquad&
-    e.g.:~~~\begin{tikzcd}
+    ~~~\begin{tikzcd}
       LR \arrow[r, dash, "\star R"{name=F}] \arrow[d, dash, "L\star" left] & RR \arrow[d, dash, "R\star"] \\
       LL \arrow[r, dash, "\star L"{name=T, below}] & RL \\
       \arrow[rightarrow, from=F, to=T, phantom, "\star\star" description]
-    \end{tikzcd}
+    \end{tikzcd}\\[0mm]
 \end{tabular}
 \end{center}
-\end{Large}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\newpage
-
-\begin{center}
-\textcolor{red}{\huge Adding (one) reflexivity (in the last direction)}
-\end{center}
-
-\newcommand{\rouge}[1]{\textcolor{red}{#1}}
-\newcommand{\bleu}[1]{\textcolor{blue}{#1}}
-
-$$
-\begin{array}{cllccllll}
-\multicolumn{3}{c}{\mbox{\emph{fibred form}}} & \quad\mathit{vs}\quad & \multicolumn{3}{l}{\mbox{\emph{indexed form}}} \\
-\\
-Y_0 &:& \HSet_l & & X_0 & : & \HSet_l & \mbox{(points)}\\
-\uparrow\uparrow\!\rouge{\downarrow} \\
-Y_1 &:& \HSet_l & & X_1 & : & X_0 \times X_0 \rightarrow \HSet_l & \mbox{(segments)}\\
-\uparrow\uparrow\uparrow\uparrow\!\rouge{\downarrow} &&&& \rouge{r_1} & : & \rouge{\Pi x_0:X_0.\,X_1(x_0,x_0)}\\
-Y_2 &:& \HSet_l & & X_2 & : & \Pi (x^0_{LL},x^0_{LR}).\, \Pi x^1_{L*}:X_1 (x^0_{LL},x^0_{LR}).\\
-& & & & & & \Pi (x^0_{RL},x^0_{RR}).\, \Pi x^1_{R*}:X_1 (x^0_{RL},x^0_{RR}).\, \\
-\multicolumn{3}{c}{\mbox{~+ coherences}} & & & & X_1 (x^0_{LL},x^0_{RL}) \times X_1 (x^0_{LR},x^0_{RR}) \rightarrow \HSet_l \qquad & \mbox{(squares)}\\
-&&&& \rouge{r_2} & : & \rouge{\Pi (x^0_{L},x^0_{R}):(X_0 \times X_0).\,\Pi x^1:X_1(x^0_L,x^0_R).}\,\\
-& & & & & & \rouge{X_2((x^0_{L},x^0_{L}),r_1(x^0_{L}),(x^0_{R},x^0_{R}),r_1(x^0_{R}),(x^1,x^1))}\\
-\vdots & & & & \vdots\\
-\end{array}
-$$
-
-(other reflexivities can presumably be obtained by functoriality, or using permutations)
-
-\bigskip
-
-In terms of matching objects, reflexivities have the form:
-$$r_n: \Pi d:M_n.\,\Pi x:X_n(d).\, X_{n+1}(M_r(d,x))$$
-
-for some $M_r : (\Sigma d:M_n.\,X_n(d)) \rightarrow M_{n+1}$ to be defined
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\newpage
-
-\begin{center}
-\textcolor{red}{\huge In passing: simplicial degeneracies are
-  \emph{not} the unary case of cubical degeneracies but the unary case
-  of cubical \emph{connections}}
-\end{center}
-
-$\!\!\!\!\!\!\!\!\!\!\!\!\!\!\!\!\!\!$
-\begin{tabular}{clll}
-& \qquad \emph{set} & \qquad \emph{reflexivities} & \qquad\emph{connections} \\
-& & \emph{(involve one direction)} & \emph{(involve \bleu{t}w\rouge{o} directions)} \\
-\\
-unary &
-$\begin{array}{l}
-X_{-1}:\HSet\\
-X_0:X_{-1} \rightarrow \HSet\\
-X_1:\Pi x^{-1}.\,\bleu{X_0(x^{-1})} \\
-\quad\rightarrow \rouge{X_0(x^{-1})} \rightarrow \HSet\\
-\end{array}$
- & $\begin{array}{l}
-   r_{-1}:\Pi x^{-1}.X_0(x^{-1})\\
-   r_0:\Pi x^{-1}.\,\Pi x^0.\, X_1(\bleu{r_{-1}(x^{-1})},\rouge{x^0})\\
-   \mbox{(as in Parametric Type Theory)}\\
-   \\
-   \end{array}$
- & $\begin{array}{l}
-  \\
-   c_0:\Pi x^{-1}.\,\Pi x^0.\, X_1(\bleu{x^0},\rouge{x^0})\\
-   \\
-   \\
-   \end{array}$\\
-\\
-binary &
-$\begin{array}{l}
-X_0 : \HSet_l\\
-X_1 : X_0 \times X_0 \rightarrow \HSet_l\\
-X_2 : \Pi (x^0_{LL},x^0_{LR})\bleu{x^1_{L\star}}(x^0_{RL},x^0_{RR})\bleu{x^1_{R\star }}.\\
-\quad \rouge{X_1 (x^0_{LL},x^0_{RL})} \times \rouge{X_1 (x^0_{LR},x^0_{RR})}\\
-\quad \rightarrow \HSet_l\\
-\end{array}$
- & $\begin{array}{l}
-   r_0:\Pi x^0.X_1(x^0,x^0)\\
-   r_1:\Pi (x^0_L,x^0_R).\,\Pi x^1.\,\\
-   \quad X_2((x^0_L,x^0_L),\bleu{r_0(x^0_L)},\\
-   \quad (x^0_R,x^0_R),\bleu{r_0(x^0_{R})},\\
-   \quad (\rouge{x^1},\rouge{x^1}))\\
-   \end{array}$
- & $\begin{array}{l}
-  \\
-   c_{1L}:\Pi (x^0_L,x^0_R).\,\Pi x^1.\,\\
-   \quad X_2((x^0_L,x^0_L),\bleu{r_0(x^0_L)},\\
-   \quad (x^0_L,x^0_R),\bleu{x^1},\\
-   \quad (\rouge{r_0(x^0_L)},\rouge{x^1}))\\
-   \end{array}$\\
-\\
-$n$-ary & &
-\begin{tabular}{l}
-(only one reflexivity\\
-~per direction)\\
-\\
-\\
-\end{tabular}
-&
-\begin{tabular}{l}
-($n$ connections\\
-~per direction,\\
-~completing full arity\\
-~with $n-1$ reflexivities)\\
-\end{tabular}
-\end{tabular}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newpage
@@ -738,30 +681,19 @@ $n$-ary & &
   dependent sets}
 \end{center}
 
-$$
-\begin{array}{llcl}
-\multicolumn{4}{c}{\mbox{\textsf{\textit{$\nu$-sets}}}}\\
-\\
-\mycubset{l} && : & \sort{l+1}\\
-\mycubset{l} && \defeq & \mycubsetfrom{l}{0}(\star)\\
-\\
-\mycubsetfrom{l}{n} & (X_{<n}:\partialcubset{l}{n}) & : & \sort{l+1}\\
-\mycubsetfrom{l}{n} & X_{<n} & \defeq & \Sigma X_n:\mycubsetcomp{l}{n}(X_{<n}).\,\mycubsetfrom{l}{n+1}(X_{<n},X_n)\\
-\\
-\multicolumn{4}{c}{\mbox{\textsf{\textit{Truncated $\nu$-sets}}}}\\
-\\
-\partialcubset{l}{n} && : & \sort{l+1}\\
-\partialcubset{l}{0} && \defeq & \unittype\\
-\partialcubset{l}{n'+1} && \defeq & \Sigma X_{<n}:\partialcubset{l}{n'}.\,\mycubsetcomp{l}{n}(X_{<n}))\\
-\\
-\mycubsetcomp{l}{n} & (X_{<n}:\partialcubset{l}{n}) & : & \sort{l+1}\\
-\mycubsetcomp{l}{n} & X_{<n} & \defeq & \myfullbox{l}^{n}(X_{<n})\rightarrow \sort{l}\\
-\end{array}
-$$
+\centerline{$\nu$-sets}
+
+\includegraphics{nusets.png}
+
+\centerline{Truncated $\nu$-sets}
+
+\includegraphics{truncnusets.png}
+
+\bigskip
 \bigskip
 
-\noindent where the ``matching'' $\myfullbox{l}^{n}$ is defined by mutual
-recursive construction (see later)
+where $\mathsf{\color{indian-yellow}{fullframe^n_m}}$ is defined by mutual
+recursive construction (see next slides)
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newpage
@@ -805,30 +737,15 @@ recursive construction (see later)
 \begin{center}
 \textcolor{red}{\huge The recursive construction, formally}
 \end{center}
-\vspace{-1mm}
-\begin{large}
-$$
-\hspace{8mm}
-\begin{array}{llcl}
-\myfullbox{l}^{n} & (X_{<n}:\partialcubset{l}{n}) & : & \sort{l}\\
-\myfullbox{l}^{n} & X_{<n} & \defeq & \mybox{l}^{n,n}(X_{<n})\\
-\\
-\mybox{l}^{n,p,[p \leq n]} & (X_{<n}:\partialcubset{l}{n}) & : & \sort{l}\\
-\mybox{l}^{n,0} & X_{<n} & \defeq & \unittype\\
-\mybox{l}^{n,p'+1} & X_{<n} & \defeq & \Sigma d:\mybox{l}^{n,p'}(X_{<n}).\,\mylayer{l}^{n,p'}(d)\\
-\\
-\mylayer{l}^{n,p,[p < n]} & \!\!\!\begin{array}{l}\{X_{<n}:\partialcubset{l}{n}\}~(d:\mybox{l}^{n,p}(X_{<n}))\end{array}& : & \sort{l}\\
-\mylayer{l}^{n,p} & (X_{<n-1},X_{n-1})~d & \defeq & \Pi \epsilon.\,\mycube{l}^{n-1,p}(X_{n-1})(\downbox{l}{\epsilon}^{n,p}(d))\\
-\\
-\mycube{l}^{n,p,[p \leq n]} & \!\!\!\begin{array}{l}\{X_{<n}:\partialcubset{l}{n}\}~(X_n:\mycubsetcomp{l}{n}(X_{<n}))~(d:\mybox{l}^{n,p}(X_{<n}))\end{array}\!\!\! & : & \sort{l}\\
-\mycube{l}^{n,p,[p = n]} & X_{<n}~X_n~d & \defeq & X_n(d)\\
-\mycube{l}^{n,p,[p < n]} & X_{<n}~X_n~d & \defeq & \Sigma b:\mylayer{l}^{n,p}(d).\,\mycube{l}^{n,p+1}(X_n)(d,b)\\
-\end{array}
-$$
-\end{large}
+
+\includegraphics{frame.png}
 
 \bigskip
 
+\quad where we need to define
+$\mathsf{\color{russian-green}{restr}_{\color{indian-yellow}\mathsf{frame}}}$ (see next slide)
+
+\iffalse
 \noindent which corresponds, when $\nu=2$, to
 the following organisation of the $3^n$ components of a $n$-cube (shown for $n=2$), with
 $\mybox{l}$ associating layers on the left and $\mycube{l}$ associating them
@@ -872,6 +789,7 @@ $}}{\raisebox{-0.4cm}{{\scriptsize \hspace{2.5cm}$\mycube{l}^{2,0}\!\!\!\!\!\!\!
 [-2mm]\qquad\qquad\xymatrix{ \ar@{<->}[rrrrrrrrrrr] & & & & & & & & & & & }\mbox{\normalsize$\mybox{l}^{2,2}$}\\
 \end{array}
 $$
+\fi
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newpage
@@ -880,28 +798,14 @@ $$
 \textcolor{red}{\huge The recursive construction: restrictions (``faces'')}
 \end{center}
 
-\begin{large}
-$$\hspace{-1cm}
-\begin{array}{llcl}
-\downbox{m}{\epsilon}^{n,q,p,[p \leq q < n]} & \!\!\!\begin{array}{l}\{X_{<n}:\partialcubset{m}{n}\}\\(d:\mybox{m}^{n,p}(X_{<n}))\end{array}& : & \mybox{m}^{n-1,p}(X_{<n-1})\\
-\downbox{m}{\epsilon}^{n,q,0} & X_{<n}~\unitpoint & \defeq & \unitpoint\\
-\downbox{m}{\epsilon}^{n,q,p'+1} & X_{<n}~(d,l) & \defeq & (\downbox{m}{\epsilon}^{n,q,p'}(d),\downlayer{m}{\epsilon}^{n,q,p'}(l))\\
-\\
-\downlayer{m}{\epsilon}^{n,q,p,[p < q < n]} & \!\!\!\begin{array}{l}\{X_{<n}:\partialcubset{m}{n}\}\\\{d:\mybox{m}^{n,p}(X_{<n})\}\\(l:\mylayer{m}^{n,p}(d))\end{array}& : & \mylayer{m}^{n-1,p}(\downbox{m}{\epsilon}^{n,q,p}(d))\\
-\downlayer{m}{\epsilon}^{n,q,p} & (X_{<n-1},X_{n-1})~d~l & \defeq & \lambda\epsilon'.\,\overrightarrow{\cohbox{m}{\epsilon,\epsilon'}^{n,p,q,p}(d)}(\downcube{m}{\epsilon}^{n-1,q-1,p}(l_{\epsilon'}))\\
-\\
-\downcube{m}{\epsilon}^{n,q,p,[p \leq q < n]} & \!\!\!\begin{array}{l}\{X_{<n}:\partialcubset{m}{n}\}\\\{X_n:\mycubsetcomp{m}{n}(X_{<n})\}\\\{d:\mybox{m}^{n,p}(X_{<n})\}\\(c:\mycube{m}^{n,p}(X_n)(d))\end{array}& : & \mycube{m}^{n-1,p}(X_{n})(\downbox{m}{\epsilon}^{n,q,p}(d))\\
-\downcube{m}{\epsilon}^{n,q,p,[p=q]} & X_{<n}~X_n~d~(l,\_) & \defeq & l_{\epsilon}\\
-\downcube{m}{\epsilon}^{n,q,p,[p<q]} & X_{<n}~X_n~d~(l,c) & \defeq & (\downlayer{m}{\epsilon}^{n,q,p}(l),\downcube{m}{\epsilon}^{n,q,p+1}(c))\\
-\\
-\end{array}
-$$
-\end{large}
+\includegraphics{restr2.png}
 
-\noindent where $\cohbox{m}{\epsilon,\epsilon'}$ is a coherence proof and we
-write $\overrightarrow{\cohbox{m}{\epsilon,\epsilon'}}$ for the
-  rewriting of this proof from left to right
+\bigskip
 
+\quad where we need to define
+$\mathsf{\color{chestnut}{coh}_{\color{indian-yellow}\mathsf{frame}}}$ (see next slide)
+
+%\noindent where equational reasoning is left implicit, in particular, this hides the need for a coherence $\mathsf{\textcolor{chestnut}{coh}}_{\textcolor{indian-yellow}{\mathsf{frame}},\epsilon,\omega,q,r}^{n,p}$)
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newpage
 
@@ -909,94 +813,193 @@ write $\overrightarrow{\cohbox{m}{\epsilon,\epsilon'}}$ for the
 \textcolor{red}{\huge The recursive construction: coherences}
 \end{center}
 
-$$
-\begin{large}\hspace{-1cm}
-\begin{array}{llcl}
-\cohbox{m}{\epsilon,\epsilon'}^{\!\!\!\tiny\begin{array}{l}n,q,r,p\\\mbox{}[p \leq r < q < n]\end{array}} & \!\!\!\begin{array}{l}\{X_{<n}:\partialcubset{m}{n}\}\\(d:\mybox{m}^{n,p}(X_{<n}))\end{array}& : & \!\!\!\begin{array}{ll}\downbox{m}{\epsilon}^{n-1,q-1,p}(\downbox{m}{\epsilon'}^{n,r,p}(d)) \\ = \downbox{m}{\epsilon'}^{n-1,r,p}(\downbox{m}{\epsilon}^{n,q,p}(d))\end{array}\\
-\cohbox{m}{\epsilon,\epsilon'}^{n,q,r,0} & X_{<n}~\unitpoint & \defeq & \refl{\unitpoint}\\
-\cohbox{m}{\epsilon,\epsilon'}^{n,q,r,p'+1} & X_{<n}~(d,l) & \defeq & (\cohbox{m}{\epsilon,\epsilon'}^{n,q,r,p'}(d),\cohlayer{m}{\epsilon,\epsilon'}^{n,q,r,p'}(l))\\
-\\
-\cohlayer{m}{\epsilon,\epsilon'}^{\!\!\!\tiny\begin{array}{l}n,q,r,p\\\mbox{}[p < r < q < n]\end{array}} & \!\!\!\begin{array}{l}\{X_{<n}:\partialcubset{m}{n}\{\\\{d:\mybox{m}^{n,p}(X_{<n})\}\\(l:\mylayer{m}^{n,p}(X_{<n})(d))\end{array}& : & \!\!\!\begin{array}{ll}\downlayer{m}{\epsilon}^{n-1,q-1,p}(\downlayer{m}{\epsilon'}^{n,r-1,p}(l)) \\ = \downlayer{m}{\epsilon'}^{n-1,r-1,p}(\downlayer{m}{\epsilon}^{n,q,p}(l))\end{array}\\
-\cohlayer{m}{\epsilon,\epsilon'}^{n,q,r,p} & X_{<n}~d~l & \defeq & \lambda\epsilon''.\,\cohcube{m}{\epsilon,\epsilon'}^{n-1,q-1,r-1,p}(l_{\epsilon''})\\
-\\
-\cohcube{m}{\epsilon,\epsilon'}^{\!\!\!\tiny\begin{array}{l}n,q,r,p\\\mbox{}[p \leq r < q < n]\end{array}} & \!\!\!\begin{array}{l}\{X_{<n}:\partialcubset{m}{n}\}\\\{X_n:\mycubsetcomp{m}{n}(X_{<n})\}\\\{d:\mybox{m}^{n,p}(X_{<n})\}\\(c:\mycube{m}^{n,p}(X_{<n})(X_n)(d))\end{array}& : & \!\!\!\begin{array}{ll}\downcube{m}{\epsilon}^{n-1,q-1,p}(\downcube{m}{\epsilon'}^{n,r,p}(c)) \\ = \downcube{m}{\epsilon'}^{n-1,r,p}(\downcube{m}{\epsilon}^{n,q,p}(c))\end{array}\\
-\cohcube{m}{\epsilon,\epsilon'}^{n,q,r,p,[p=r]} & X_{<n}~X_n~d~(l,\_) & \defeq & \refl({\downcube{m}{\epsilon}^{n-1,q-1,p}(l_{\epsilon})})\\
-\cohcube{m}{\epsilon,\epsilon'}^{n,q,r,p,[p<r]} & X_{<n}~X_n~d~(l,c) & \defeq & \!\!\begin{array}{l}(\cohlayer{m}{\epsilon,\epsilon'}^{n,q,r,p}(l),\;\cohcube{m}{\epsilon,\epsilon'}^{n,q,r,p+1}(c))\end{array}\\
-\end{array}
-\end{large}
-$$
+\includegraphics{coh.png}
 
 \bigskip
 
-\noindent where we hide some coherences (such as proof-irrelevance of
-equality in $\HSet$ or the identification of the equality on pairs as
-a pair of equalities)
+\noindent where we hide many steps of equational reasoning:
+proof-irrelevance of equality in $\HSet{}$, identification of equality
+of pairs and pairs of equalities, groupoid properties of equality
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newpage
 
 \begin{center}
-\textcolor{red}{\huge Adding reflexivities}
+\textcolor{red}{\huge About the formalisation}
 \end{center}
 
+\bigskip
+\bigskip
+\bigskip
+
+\noindent Complex proof of termination 
+\bigskip
+
+\noindent - made several unsuccessful attempts
+\bigskip
+
+\noindent - construction completed in Rocq in Apr 2022\\\textcolor{white}{a~}(inductively building 3 levels at once with two subinductions)
+\bigskip
+
+\noindent - degeneracies completed in Nov 2024
+
+\bigskip
+
+\noindent - we are working on a simplification saving a lot of equational reasoning
+\bigskip
+
+\noindent - code at \texttt{https://github.com/artagnon/bonak}
+\bigskip
+\bigskip
+
+\noindent Note: ``paper'' construction also fully formulated in Agda (w/o termination)
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage
+
+\begin{center}
+\textcolor{red}{\huge Adding (one) degeneracy (in the last direction)}
+\end{center}
+
+\newcommand{\rouge}[1]{\textcolor{red}{#1}}
+\newcommand{\bleu}[1]{\textcolor{blue}{#1}}
+
+$$
+\begin{array}{cllccllll}
+\multicolumn{3}{c}{\mbox{\emph{fibred form}}} & \quad\mathit{vs}\quad & \multicolumn{3}{l}{\mbox{\emph{indexed form}}} \\
+\\
+Y_0 &:& \HSet{l} & & X_0 & : & \HSet{l} & \mbox{(points)}\\
+\uparrow\uparrow\!\rouge{\downarrow} \\
+Y_1 &:& \HSet{l} & & X_1 & : & X_0 \times X_0 \rightarrow \HSet{l} & \mbox{(segments)}\\
+\uparrow\uparrow\uparrow\uparrow\!\rouge{\downarrow} &&&& \rouge{r_0} & : & \rouge{\Pi x_0:X_0.\,X_1(x_0,x_0)}\\
+Y_2 &:& \HSet{l} & & X_2 & : & \Pi (x^0_{LL},x^0_{LR}).\, \Pi x^1_{L*}:X_1 (x^0_{LL},x^0_{LR}).\\
+& & & & & & \Pi (x^0_{RL},x^0_{RR}).\, \Pi x^1_{R*}:X_1 (x^0_{RL},x^0_{RR}).\, \\
+\multicolumn{3}{c}{\mbox{~+ coherences}} & & & & X_1 (x^0_{LL},x^0_{RL}) \times X_1 (x^0_{LR},x^0_{RR}) \rightarrow \HSet{l} \qquad & \mbox{(squares)}\\
+&&&& \rouge{r_1} & : & \rouge{\Pi (x^0_{L},x^0_{R}):(X_0 \times X_0).\,\Pi x^1:X_1(x^0_L,x^0_R).}\,\\
+& & & & & & \rouge{X_2((x^0_{L},x^0_{L}),r_0(x^0_{L}),(x^0_{R},x^0_{R}),r_0(x^0_{R}),(x^1,x^1))}\\
+\vdots & & & & \vdots\\
+\end{array}
+$$
+
+%(other reflexivities can presumably be obtained by functoriality)
+
+\bigskip
+
+%In terms of matching objects, reflexivities have the form:
+%$$r_n: \Pi d:M_n.\,\Pi x:X_n(d).\, X_{n+1}(M_r(d,x))$$
+
+%for some $M_r : (\Sigma d:M_n.\,X_n(d)) \rightarrow M_{n+1}$ to be defined
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage
+
+\begin{center}
+\textcolor{red}{\huge The added degeneracy is \emph{parametric}: in the binary case, it gives a standard cubical degeneracy; in the unary case, it gives a ParamTT-like degeneracy and \emph{not} a simplicial degeneracy}
+\end{center}
+
+First, our degeneracy implies a distinguished point $r_{-1}(a)$ for any $a:X_{-1}$. Then:
+\bigskip
+
+$\begin{array}{lcccr}
+\begin{tabular}{l}source\\ (over some $a:X_{-1}$)\end{tabular} & b~~ & \begin{tikzcd}b \arrow[r, dash,"q"] & c\end{tikzcd}\\[1mm]
+\begin{tabular}{l}parametric\\ degeneracy\end{tabular} &\begin{tikzcd}b \arrow[r, dash, "r_0(b)"] & r_{-1}(a)\end{tikzcd}&
+    \begin{tikzcd}
+      & |[alias=F]|r_{-1}(a) \arrow[ddr, dash, "r_0(c)"] & \\\\
+      b \arrow[rr, dash, "q"{name=T, below}]\arrow[uur, dash, "r_0(b)"] && c \\
+      \arrow[rightarrow, from=F, to=T, phantom, "r_1(q)" description]
+    \end{tikzcd}\\[-8mm]
+\begin{tabular}{l}simplicial\\ degeneracy\end{tabular} &\begin{tikzcd}b \arrow[r, dash, "s_0(b)"] & b\end{tikzcd}&
+    \begin{tikzcd}
+      & |[alias=F]|c \arrow[ddr, dash, "s_0(c)"] & \\\\
+      b \arrow[rr, dash, "q"{name=T, below}]\arrow[uur, dash, "q"] && c \\
+      \arrow[rightarrow, from=F, to=T, phantom, "s_1(q)" description]
+    \end{tikzcd}&\begin{tabular}{l}actually\\ a 1-connection!\end{tabular}
+\end{array}$
+
 \iffalse
-\newcommand{\myreflset}{\textsf{reflSet}}
+IN PROGRESS
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage
+
+\begin{center}
+\textcolor{red}{\huge Adding a degeneracy}
+\end{center}
+
+\newcommand{\mydgn}[1]{\nu\textsf{reflSet}}
+\newcommand{\mydgnfrom}[2]{\nu\textsf{reflSet}^{\geq {#2}}}
+\newcommand{\partialdgn}[2]{\nu\textsf{reflSet}^{< {#2}}}
+\newcommand{\mydgncomp}[2]{\nu\textsf{reflSet}^{= {#2}}}
 
 $$
 \begin{array}{llcl}
 \multicolumn{4}{c}{\mbox{\textsf{\textit{Degeneracy structure}}}}\\
 \\
-\mycubset{l} && : & \sort{l+1}\\
-\mycubset{l} && \defeq & \mycubsetfrom{l}{0}(\star)\\
+\mydgn{l} & (X:\mycubset{l}) & : & \HSet{l+1}\\
+\mydgn{l} & X & \defeq & \mydgnfrom{l}{0}(X)(\star,)\\
 \\
-\mycubsetfrom{l}{n} & (X_{<n}:\partialcubset{l}{n}) & : & \sort{l+1}\\
-\mycubsetfrom{l}{n} & X_{<n} & \defeq & \Sigma X_n:\mycubsetcomp{l}{n}(X_{<n}).\,\mycubsetfrom{l}{n+1}(X_{<n},X_n)\\
+\mydgnfrom{l}{n} & (X_{<n}:\partialdgn{l}{n}) & : & \HSet{l+1}\\
+\mydgnfrom{l}{n} & X_{<n} & \defeq & \Sigma X_n:\mydgncomp{l}{n}(X_{<n}).\,\mydgnfrom{l}{n+1}(X_{<n},X_n)\\
 \\
-\multicolumn{4}{c}{\mbox{\textsf{\textit{Truncated $\nu$-sets}}}}\\
+\multicolumn{4}{c}{\mbox{\textsf{\textit{Truncated degeneracy structure}}}}\\
 \\
-\partialcubset{l}{n} && : & \sort{l+1}\\
-\partialcubset{l}{0} && \defeq & \unittype\\
-\partialcubset{l}{n'+1} && \defeq & \Sigma X_{<n}:\partialcubset{l}{n'}.\,\mycubsetcomp{l}{n}(X_{<n}))\\
+\partialdgn{l}{n} & (X_{<n}:\partialcubset{l}{n}) (R_{<n}:\partialdgn(X_{<n}) & : & \HSet{l+1}\\
+\partialdgn{l}{0} && \defeq & \unittype\\
+\partialdgn{l}{n'+1} && \defeq & \Sigma R_{<n}:\partialdgn{l}{n'}.\,\mydgncomp{l}{n}(X_{<n})(R_{<n})\\
 \\
-\mycubsetcomp{l}{n} & (X_{<n}:\partialcubset{l}{n}) & : & \sort{l+1}\\
-\mycubsetcomp{l}{n} & X_{<n} & \defeq & \myfullbox{l}^{n}(X_{<n})\rightarrow \sort{l}\\
+\mydgncomp{l}{n} & (X_{< n+1}:\partialcubset{l}{n}) (R_{<n}:\partialdgn(X_{<n}) & : & \HSet{l+1}\\
+\mydgncomp{l}{n} & (X_{<n},X_n)~R_{<n} & \defeq & \Pi d:\mathsf{frame}^{n}(X_{<n}).\,\Pi c:\mathsf{painting}^{n-1}(X_{<n}.1)(d).\,X_n(\mathsf{reflframe}^{n}(R_{<n})(d),\overrightarrow{\mathsf{idrestrreflframe}}(\lambda \epsilon.c)).\\
 \end{array}
 $$
 \fi
 
-We now set $\nu = 1$. For any $\mycubset{l}$, we define a stream of reflexivities:
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage
+
+\begin{center}
+\textcolor{red}{\huge Adding a degeneracy}
+\end{center}
+
+For any $(X_0,X_1,...): \color{carolina}{\mycubset{}}$, we define a stream of degeneracies:
 $$
 \begin{array}{lll}
-\nu\textsf{reflSet}(X_{-1},X_0,...) ~~ \defeq \\
-\quad \Sigma r_{-1}:\Pi d:\mathsf{frame}^{-1}.\,\Pi x:X_{-1}(d).\,X_0(\mathsf{reflframe}^{-1}(d),x).\\
-\quad \Sigma r_0:\Pi d:\mathsf{frame}^0(X_{-1}).\,\Pi x:X_{0}(d).\,X_1(\mathsf{reflframe}^0(r_{-1})(d),x).\\
-\quad \Sigma r_1:\Pi d:\mathsf{frame}^1(X_{-1},X_0).\,\Pi x:X_{1}(d).\,X_2(\mathsf{reflframe}^1(r_{-1},r_0)(d),x).\\
+{\color{carolina}{\nu\textsf{reflSet}}}(X_0,X_1,...) ~~ \defeq \\
+\quad \Sigma r_{0}:\Pi d:\mathsf{\color{indian-yellow}{fullframe}}^{0}.\,\Pi x:\textcolor{red}{X_0}(d).\,\textcolor{red}{X_1}(\mathsf{\color{russian-green}{refl}}_{\mathsf{\color{indian-yellow}{fullframe}}}^0(d),\lambda \epsilon.\,x).\\
+\quad \Sigma r_1:\Pi d:\mathsf{\color{indian-yellow}{fullframe}}^1(X_0).\,\Pi x:\textcolor{red}{X_1}(d).\,\textcolor{red}{X_2}(\mathsf{\color{russian-green}{refl}}_{\mathsf{\color{indian-yellow}{fullframe}}}^1(r_{0})(d),\lambda \epsilon.\,x).\\
+\quad \Sigma r_2:\Pi d:\mathsf{\color{indian-yellow}{fullframe}}^2(X_0,X_1).\,\Pi x:\textcolor{red}{X_2}(d).\,\textcolor{red}{X_3}(\mathsf{\color{russian-green}{refl}}_{\mathsf{\color{indian-yellow}{fullframe}}}^2(r_0,r_1)(d),\lambda \epsilon.\,x).\\
 \quad ...
 \end{array}
 $$
 where
-$$\mathsf{reflframe}^n(r_{-1},...,r_{n-1}):\mathsf{frame}^n(X_{-1},...,X_{n-1})
-\rightarrow \mathsf{frame}^{n+1,n}(X_{-1},...,X_{n})$$ computes the
+$$\mathsf{\color{russian-green}{refl}}_{\mathsf{\color{indian-yellow}{fullframe}}}^n(r_{-1},...,r_{n-1}):\mathsf{\color{indian-yellow}{fullframe}}^n(X_{-1},...,X_{n-1})
+\rightarrow \mathsf{\color{indian-yellow}{frame}}^{n+1,n}(X_{-1},...,X_{n})$$ computes the
 $n$ first layers of the border of $r_{n}(d)(x)$, knowing that the last
-layer is made of $x$ itself, so that
-$(\mathsf{reflframe}^n(r_{-1},...,r_{n-1})(d),x)$ is a full frame (the matching map formerly called $M_r$),
-that is of type $\mathsf{frame}^{n+1}(X_{-1},...,X_{n})$.
+layer is made of $\nu$ times $x$ itself, so that
 
-\bigskip
+$$(\mathsf{\color{russian-green}{refl}}_{\mathsf{\color{indian-yellow}{fullframe}}}^n(r_{-1},...,r_{n-1})(d),\lambda \epsilon.\,x) : \mathsf{\color{indian-yellow}{frame}}^{n+1,n+1}(X_{-1},...,X_{n})$$
+is a full frame.
 
-We also need two coherence conditions:
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage
+
+\begin{center}
+\textcolor{red}{\huge Adding a degeneracy}
+\end{center}
+
+On the way, we need two coherence conditions:
 $$
 \!\!\begin{array}{l}
-\mathsf{idrestrreflframe}^n(r_{-1},...,r_{n-1}): \Pi d:\mathsf{frame}^n.\,\mathsf{restrframe}^{n,n}_n(\mathsf{reflframe}^n(r_{-1},...,r_{n-1})(d)) = d\\
-\mathsf{cohrestrreflframe}^n_{p<n}(r_{-1},...,r_{n-1}): \Pi d:\mathsf{frame}^{n,p}.\,\\
-~\,\mathsf{restrframe}^{n,p}_p(\mathsf{reflframe}^{n,p}(r_{-1},...,r_{n-1})(d)) =
-\mathsf{reflframe}^{n-1,p}(r_{-1},...,r_{n-2})(\mathsf{restrframe}^{n-1,p}_p(d))
+\mathsf{\textcolor{chestnut}{idrestrrefl}}_{\textcolor{indian-yellow}{\mathsf{frame}},\epsilon}^n(r_{-1},...,r_{n-1})~(d:\mathsf{\color{indian-yellow}{fullframe}}^n(X_0,...,X_{n-1})):\\
+~~ \mathsf{\color{russian-green}{restr}}_{\mathsf{\color{indian-yellow}{frame}},\epsilon,n}^{n,n}(\mathsf{\color{russian-green}{refl}}_{\mathsf{\color{indian-yellow}{fullframe}}}^n(r_{-1},...,r_{n-1})(d)) = d\\
+\\
+\mathsf{\textcolor{chestnut}{cohrestrrefl}}_{\textcolor{indian-yellow}{\mathsf{frame}},\epsilon,p<n}^n(r_{-1},...,r_{n-1})~(d:\mathsf{\color{indian-yellow}{frame}}^{n,p}(X_0,...,X_{n-1})):\\
+~~\;\mathsf{\color{russian-green}{restr}}_{\mathsf{\color{indian-yellow}{frame}},\epsilon,p}^{n,p}(\mathsf{\color{russian-green}{refl}}^{n,p}_{\mathsf{\color{indian-yellow}{frame}}}(r_{-1},...,r_{n-1})(d)) = \mathsf{\color{russian-green}{refl}}^{n-1,p}_{\mathsf{\color{indian-yellow}{frame}}}(r_{-1},...,r_{n-2})(\mathsf{\color{russian-green}{restr}}_{\mathsf{\color{indian-yellow}{frame}},\epsilon,p}^{n-1,p}(d))
 \end{array}
 $$
-where $\mathsf{reflframe}^{n,p}$ generalises $\mathsf{reflframe}^{n}$
-to prefixes of $\mathsf{frame}^n$:
-$$\mathsf{reflframe}^{n,p}(r_{-1},...,r_{n-1}):\mathsf{frame}^{n,p}(X_{-1},...,X_{n-1})
-\rightarrow \mathsf{frame}^{n+1,p}(X_{-1},...,X_{n})$$
+where $\mathsf{\color{russian-green}{refl}}^{n,p}_{\mathsf{\color{indian-yellow}{frame}}}$ generalises $\mathsf{\color{russian-green}{refl}}_{\mathsf{\color{indian-yellow}{fullframe}}}^{n}$
+to prefixes of $\mathsf{\color{indian-yellow}{fullframe}}^n$:
+$$\mathsf{\color{russian-green}{refl}}^{n,p}_{\mathsf{\color{indian-yellow}{frame}}}(r_{-1},...,r_{n-1}):\mathsf{\color{indian-yellow}{frame}}^{n,p}(X_{-1},...,X_{n-1})
+\rightarrow \mathsf{\color{indian-yellow}{frame}}^{n+1,p}(X_{-1},...,X_{n})$$
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newpage
@@ -1007,15 +1010,14 @@ $$\mathsf{reflframe}^{n,p}(r_{-1},...,r_{n-1}):\mathsf{frame}^{n,p}(X_{-1},...,X
 
 \bigskip
 \begin{itemize}
-\item A work in progress, machine-checking a model following the iterated parametricity translation in indexed form.
+\item Machine-checked parametricity-based definition of \emph{indexed} presheaves
 
-\item The addition of a reflexivity in the last direction is completed
+\item Uniformly represents simplicial and cubical sets
 
-\item To be done: permutations, $\Pi$-types, $\Sigma$-types, universes, ...
+\item Addition of one (parametric) degeneracy in the last direction completed
 
-\item Also in progress: a more compact definition relying on
-  finer-grain dependencies between the different components of the
-  construction.
+\item More compact definition in progress, relying on finer-grain
+  dependencies between the different components of the construction
 
 \end{itemize}
 \end{sf}
